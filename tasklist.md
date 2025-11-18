@@ -1,5 +1,4 @@
 # Armaan
-Data- schemas, set up tables
 Backend oauth- redis cache + middleware
 Dashboard structure- nav bar
 Actual dashboard- listing all data in a table
