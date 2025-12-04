@@ -105,17 +105,19 @@ export async function getIssueById(issueId: number) {
 	return issue;
 }
 
-// TODO: Change this to use postGIS
+// TODO: Change this to use postGIS (done)
 export async function getIssuesByLocationBox(minLat: number, maxLat: number, minLng: number, maxLng: number) {
-	const issues = await prisma.issue.findMany({
-		where: {
-			latitude: { gte: minLat, lte: maxLat },
-			longitude: { gte: minLng, lte: maxLng },
-		},
-		orderBy: { createdAt: 'desc' },
-	});
-
-	return issues;
+    // (longitude, latitude) order for points
+    const issues = await prisma.$queryRaw`
+        SELECT *import { prisma } from './prisma/prismaClient';
+        FROM "Issue"
+        WHERE ST_Within(
+            "location",
+            ST_MakeEnvelope(${minLng}, ${minLat}, ${maxLng}, ${maxLat}, 4326)
+        )
+        ORDER BY "createdAt" DESC
+    `;
+    return issues;
 }
 
 export async function getIssuesByStatus(status: IssueStatus) {
