@@ -1,12 +1,32 @@
 import type { Request, Response } from "express";
 import { loginWithGoogle, generateGuestSession } from "../../services/authService";
+import { FRONTEND_URL } from "../../appconfig";
+
+export async function handleGoogleCallback(req: Request, res: Response) {
+	try {
+		const { code } = req.query;
+		if (!code || typeof code !== 'string') {
+			return res.redirect(`${FRONTEND_URL}/login?error=missing_code`);
+		}
+
+		const token = await loginWithGoogle(code);
+
+		const sevenDaysMs = 1000 * 60 * 60 * 24 * 7;
+		res.cookie('session', token, { httpOnly: true, maxAge: sevenDaysMs, sameSite: 'lax' });
+
+		return res.redirect(`${FRONTEND_URL}/dashboard`);
+	} catch (err: any) {
+		console.error('Google OAuth callback failed', err);
+		return res.redirect(`${FRONTEND_URL}/login?error=${encodeURIComponent(err?.message ?? 'login_failed')}`);
+	}
+}
 
 export async function handleGoogleLogin(req: Request, res: Response) {
 	try {
 		const { code } = req.body ?? {};
 		if (!code) {
-            return res.status(400).json({ error: 'Missing authorization code' });
-        } 
+			return res.status(400).json({ error: 'Missing authorization code' });
+		}
 
 		const token = await loginWithGoogle(code);
 
@@ -34,4 +54,4 @@ export async function handleGuestLogin(_req: Request, res: Response) {
 	}
 }
 
-export default { handleGoogleLogin, handleGuestLogin };
+export default { handleGoogleCallback, handleGoogleLogin, handleGuestLogin };

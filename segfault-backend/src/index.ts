@@ -1,12 +1,13 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import authRoutes from "./api/routes/authRoutes";
+import { FRONTEND_URL } from "./appconfig";
 
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.use(express.json());
 
 // Routes

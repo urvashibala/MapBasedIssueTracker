@@ -10,14 +10,11 @@ export interface IssueFilters {
 
 export interface IssueReportData {
     type: string;
-    location: string;
+    lat?: number;
+    lng?: number;
     description: string;
-    anonymous: boolean;
-    photos?: File[];
-    coordinates?: {
-        lat: number;
-        lng: number;
-    };
+    isAnonymous: boolean;
+    files?: File[];
 }
 
 export interface Issue {
@@ -37,6 +34,7 @@ export interface IssueType {
     id: string;
     name: string;
     description: string;
+    department: string;
 }
 
 export interface Analytics {
@@ -73,16 +71,17 @@ export const issueRoutes = {
     reportIssue: async (data: IssueReportData): Promise<Issue> => {
         const formData = new FormData();
         formData.append('type', data.type);
-        formData.append('location', data.location);
         formData.append('description', data.description);
-        formData.append('anonymous', String(data.anonymous));
-        if (data.coordinates) {
-            formData.append('lat', String(data.coordinates.lat));
-            formData.append('lng', String(data.coordinates.lng));
+        formData.append('isAnonymous', String(data.isAnonymous));
+        if (data.lat !== undefined) {
+            formData.append('lat', String(data.lat));
         }
-        if (data.photos) {
-            data.photos.forEach((photo) => {
-                formData.append('photos', photo);
+        if (data.lng !== undefined) {
+            formData.append('lng', String(data.lng));
+        }
+        if (data.files) {
+            data.files.forEach((file) => {
+                formData.append('files', file);
             });
         }
         const response = await api.post('/issues/report', formData, {
@@ -93,6 +92,15 @@ export const issueRoutes = {
 
     getIssueTypes: async (): Promise<IssueType[]> => {
         const response = await api.get('/issues/types');
+        return response.data;
+    },
+
+    validatePhoto: async (file: File): Promise<{ valid: boolean; reason?: string }> => {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await api.post('/issues/validate-photo', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         return response.data;
     },
 };
