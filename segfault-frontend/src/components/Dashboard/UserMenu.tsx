@@ -15,9 +15,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { authAPI } from '../../api/axios';
+import { useAuth } from '../../state/authContext';
 
 const UserMenu = () => {
   const navigate = useNavigate();
+  const { user, logout, isGuest } = useAuth();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,22 +30,33 @@ const UserMenu = () => {
     setAnchorEl(null);
   };
 
-  const logoutUser = async () => {
+  const handleLogout = async () => {
+    handleClose();
     try {
       await authAPI.logout();
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('guestTokenId');
-      navigate('/login');
-    } catch (error) {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('guestTokenId');
-      navigate('/login');
+    } catch {
     }
+    logout();
+    navigate('/login');
   };
 
-  const handleLogout = () => {
-    handleClose();
-    logoutUser();
+  const getUserInitial = (): string => {
+    if (!user) return 'U';
+    if (user.name) return user.name.charAt(0).toUpperCase();
+    if (user.email) return user.email.charAt(0).toUpperCase();
+    return 'U';
+  };
+
+  const getDisplayName = (): string => {
+    if (!user) return 'User';
+    if (isGuest) return 'Guest User';
+    return user.name || user.email?.split('@')[0] || 'User';
+  };
+
+  const getDisplayEmail = (): string => {
+    if (!user) return '';
+    if (isGuest) return 'Anonymous session';
+    return user.email || '';
   };
 
   return (
@@ -61,12 +74,12 @@ const UserMenu = () => {
           sx={{
             width: 36,
             height: 36,
-            bgcolor: 'secondary.main',
+            bgcolor: isGuest ? 'grey.500' : 'secondary.main',
             fontSize: '1rem',
             fontWeight: 600,
           }}
         >
-          U
+          {getUserInitial()}
         </Avatar>
       </IconButton>
 
@@ -87,26 +100,30 @@ const UserMenu = () => {
       >
         <Box sx={{ px: 2, py: 1.5 }}>
           <Typography variant="subtitle1" fontWeight={600}>
-            User Account
+            {getDisplayName()}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            user@example.com
+            {getDisplayEmail()}
           </Typography>
         </Box>
         <Divider />
-        <MenuItem onClick={handleClose} sx={{ py: 1.5 }}>
-          <ListItemIcon>
-            <PersonIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Profile</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ py: 1.5 }}>
-          <ListItemIcon>
-            <SettingsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Settings</ListItemText>
-        </MenuItem>
-        <Divider />
+        {!isGuest && (
+          <>
+            <MenuItem onClick={handleClose} sx={{ py: 1.5 }}>
+              <ListItemIcon>
+                <PersonIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Profile</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose} sx={{ py: 1.5 }}>
+              <ListItemIcon>
+                <SettingsIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Settings</ListItemText>
+            </MenuItem>
+            <Divider />
+          </>
+        )}
         <MenuItem
           onClick={handleLogout}
           sx={{

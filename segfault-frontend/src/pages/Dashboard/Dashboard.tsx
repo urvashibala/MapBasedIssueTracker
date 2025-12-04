@@ -13,13 +13,20 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [reportFormOpen, setReportFormOpen] = useState(false);
   const [detailDrawerOpen, setDetailDrawerOpen] = useState(false);
+  const [selectedIssueId, setSelectedIssueId] = useState<string | null>(null);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
 
-  const handlePinClick = () => {
+  const handlePinClick = (issueId: string) => {
+    setSelectedIssueId(issueId);
     setDetailDrawerOpen(true);
+  };
+
+  const handleDetailClose = () => {
+    setDetailDrawerOpen(false);
+    setSelectedIssueId(null);
   };
 
   return (
@@ -93,10 +100,12 @@ const Dashboard = () => {
 
       <IssueDetailPage
         open={detailDrawerOpen}
-        onClose={() => setDetailDrawerOpen(false)}
+        onClose={handleDetailClose}
+        issueId={selectedIssueId}
       />
     </DashboardLayout>
   );
 };
 
 export default Dashboard;
+

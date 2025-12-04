@@ -23,9 +23,11 @@ import {
 } from '@mui/icons-material';
 import { authAPI } from '../../api/axios';
 import { AxiosError } from 'axios';
+import { useAuth } from '../../state/authContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -70,8 +72,8 @@ const Login = () => {
     try {
       const response = await authAPI.loginAsGuest();
       if (response.ok) {
-        
         localStorage.setItem('guestTokenId', response.guestTokenId);
+        login(response.guestTokenId);
         navigate('/dashboard');
       }
     } catch (err) {
@@ -80,7 +82,6 @@ const Login = () => {
         errorMsg = (err.response.data as { error?: string }).error || errorMsg;
       }
       setError(errorMsg);
-
     } finally {
       setLoading(false);
     }

@@ -1,29 +1,39 @@
 import { useState, useEffect } from 'react';
-import { IconButton, Badge, Menu, MenuItem, Typography, Box, Divider } from '@mui/material';
+import { IconButton, Badge, Menu, MenuItem, Typography, Box, Divider, Button, CircularProgress } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CircleIcon from '@mui/icons-material/Circle';
-
-interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  read: boolean;
-  createdAt: string;
-}
+import { notificationRoutes, type Notification } from '../../api/routes';
+import { useAuth } from '../../state/authContext';
 
 const NotificationBell = () => {
+  const { isGuest } = useAuth();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const fetchNotifications = async () => {
+    if (isGuest) {
+      setNotifications([]);
+      setUnreadCount(0);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const data = await notificationRoutes.getNotifications();
+      setNotifications(data);
+      setUnreadCount(data.filter((n) => !n.read).length);
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setNotifications([
-      { id: '1', title: 'Issue Updated', message: 'Your reported issue has been reviewed', read: false, createdAt: '2024-01-01' },
-      { id: '2', title: 'New Comment', message: 'Someone commented on your issue', read: false, createdAt: '2024-01-01' },
-      { id: '3', title: 'Status Changed', message: 'Issue #123 is now In Progress', read: true, createdAt: '2024-01-01' },
-    ]);
-    setUnreadCount(2);
-  }, []);
+    fetchNotifications();
+  }, [isGuest]);
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,12 +43,44 @@ const NotificationBell = () => {
     setAnchorEl(null);
   };
 
-  const handleNotificationClick = (notification: Notification) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n))
-    );
-    setUnreadCount((prev) => Math.max(0, prev - (notification.read ? 0 : 1)));
+  const handleNotificationClick = async (notification: Notification) => {
+    if (!notification.read) {
+      try {
+        await notificationRoutes.markAsRead(notification.id);
+        setNotifications((prev) =>
+          prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n))
+        );
+        setUnreadCount((prev) => Math.max(0, prev - 1));
+      } catch (error) {
+        console.error('Failed to mark notification as read:', error);
+      }
+    }
     handleClose();
+  };
+
+  const handleMarkAllAsRead = async () => {
+    try {
+      await notificationRoutes.markAllAsRead();
+      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+      setUnreadCount(0);
+    } catch (error) {
+      console.error('Failed to mark all as read:', error);
+    }
+  };
+
+  const formatNotificationTitle = (type: string): string => {
+    switch (type) {
+      case 'ISSUE_STATUS_UPDATE':
+        return 'Issue Updated';
+      case 'NEW_COMMENT':
+        return 'New Comment';
+      case 'UPVOTE_RECEIVED':
+        return 'New Upvote';
+      case 'BAN_NOTICE':
+        return 'Account Notice';
+      default:
+        return 'Notification';
+    }
   };
 
   return (
@@ -83,16 +125,25 @@ const NotificationBell = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box sx={{ px: 2, py: 1.5 }}>
+        <Box sx={{ px: 2, py: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h6" fontWeight={600}>
             Notifications
           </Typography>
+          {unreadCount > 0 && (
+            <Button size="small" onClick={handleMarkAllAsRead}>
+              Mark all read
+            </Button>
+          )}
         </Box>
         <Divider />
-        {notifications.length === 0 ? (
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 3 }}>
+            <CircularProgress size={24} />
+          </Box>
+        ) : notifications.length === 0 ? (
           <MenuItem disabled>
             <Typography variant="body2" color="text.secondary">
-              No notifications
+              {isGuest ? 'Sign in to view notifications' : 'No notifications'}
             </Typography>
           </MenuItem>
         ) : (
@@ -122,7 +173,7 @@ const NotificationBell = () => {
                 )}
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="body2" fontWeight={notification.read ? 400 : 600}>
-                    {notification.title}
+                    {formatNotificationTitle(notification.type)}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
                     {notification.message}
