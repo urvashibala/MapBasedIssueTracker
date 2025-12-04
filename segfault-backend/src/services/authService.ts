@@ -107,4 +107,24 @@ export async function loginWithGoogle(code: string) {
 	return token;
 }
 
-export default { exchangeGoogleCodeForProfile, loginWithGoogle };
+export async function generateGuestSession() {
+	const { createGuestToken } = await import("../data/user");
+	const { v4: uuidv4 } = await import("uuid");
+
+	const guestUuid = uuidv4();
+	const guestRecord = await createGuestToken(guestUuid);
+
+	const tokenPayload = { guestTokenId: guestRecord.id, role: UserRole.GUEST };
+	const token = jwt.sign(tokenPayload, JWT.SECRET, { expiresIn: '1d' });
+
+	const key = `session:${token}`;
+	const value = JSON.stringify({ guestTokenId: guestRecord.id, role: UserRole.GUEST });
+	// 1 day TTL for guests
+	const expirySeconds = 60 * 60 * 24;
+
+	await redisClient.set(key, value, 'EX', expirySeconds);
+
+	return { token, guestTokenId: guestRecord.id };
+}
+
+export default { exchangeGoogleCodeForProfile, loginWithGoogle, generateGuestSession };
