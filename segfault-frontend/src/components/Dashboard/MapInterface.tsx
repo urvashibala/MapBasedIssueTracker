@@ -3,10 +3,16 @@ import MapIcon from '@mui/icons-material/Map';
 import TouchAppIcon from '@mui/icons-material/TouchApp';
 
 interface MapInterfaceProps {
-  onPinClick: () => void;
+  onPinClick: (issueId: string) => void;
 }
 
 const MapInterface = ({ onPinClick }: MapInterfaceProps) => {
+  // Demo issue ID for simulation - in a real implementation,
+  // this would come from clicking on an actual map marker
+  const handleSimulateClick = () => {
+    onPinClick('1'); // Simulate clicking on issue with ID 1
+  };
+
   return (
     <Paper
       elevation={0}
@@ -70,7 +76,7 @@ const MapInterface = ({ onPinClick }: MapInterfaceProps) => {
         variant="contained"
         color="primary"
         startIcon={<TouchAppIcon />}
-        onClick={onPinClick}
+        onClick={handleSimulateClick}
         sx={{
           px: 4,
           py: 1.5,

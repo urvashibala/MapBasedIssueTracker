@@ -25,17 +25,11 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import PhotoUploader from './PhotoUploader';
-import { issueRoutes } from '../../api/routes';
+import { issueRoutes, type IssueType } from '../../api/routes';
 
 interface IssueReportFormProps {
   open: boolean;
   onClose: () => void;
-}
-
-interface IssueType {
-  id: string;
-  name: string;
-  department: string;
 }
 
 interface FormData {
@@ -50,22 +44,14 @@ interface FormData {
 
 const STEPS = ['Issue Details', 'Location & Photos', 'Review & Submit'];
 
-const ISSUE_TYPES: IssueType[] = [
-  { id: 'pothole', name: 'Pothole', department: 'Public Works Department (PWD)' },
-  { id: 'streetlight', name: 'Streetlight', department: 'Electrical Department' },
-  { id: 'graffiti', name: 'Graffiti', department: 'Municipal Corporation' },
-  { id: 'trash', name: 'Trash/Litter', department: 'Sanitation Department' },
-  { id: 'sidewalk', name: 'Sidewalk Damage', department: 'Public Works Department (PWD)' },
-  { id: 'drainage', name: 'Drainage Issue', department: 'Water & Sewage Department' },
-  { id: 'other', name: 'Other', department: 'General Services' },
-];
-
 const IssueReportForm = ({ open, onClose }: IssueReportFormProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [locationLoading, setLocationLoading] = useState(false);
+  const [issueTypes, setIssueTypes] = useState<IssueType[]>([]);
+  const [typesLoading, setTypesLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     type: '',
     lat: null,
@@ -75,6 +61,24 @@ const IssueReportForm = ({ open, onClose }: IssueReportFormProps) => {
     anonymous: false,
     photos: [],
   });
+
+  useEffect(() => {
+    const fetchIssueTypes = async () => {
+      try {
+        setTypesLoading(true);
+        const types = await issueRoutes.getIssueTypes();
+        setIssueTypes(types);
+      } catch (error) {
+        console.error('Failed to fetch issue types:', error);
+      } finally {
+        setTypesLoading(false);
+      }
+    };
+
+    if (open) {
+      fetchIssueTypes();
+    }
+  }, [open]);
 
   useEffect(() => {
     if (!open) {
@@ -93,7 +97,7 @@ const IssueReportForm = ({ open, onClose }: IssueReportFormProps) => {
     }
   }, [open]);
 
-  const selectedType = ISSUE_TYPES.find((t) => t.id === formData.type);
+  const selectedType = issueTypes.find((t) => t.id === formData.type);
 
   const handleNext = () => {
     setActiveStep((prev) => prev + 1);
@@ -178,12 +182,17 @@ const IssueReportForm = ({ open, onClose }: IssueReportFormProps) => {
                 value={formData.type}
                 label="Issue Type"
                 onChange={(e) => setFormData((prev) => ({ ...prev, type: e.target.value }))}
+                disabled={typesLoading}
               >
-                {ISSUE_TYPES.map((type) => (
-                  <MenuItem key={type.id} value={type.id}>
-                    {type.name}
-                  </MenuItem>
-                ))}
+                {typesLoading ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : (
+                  issueTypes.map((type) => (
+                    <MenuItem key={type.id} value={type.id}>
+                      {type.name}
+                    </MenuItem>
+                  ))
+                )}
               </Select>
               {selectedType && (
                 <Typography variant="caption" color="primary" sx={{ mt: 1 }}>

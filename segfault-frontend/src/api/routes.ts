@@ -37,6 +37,19 @@ export interface IssueType {
     department: string;
 }
 
+export interface Comment {
+    id: string;
+    content: string;
+    createdAt: string;
+    author: {
+        id: string;
+        name: string;
+    };
+    upvoteCount: number;
+    hasUpvoted: boolean;
+    isFlagged: boolean;
+}
+
 export interface Analytics {
     totalIssues: number;
     resolvedIssues: number;
@@ -48,11 +61,10 @@ export interface Analytics {
 
 export interface Notification {
     id: string;
-    title: string;
+    type: string;
     message: string;
     read: boolean;
     createdAt: string;
-    issueId?: string;
 }
 
 export const authRoutes = {
@@ -65,6 +77,11 @@ export const authRoutes = {
 export const issueRoutes = {
     getIssues: async (filters?: IssueFilters): Promise<Issue[]> => {
         const response = await api.get('/issues', { params: filters });
+        return response.data;
+    },
+
+    getIssueById: async (id: string): Promise<Issue> => {
+        const response = await api.get(`/issues/${id}`);
         return response.data;
     },
 
@@ -95,6 +112,11 @@ export const issueRoutes = {
         return response.data;
     },
 
+    voteOnIssue: async (id: string): Promise<{ voteCount: number; hasVoted: boolean }> => {
+        const response = await api.post(`/issues/${id}/vote`);
+        return response.data;
+    },
+
     validatePhoto: async (file: File): Promise<{ valid: boolean; reason?: string }> => {
         const formData = new FormData();
         formData.append('file', file);
@@ -105,14 +127,29 @@ export const issueRoutes = {
     },
 };
 
-export const interactionRoutes = {
-    getIssueById: async (id: string): Promise<Issue> => {
-        const response = await api.get(`/issues/${id}`);
+export const commentRoutes = {
+    getComments: async (issueId: string): Promise<Comment[]> => {
+        const response = await api.get(`/issues/${issueId}/comments`);
         return response.data;
     },
 
-    voteOnIssue: async (id: string): Promise<{ voteCount: number; hasVoted: boolean }> => {
-        const response = await api.post(`/issues/${id}/vote`);
+    addComment: async (issueId: string, content: string): Promise<Comment> => {
+        const response = await api.post(`/issues/${issueId}/comments`, { content });
+        return response.data;
+    },
+
+    deleteComment: async (commentId: string): Promise<{ success: boolean }> => {
+        const response = await api.delete(`/comments/${commentId}`);
+        return response.data;
+    },
+
+    upvoteComment: async (commentId: string): Promise<{ upvoteCount: number; hasUpvoted: boolean }> => {
+        const response = await api.post(`/comments/${commentId}/upvote`);
+        return response.data;
+    },
+
+    flagComment: async (commentId: string, reason?: string): Promise<{ success: boolean }> => {
+        const response = await api.post(`/comments/${commentId}/flag`, { reason });
         return response.data;
     },
 };
@@ -134,12 +171,18 @@ export const notificationRoutes = {
         const response = await api.patch(`/notifications/${id}/read`);
         return response.data;
     },
+
+    markAllAsRead: async (): Promise<{ success: boolean }> => {
+        const response = await api.patch('/notifications/read-all');
+        return response.data;
+    },
 };
 
 export default {
     auth: authRoutes,
     issues: issueRoutes,
-    interactions: interactionRoutes,
+    comments: commentRoutes,
     analytics: analyticsRoutes,
     notifications: notificationRoutes,
 };
+
