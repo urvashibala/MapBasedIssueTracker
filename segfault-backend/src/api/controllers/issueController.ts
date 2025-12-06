@@ -10,7 +10,7 @@ import {
     hasUserUpvotedIssue,
 } from "../../data/issue";
 import { prisma } from "../../data/prisma/prismaClient";
-import { IssueStatus, IssueType } from "../../data/src/generated/prisma/enums";
+import { IssueStatus, IssueType } from "../../generated/prisma/enums";
 
 const ISSUE_TYPE_INFO: Record<string, { name: string; department: string }> = {
     POTHOLE: { name: "Pothole", department: "Public Works Department" },
