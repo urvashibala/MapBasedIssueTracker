@@ -1,9 +1,9 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=segfaultstorage3103;AccountKey=W8uzLvLydsQtC+S343wFzVW/67oeG4ulJ0aUiAjQA4F2pP+YBABgyV8gZMgdU2T1Vssn6syDzmOY+AStzwOwMQ==;EndpointSuffix=core.windows.net",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "DATABASE_URL": "",
-    "GEMINI_API_KEY": ""
+    "DATABASE_URL": "postgresql://neondb_owner:npg_5GC3NzTORMYr@ep-restless-pine-a1vn25d9-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require",
+    "GEMINI_API_KEY": "AIzaSyCwOPXy_F7budxwVHjTGwliKwXmWR2_xrI"
   }
 }
