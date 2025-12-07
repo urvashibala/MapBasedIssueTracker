@@ -1,5 +1,5 @@
 # deploy-backend.ps1
-# Deploys the backend to Azure Container Apps
+# Deploys the backend to Azure Container Apps (Cloud Shell compatible)
 
 $ErrorActionPreference = "Stop"
 
@@ -13,26 +13,22 @@ $LOCATION = "westeurope"
 $ACA_ENV_NAME = "segfault-deployment"
 $ACA_APP_NAME = "segfault-backend"
 
+# ACR credentials (hardcoded for toy project)
+$ACR_USERNAME = "SegfaultDockerImages"
+$ACR_PASSWORD = "6F6FiaZTXiNeBUk72T1MPVbzyzWxEaeD/bEHO9tmyB+ACRARTYoH"
+
 Write-Host "=== Backend Deployment Script ===" -ForegroundColor Cyan
 
 # Navigate to backend directory
-Write-Host "`n[1/5] Navigating to segfault-backend..." -ForegroundColor Yellow
-Set-Location -Path "$PSScriptRoot\segfault-backend"
+Write-Host "`n[1/4] Navigating to segfault-backend..." -ForegroundColor Yellow
+Set-Location -Path "$PSScriptRoot/segfault-backend"
 
-# Login to ACR
-Write-Host "`n[2/5] Logging into Azure Container Registry..." -ForegroundColor Yellow
-az acr login --name $ACR_NAME
-
-# Build Docker image
-Write-Host "`n[3/5] Building Docker image..." -ForegroundColor Yellow
-docker build -t "${ACR_ENDPOINT}/${IMAGE_NAME}:${IMAGE_TAG}" .
-
-# Push to ACR
-Write-Host "`n[4/5] Pushing image to ACR..." -ForegroundColor Yellow
-docker push "${ACR_ENDPOINT}/${IMAGE_NAME}:${IMAGE_TAG}"
+# Build image using ACR Tasks (no local Docker needed)
+Write-Host "`n[2/4] Building Docker image in ACR (cloud build)..." -ForegroundColor Yellow
+az acr build --registry $ACR_NAME --image "${IMAGE_NAME}:${IMAGE_TAG}" .
 
 # Check if ACA environment exists, create if not
-Write-Host "`n[5/5] Setting up Azure Container Apps..." -ForegroundColor Yellow
+Write-Host "`n[3/4] Setting up Azure Container Apps..." -ForegroundColor Yellow
 
 $envExists = az containerapp env show --name $ACA_ENV_NAME --resource-group $RESOURCE_GROUP 2>$null
 if (-not $envExists) {
@@ -46,14 +42,11 @@ if (-not $envExists) {
 }
 
 # Check if app exists
+Write-Host "`n[4/4] Deploying Container App..." -ForegroundColor Yellow
 $appExists = az containerapp show --name $ACA_APP_NAME --resource-group $RESOURCE_GROUP 2>$null
 
 if (-not $appExists) {
     Write-Host "Creating Container App: $ACA_APP_NAME" -ForegroundColor Magenta
-    
-    # ACR credentials
-    $ACR_USERNAME = "SegfaultDockerImages"
-    $ACR_PASSWORD = "6F6FiaZTXiNeBUk72T1MPVbzyzWxEaeD/bEHO9tmyB+ACRARTYoH"
     
     az containerapp create `
         --name $ACA_APP_NAME `
