@@ -1,157 +1,227 @@
 /**
- * Fake Redis Client with Azure Redis Cache compatible APIs
- * Replace with actual ioredis/redis client for production
+ * Azure Redis Cache Client
+ * Uses REDIS_HOSTNAME and REDIS_ACCESS_KEY environment variables
  */
 
-type ExpiryEntry = { timeoutId: NodeJS.Timeout; expiresAt: number };
+import { createClient } from "redis";
 
-class FakeRedisClient {
-	private store: Map<string, string> = new Map();
-	private hashStore: Map<string, Map<string, string>> = new Map();
-	private expiries: Map<string, ExpiryEntry> = new Map();
+const redisHostname = process.env.REDIS_HOSTNAME || "";
+const redisPassword = process.env.REDIS_ACCESS_KEY || "";
+const redisPort = 6380; // Azure Redis SSL port
 
+type RedisClient = ReturnType<typeof createClient>;
+let client: RedisClient | null = null;
+let connectionPromise: Promise<RedisClient> | null = null;
+let isConnecting = false;
+
+async function getClient(): Promise<RedisClient | null> {
+	if (!redisHostname || !redisPassword) {
+		console.warn("Azure Redis Cache not configured. Using no-op fallback.");
+		return null;
+	}
+
+	if (client?.isOpen) {
+		return client;
+	}
+
+	// Return existing connection promise if connecting
+	if (isConnecting && connectionPromise) {
+		return connectionPromise;
+	}
+
+	isConnecting = true;
+	connectionPromise = (async () => {
+		try {
+			client = createClient({
+				url: `rediss://:${encodeURIComponent(redisPassword)}@${redisHostname}:${redisPort}`,
+				socket: {
+					tls: true,
+					rejectUnauthorized: false, // Azure Redis uses self-signed certs
+					connectTimeout: 10000,
+				},
+			});
+
+			client.on("error", (err) => {
+				console.error("Redis Client Error:", err);
+			});
+
+			client.on("connect", () => {
+				console.log("Redis: Connected to Azure Redis Cache");
+			});
+
+			await client.connect();
+			return client;
+		} catch (error) {
+			console.error("Failed to connect to Redis:", error);
+			client = null;
+			throw error;
+		} finally {
+			isConnecting = false;
+		}
+	})();
+
+	return connectionPromise;
+}
+
+// Wrapper class that matches the FakeRedisClient API
+class AzureRedisClient {
 	// Basic string operations
 	async get(key: string): Promise<string | null> {
-		const v = this.store.get(key);
-		return v ?? null;
-	}
-
-	async set(key: string, value: string, mode?: string | null, durationSeconds?: number | null): Promise<'OK'> {
-		this.clearExpiry(key);
-		this.store.set(key, value);
-
-		if (mode === 'EX' && typeof durationSeconds === 'number' && durationSeconds > 0) {
-			this.setExpiry(key, durationSeconds);
+		const c = await getClient();
+		if (!c) return null;
+		try {
+			return await c.get(key);
+		} catch (error) {
+			console.error("Redis GET error:", error);
+			return null;
 		}
-		return 'OK';
 	}
 
-	// Azure Redis compatible: SET with EX in one call
-	async setex(key: string, seconds: number, value: string): Promise<'OK'> {
-		return this.set(key, value, 'EX', seconds);
+	async set(key: string, value: string, mode?: string | null, durationSeconds?: number | null): Promise<"OK"> {
+		const c = await getClient();
+		if (!c) return "OK";
+		try {
+			if (mode === "EX" && typeof durationSeconds === "number" && durationSeconds > 0) {
+				await c.setEx(key, durationSeconds, value);
+			} else {
+				await c.set(key, value);
+			}
+			return "OK";
+		} catch (error) {
+			console.error("Redis SET error:", error);
+			return "OK";
+		}
+	}
+
+	async setex(key: string, seconds: number, value: string): Promise<"OK"> {
+		return this.set(key, value, "EX", seconds);
 	}
 
 	async del(...keys: string[]): Promise<number> {
-		let count = 0;
-		for (const key of keys) {
-			if (this.store.delete(key)) count++;
-			this.clearExpiry(key);
-			this.hashStore.delete(key);
+		const c = await getClient();
+		if (!c || keys.length === 0) return 0;
+		try {
+			return await c.del(keys);
+		} catch (error) {
+			console.error("Redis DEL error:", error);
+			return 0;
 		}
-		return count;
 	}
 
-	// Multiple get
 	async mget(...keys: string[]): Promise<(string | null)[]> {
-		return keys.map(k => this.store.get(k) ?? null);
-	}
-
-	// Multiple set
-	async mset(...pairs: string[]): Promise<'OK'> {
-		for (let i = 0; i < pairs.length; i += 2) {
-			const key = pairs[i];
-			const val = pairs[i + 1];
-			if (key !== undefined && val !== undefined) {
-				this.store.set(key, val);
-			}
+		const c = await getClient();
+		if (!c) return keys.map(() => null);
+		try {
+			return await c.mGet(keys);
+		} catch (error) {
+			console.error("Redis MGET error:", error);
+			return keys.map(() => null);
 		}
-		return 'OK';
 	}
 
-	// Check existence
 	async exists(...keys: string[]): Promise<number> {
-		return keys.filter(k => this.store.has(k) || this.hashStore.has(k)).length;
+		const c = await getClient();
+		if (!c) return 0;
+		try {
+			return await c.exists(keys);
+		} catch (error) {
+			console.error("Redis EXISTS error:", error);
+			return 0;
+		}
 	}
 
-	// Pattern matching keys (simplified - only supports prefix*)
 	async keys(pattern: string): Promise<string[]> {
-		const prefix = pattern.replace(/\*$/, '');
-		const results: string[] = [];
-		for (const key of this.store.keys()) {
-			if (key.startsWith(prefix)) results.push(key);
+		const c = await getClient();
+		if (!c) return [];
+		try {
+			return await c.keys(pattern);
+		} catch (error) {
+			console.error("Redis KEYS error:", error);
+			return [];
 		}
-		for (const key of this.hashStore.keys()) {
-			if (key.startsWith(prefix) && !results.includes(key)) results.push(key);
-		}
-		return results;
 	}
 
-	// TTL operations
 	async ttl(key: string): Promise<number> {
-		const entry = this.expiries.get(key);
-		if (!entry) return -1;
-		const remaining = Math.ceil((entry.expiresAt - Date.now()) / 1000);
-		return remaining > 0 ? remaining : -2;
+		const c = await getClient();
+		if (!c) return -1;
+		try {
+			return await c.ttl(key);
+		} catch (error) {
+			console.error("Redis TTL error:", error);
+			return -1;
+		}
 	}
 
 	async expire(key: string, seconds: number): Promise<number> {
-		if (!this.store.has(key) && !this.hashStore.has(key)) return 0;
-		this.clearExpiry(key);
-		this.setExpiry(key, seconds);
-		return 1;
+		const c = await getClient();
+		if (!c) return 0;
+		try {
+			return (await c.expire(key, seconds)) ? 1 : 0;
+		} catch (error) {
+			console.error("Redis EXPIRE error:", error);
+			return 0;
+		}
 	}
 
-	// Hash operations for structured data
+	// Hash operations
 	async hset(key: string, field: string, value: string): Promise<number> {
-		let hash = this.hashStore.get(key);
-		if (!hash) {
-			hash = new Map();
-			this.hashStore.set(key, hash);
+		const c = await getClient();
+		if (!c) return 0;
+		try {
+			return await c.hSet(key, field, value);
+		} catch (error) {
+			console.error("Redis HSET error:", error);
+			return 0;
 		}
-		const isNew = !hash.has(field);
-		hash.set(field, value);
-		return isNew ? 1 : 0;
 	}
 
 	async hget(key: string, field: string): Promise<string | null> {
-		return this.hashStore.get(key)?.get(field) ?? null;
+		const c = await getClient();
+		if (!c) return null;
+		try {
+			const result = await c.hGet(key, field);
+			return result ?? null;
+		} catch (error) {
+			console.error("Redis HGET error:", error);
+			return null;
+		}
 	}
 
 	async hgetall(key: string): Promise<Record<string, string>> {
-		const hash = this.hashStore.get(key);
-		if (!hash) return {};
-		const result: Record<string, string> = {};
-		for (const [k, v] of hash) result[k] = v;
-		return result;
+		const c = await getClient();
+		if (!c) return {};
+		try {
+			return await c.hGetAll(key);
+		} catch (error) {
+			console.error("Redis HGETALL error:", error);
+			return {};
+		}
 	}
 
 	async hdel(key: string, ...fields: string[]): Promise<number> {
-		const hash = this.hashStore.get(key);
-		if (!hash) return 0;
-		let count = 0;
-		for (const f of fields) {
-			if (hash.delete(f)) count++;
-		}
-		return count;
-	}
-
-	async flushAll(): Promise<'OK'> {
-		for (const [, e] of this.expiries) clearTimeout(e.timeoutId);
-		this.expiries.clear();
-		this.store.clear();
-		this.hashStore.clear();
-		return 'OK';
-	}
-
-	// Internal helpers
-	private clearExpiry(key: string): void {
-		const prev = this.expiries.get(key);
-		if (prev) {
-			clearTimeout(prev.timeoutId);
-			this.expiries.delete(key);
+		const c = await getClient();
+		if (!c) return 0;
+		try {
+			return await c.hDel(key, fields);
+		} catch (error) {
+			console.error("Redis HDEL error:", error);
+			return 0;
 		}
 	}
 
-	private setExpiry(key: string, seconds: number): void {
-		const timeoutId = setTimeout(() => {
-			this.store.delete(key);
-			this.hashStore.delete(key);
-			this.expiries.delete(key);
-		}, seconds * 1000);
-		this.expiries.set(key, { timeoutId, expiresAt: Date.now() + seconds * 1000 });
+	async flushAll(): Promise<"OK"> {
+		const c = await getClient();
+		if (!c) return "OK";
+		try {
+			await c.flushAll();
+			return "OK";
+		} catch (error) {
+			console.error("Redis FLUSHALL error:", error);
+			return "OK";
+		}
 	}
 }
 
-export const redisClient = new FakeRedisClient();
+export const redisClient = new AzureRedisClient();
 
 export default redisClient;

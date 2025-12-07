@@ -1,0 +1,257 @@
+import { UserRole } from "../generated/prisma/enums";
+export declare function createNewUser(email: string, password: string, name: string | null, role: UserRole, picture?: string | null): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function getUserById(id: number): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+} | null>;
+export declare function getUserByEmail(email: string): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+} | null>;
+export declare function updateUserProfile(userId: number, data: {
+    name?: string | null;
+    email?: string;
+}): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function updateUserPassword(userId: number, newHashedPassword: string): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function deleteUser(userId: number): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+} | null>;
+export declare function banUser(userId: number, reason: string | null, expiresAt: Date | null): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function unbanUser(userId: number): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function updateUserCredibility(userId: number, delta: number): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}>;
+export declare function getAllUsers(page?: number, pageSize?: number): Promise<{
+    users: {
+        createdAt: Date;
+        id: number;
+        name: string | null;
+        email: string;
+        password: string;
+        picture: string | null;
+        role: UserRole;
+        isBanned: boolean;
+        banExpiresAt: Date | null;
+        banReason: string | null;
+        credibility: number;
+    }[];
+    total: number;
+    page: number;
+    pageSize: number;
+}>;
+export declare function getAllUsersUnsafe(): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}[]>;
+export declare function getBannedUsers(page?: number, pageSize?: number): Promise<{
+    users: {
+        createdAt: Date;
+        id: number;
+        name: string | null;
+        email: string;
+        password: string;
+        picture: string | null;
+        role: UserRole;
+        isBanned: boolean;
+        banExpiresAt: Date | null;
+        banReason: string | null;
+        credibility: number;
+    }[];
+    total: number;
+    page: number;
+    pageSize: number;
+}>;
+export declare function getBannedUsersUnsafe(): Promise<{
+    createdAt: Date;
+    id: number;
+    name: string | null;
+    email: string;
+    password: string;
+    picture: string | null;
+    role: UserRole;
+    isBanned: boolean;
+    banExpiresAt: Date | null;
+    banReason: string | null;
+    credibility: number;
+}[]>;
+export declare function awardBadgeToUser(userId: number, name: string): Promise<{
+    id: number;
+    userId: number;
+    name: string;
+    awardedAt: Date;
+}>;
+export declare function removeBadgeFromUser(badgeId: number): Promise<{
+    id: number;
+    userId: number;
+    name: string;
+    awardedAt: Date;
+} | null>;
+export declare function getBadgesForUser(userId: number): Promise<{
+    id: number;
+    userId: number;
+    name: string;
+    awardedAt: Date;
+}[]>;
+export declare function createGuestToken(token: string): Promise<{
+    createdAt: Date;
+    id: number;
+    token: string;
+}>;
+export declare function getGuestTokenByToken(token: string): Promise<{
+    createdAt: Date;
+    id: number;
+    token: string;
+} | null>;
+export declare function deleteGuestToken(token: string): Promise<{
+    createdAt: Date;
+    id: number;
+    token: string;
+} | null>;
+export declare function getNotificationsForUser(userId: number): Promise<{
+    createdAt: Date;
+    id: number;
+    userId: number | null;
+    type: import("../generated/prisma/enums").NotificationType;
+    message: string;
+    read: boolean;
+}[]>;
+export declare function setNotificationRead(notificationId: number, read: boolean): Promise<{
+    createdAt: Date;
+    id: number;
+    userId: number | null;
+    type: import("../generated/prisma/enums").NotificationType;
+    message: string;
+    read: boolean;
+}>;
+declare const _default: {
+    createNewUser: typeof createNewUser;
+    getUserById: typeof getUserById;
+    getUserByEmail: typeof getUserByEmail;
+    updateUserProfile: typeof updateUserProfile;
+    updateUserPassword: typeof updateUserPassword;
+    deleteUser: typeof deleteUser;
+    banUser: typeof banUser;
+    unbanUser: typeof unbanUser;
+    updateUserCredibility: typeof updateUserCredibility;
+    getAllUsers: typeof getAllUsers;
+    getAllUsersUnsafe: typeof getAllUsersUnsafe;
+    getBannedUsers: typeof getBannedUsers;
+    getBannedUsersUnsafe: typeof getBannedUsersUnsafe;
+    awardBadgeToUser: typeof awardBadgeToUser;
+    removeBadgeFromUser: typeof removeBadgeFromUser;
+    getBadgesForUser: typeof getBadgesForUser;
+    createGuestToken: typeof createGuestToken;
+    getGuestTokenByToken: typeof getGuestTokenByToken;
+    deleteGuestToken: typeof deleteGuestToken;
+    getNotificationsForUser: typeof getNotificationsForUser;
+    setNotificationRead: typeof setNotificationRead;
+};
+export default _default;
+//# sourceMappingURL=user.d.ts.map

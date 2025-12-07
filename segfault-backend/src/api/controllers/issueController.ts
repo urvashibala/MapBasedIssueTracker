@@ -15,6 +15,7 @@ import { prisma } from "../../data/prisma/prismaClient";
 import { IssueStatus, IssueType } from "../../generated/prisma/enums";
 import { recalculatePenalties } from "../../services/PenaltyService";
 import { sendToModerationQueue } from "../../services/QueueService";
+import { uploadToBlob } from "../../services/BlobStorageService";
 
 const ISSUE_TYPE_INFO: Record<string, { name: string; department: string }> = {
     POTHOLE: { name: "Pothole", department: "Public Works Department" },
@@ -169,10 +170,21 @@ export async function createIssue(req: Request, res: Response) {
         const longitude = parseFloat(lng) || 0;
         const title = `${ISSUE_TYPE_INFO[issueType]?.name || type} Report`;
 
-        // Get uploaded file from multer middleware (if any)
+        // Get uploaded file from multer memory storage (if any)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const uploadedFile = (req as any).file as { filename: string } | undefined;
-        const imageBlobId = uploadedFile?.filename;
+        const uploadedFile = (req as any).file as { buffer: Buffer; originalname: string } | undefined;
+
+        // Upload to Azure Blob Storage if file exists
+        let blobUrl: string | null = null;
+        let imageBlobId: string | undefined;
+
+        if (uploadedFile) {
+            const uploadResult = await uploadToBlob(uploadedFile.buffer, uploadedFile.originalname);
+            if (uploadResult) {
+                blobUrl = uploadResult.blobUrl;
+                imageBlobId = uploadResult.blobName;
+            }
+        }
 
         let issue;
         if (req.user.role === "GUEST" && req.user.guestTokenId) {
@@ -185,16 +197,14 @@ export async function createIssue(req: Request, res: Response) {
             console.error("Failed to recalculate penalties:", err)
         );
 
-        if (imageBlobId) {
-            const blobUrl = `${process.env.BACKEND_URL || "http://localhost:3000"}/uploads/${imageBlobId}`;
-            sendToModerationQueue({
-                issueId: issue.id,
-                blobUrl,
-                latitude,
-                longitude,
-                issueType,
-            }).catch((err) => console.error("Failed to queue moderation:", err));
-        }
+        // Always send to moderation queue - Azure Function will authorize the issue
+        sendToModerationQueue({
+            issueId: issue.id,
+            blobUrl: blobUrl || "",
+            latitude,
+            longitude,
+            issueType,
+        }).catch((err) => console.error("Failed to queue moderation:", err));
 
         return res.status(201).json({
             id: String(issue.id),

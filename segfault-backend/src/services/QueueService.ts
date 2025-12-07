@@ -1,7 +1,8 @@
 import { QueueClient } from "@azure/storage-queue";
 
-const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING || "";
-const queueName = "issue-moderation";
+const connectionString = process.env.STORAGE_CONNECTION_STRING || "";
+const queueName = "issue-queue";
+
 
 let queueClient: QueueClient | null = null;
 

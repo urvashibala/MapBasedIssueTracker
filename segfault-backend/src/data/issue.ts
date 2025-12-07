@@ -21,9 +21,9 @@ export async function createAuthenticatedIssue(
 			issueType,
 			userId,
 			imageBlobId: imageBlobId ?? null,
-			// Dev mode: set all issues as valid/authorized by default
-			authorized: IssueAuthorized.TRUE,
-			error: IssueError.NONE,
+			// Production: issues require moderation queue before becoming visible
+			authorized: IssueAuthorized.FALSE,
+			error: IssueError.PENDING,
 		},
 	});
 
@@ -51,9 +51,9 @@ export async function createGuestIssue(
 			guestTokenId,
 			userId: -1,
 			imageBlobId: imageBlobId ?? null,
-			// Dev mode: set all issues as valid/authorized by default
-			authorized: IssueAuthorized.TRUE,
-			error: IssueError.NONE,
+			// Production: issues require moderation queue before becoming visible
+			authorized: IssueAuthorized.FALSE,
+			error: IssueError.PENDING,
 		},
 	});
 
