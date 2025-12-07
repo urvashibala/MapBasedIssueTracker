@@ -138,7 +138,7 @@ const AdminDashboard = () => {
                                             {item.imageBlobId ? (
                                                 <Avatar
                                                     variant="rounded"
-                                                    src={`http://localhost:3000/uploads/${item.imageBlobId}`}
+                                                    src={`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/${item.imageBlobId}`}
                                                     sx={{ width: 60, height: 60 }}
                                                 />
                                             ) : (

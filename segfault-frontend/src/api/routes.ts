@@ -180,6 +180,27 @@ export const issueRoutes = {
     },
 
     getMapIssues: async (bounds: Bounds, filters?: IssueFilters): Promise<MapIssue[]> => {
+        // LocalStorage cache key based on bounds (rounded to reduce cache misses)
+        const cacheKey = `map_issues_${Math.round(bounds.minLat * 100)}_${Math.round(bounds.maxLat * 100)}_${Math.round(bounds.minLng * 100)}_${Math.round(bounds.maxLng * 100)}_${filters?.showResolved || false}`;
+        const cacheTTL = 5 * 60 * 1000;
+
+        // Check localStorage cache first
+        try {
+            const cached = localStorage.getItem(cacheKey);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < cacheTTL) {
+                    console.log('[Cache] localStorage hit for map issues');
+                    return data;
+                }
+                // Expired, remove from cache
+                localStorage.removeItem(cacheKey);
+            }
+        } catch (e) {
+            // localStorage not available or parse error, continue to API
+        }
+
+        // Fetch from API (which hits Redis -> PostgreSQL)
         const response = await api.get('/issues/map', {
             params: {
                 minLat: bounds.minLat,
@@ -193,6 +214,18 @@ export const issueRoutes = {
                 showResolved: filters?.showResolved,
             },
         });
+
+        // Cache in localStorage
+        try {
+            localStorage.setItem(cacheKey, JSON.stringify({
+                data: response.data,
+                timestamp: Date.now(),
+            }));
+            console.log('[Cache] Cached map issues in localStorage');
+        } catch (e) {
+            // localStorage full or not available, ignore
+        }
+
         return response.data;
     },
 };
