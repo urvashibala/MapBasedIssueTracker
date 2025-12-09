@@ -20,6 +20,7 @@ enum UserRole {
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
+  emailVerified Boolean @default(false)
   password  String
   name      String?
   picture   String?

@@ -12,18 +12,31 @@ import userRoutes from "./api/routes/userRoutes";
 import adminRoutes from "./api/routes/adminRoutes";
 import { FRONTEND_URL } from "./appconfig";
 
+
+// TODO check this
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+process.on('exit', (code) => {
+    console.log(`Process exiting with code: ${code}`);
+});
+// --
+
 const app = express();
 const port = 3000;
 
 app.use(cors({
-  origin: true,
-  credentials: true
+    origin: true,
+    credentials: true
 }));
 app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (_req, res) => {
-  res.send("Public Issues Tracker API");
+    res.send("Public Issues Tracker API");
 });
 
 app.use("/auth", authRoutes);
@@ -36,5 +49,8 @@ app.use("/api/user", userRoutes);
 app.use("/admin", adminRoutes);
 
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running at http://0.0.0.0:${port}`);
+    console.log(`Server running at http://0.0.0.0:${port}`);
+
+    // Prevent process from exiting by keeping event loop active
+    setInterval(() => { }, 1 << 30);
 });
