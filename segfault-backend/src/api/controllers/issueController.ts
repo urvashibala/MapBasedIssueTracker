@@ -145,46 +145,62 @@ export async function getIssue(req: Request, res: Response) {
 }
 
 export async function createIssue(req: Request, res: Response) {
-    try {
-        if (!req.user) {
-            return res.status(401).json({ error: "Authentication required" });
-        }
-
-        const { type, description, lat, lng, isAnonymous } = req.body;
-
-        if (!type || !description) {
-            return res.status(400).json({ error: "Type and description are required" });
-        }
-
-        const issueType = type as IssueType;
-        if (!Object.values(IssueType).includes(issueType)) {
-            return res.status(400).json({ error: "Invalid issue type" });
-        }
-
-        const latitude = parseFloat(lat) || 0;
-        const longitude = parseFloat(lng) || 0;
-        const title = `${ISSUE_TYPE_INFO[issueType]?.name || type} Report`;
-
-        let issue;
-        if (req.user.role === "GUEST" && req.user.guestTokenId) {
-            issue = await createGuestIssue(title, description, latitude, longitude, issueType, req.user.guestTokenId);
-        } else {
-            issue = await createAuthenticatedIssue(title, description, latitude, longitude, issueType, req.user.id);
-        }
-
-        return res.status(201).json({
-            id: String(issue.id),
-            title: issue.title,
-            type: issue.issueType,
-            status: issue.status,
-            description: issue.description,
-            location: `${issue.latitude}, ${issue.longitude}`,
-            reportedAt: issue.createdAt.toISOString(),
-        });
-    } catch (err) {
-        console.error("Error creating issue:", err);
-        return res.status(500).json({ error: "Failed to create issue" });
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: "Authentication required" });
     }
+
+    // Support JSON and multipart/form-data (multer populates req.body as strings)
+    const body = req.body ?? {};
+    const typeRaw = body.type;
+    const description = typeof body.description === "string" ? body.description.trim() : undefined;
+    const latRaw = body.lat;
+    const lngRaw = body.lng;
+
+    if (!typeRaw || !description) {
+      return res.status(400).json({ error: "Type and description are required" });
+    }
+
+    const issueType = String(typeRaw) as IssueType;
+    if (!Object.values(IssueType).includes(issueType)) {
+      return res.status(400).json({ error: "Invalid issue type" });
+    }
+
+    // Accept both numbers and strings; fail if not parsable
+    const latitude = typeof latRaw === "number" ? latRaw : parseFloat(String(latRaw));
+    const longitude = typeof lngRaw === "number" ? lngRaw : parseFloat(String(lngRaw));
+
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+      return res.status(400).json({ error: "Invalid latitude/longitude" });
+    }
+
+    const title = `${ISSUE_TYPE_INFO[issueType]?.name || issueType} Report`;
+
+    let issue;
+    if (req.user.role === "GUEST" && req.user.guestTokenId) {
+      issue = await createGuestIssue(title, description, latitude, longitude, issueType, req.user.guestTokenId);
+    } else if (req.user.id !== -1) {
+      issue = await createAuthenticatedIssue(title, description, latitude, longitude, issueType, req.user.id);
+    } else {
+      return res.status(401).json({ error: "Authenticated user required" });
+    }
+
+    return res.status(201).json({
+      id: String(issue.id),
+      title: issue.title,
+      type: issue.issueType,
+      status: issue.status,
+      description: issue.description,
+      location: `${issue.latitude}, ${issue.longitude}`,
+      lat: issue.latitude,
+      lng: issue.longitude,
+      reportedAt: issue.createdAt.toISOString(),
+      reporterId: issue.guestTokenId ? undefined : String(issue.userId),
+    });
+  } catch (err) {
+    console.error("Error creating issue:", err);
+    return res.status(500).json({ error: "Failed to create issue" });
+  }
 }
 
 export async function voteOnIssue(req: Request, res: Response) {

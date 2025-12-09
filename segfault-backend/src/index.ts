@@ -11,6 +11,10 @@ import { FRONTEND_URL } from "./appconfig";
 const app = express();
 const port = 3000;
 
+// Parse JSON and urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const allowedOrigins = [FRONTEND_URL, "http://localhost:5173", "http://localhost:5174"];
 app.use(cors({
   origin: true,
