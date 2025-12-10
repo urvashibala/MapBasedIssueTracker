@@ -48,7 +48,7 @@ export async function handleGuestLogin(_req: Request, res: Response) {
         const oneDayMs = 1000 * 60 * 60 * 24;
         res.cookie('session', token, { httpOnly: true, maxAge: oneDayMs, sameSite: 'lax' });
 
-        return res.status(200).json({ ok: true, guestTokenId });
+        return res.status(200).json({ ok: true, guestTokenId, token });
     } catch (err: any) {
         console.error('Guest login failed', err);
         return res.status(500).json({ error: err?.message ?? 'Guest login failed' });

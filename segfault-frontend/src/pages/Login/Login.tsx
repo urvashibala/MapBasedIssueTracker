@@ -111,9 +111,10 @@ const Login = () => {
 
         try {
             const response = await authAPI.loginAsGuest();
-            if (response.ok) {
+            if (response.ok && response.token) {
+                localStorage.setItem('authToken', response.token);
                 localStorage.setItem('guestTokenId', response.guestTokenId);
-                login(response.guestTokenId);
+                login(response.token);
                 navigate('/dashboard');
             }
         } catch (err) {

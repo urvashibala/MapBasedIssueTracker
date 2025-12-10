@@ -44,11 +44,23 @@ const Dashboard = () => {
         setSelectedIssueId(null);
     };
 
+    const [showRouting, setShowRouting] = useState(false);
+
+    const handleToggleRouting = () => {
+        setShowRouting(!showRouting);
+        // If we are opening routing, ensure we are on the map tab
+        if (!showRouting && activeTab !== 0) {
+            setActiveTab(0);
+        }
+    };
+
     return (
         <DashboardLayout
             onIssueClick={handlePinClick}
             filters={filters}
             onFilterChange={handleFilterChange}
+            showRouting={showRouting}
+            onToggleRouting={handleToggleRouting}
         >
             <Box sx={{ mb: 3 }}>
                 <Tabs
@@ -95,7 +107,14 @@ const Dashboard = () => {
                 </Tabs>
             </Box>
 
-            {activeTab === 0 && <MapInterface onPinClick={handlePinClick} filters={filters} />}
+            {activeTab === 0 && (
+                <MapInterface
+                    onPinClick={handlePinClick}
+                    filters={filters}
+                    showRouting={showRouting}
+                    onToggleRouting={setShowRouting}
+                />
+            )}
             {activeTab === 1 && <IssuesList onIssueClick={handlePinClick} />}
             {activeTab === 2 && <DashboardView />}
 

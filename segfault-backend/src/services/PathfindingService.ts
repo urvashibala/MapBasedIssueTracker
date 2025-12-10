@@ -112,8 +112,8 @@ function buildAdjacencyList(
         // Since we don't have node coords here easily without looking up, we might do this calculation locally in findPath or pass nodeMap here.
         // Better: Calculate 'risk zones' into a Set or fast lookup before calling this.
 
-        // Traffic Simulation (Random factor 1.0 - 1.3) assuming rush hour
-        const trafficFactor = 1.0 + (Math.random() * 0.3);
+        // traffic Simulation
+        const trafficFactor = 1.0;
 
         adj.get(edge.startNodeId)!.push({
             nodeId: edge.endNodeId,
@@ -309,10 +309,16 @@ export async function findPath(
         // Find edges connected to these nodes
         for (const edge of allEdges) {
             if (nearbyNodeIds.has(edge.startNodeId) || nearbyNodeIds.has(edge.endNodeId)) {
-                // Increase penalty
-                // Severity multiplier: 5 for potholes, 10 for major blockage
-                // Defaulting to 5.0 for now
-                edge.penalty = (edge.penalty || 1) * 5.0;
+                // Calculate penalty based on severity (1-5)
+                // Default to 1 if not specified
+                // Formula: Multiplier = 1 + (Severity * 2)
+                // Severity 1 => 3x cost
+                // Severity 3 => 7x cost
+                // Severity 5 => 11x cost (Avoid at all costs)
+                const severity = issue.severity || 1;
+                const multiplier = 1 + (severity * 2);
+
+                edge.penalty = (edge.penalty || 1) * multiplier;
             }
         }
     }

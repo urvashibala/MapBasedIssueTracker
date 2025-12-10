@@ -29,6 +29,8 @@ import type { FilterState } from "./DashboardLayout";
 interface MapInterfaceProps {
     onPinClick: (issueId: string) => void;
     filters?: FilterState;
+    showRouting?: boolean;
+    onToggleRouting?: (show: boolean) => void;
 }
 
 // Default center (Delhi, India - can be changed to any default location)
@@ -53,7 +55,7 @@ const RoutePointSelector = ({
     return null;
 };
 
-const MapInterface = ({ onPinClick, filters }: MapInterfaceProps) => {
+const MapInterface = ({ onPinClick, filters, showRouting: propShowRouting, onToggleRouting }: MapInterfaceProps) => {
     const [issues, setIssues] = useState<MapIssue[]>([]);
     const [viewMode, setViewMode] = useState<VisualizationMode>("status");
     const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
@@ -63,7 +65,19 @@ const MapInterface = ({ onPinClick, filters }: MapInterfaceProps) => {
     const boundsRef = useRef<Bounds | null>(null);
 
     // Routing state
-    const [showRouting, setShowRouting] = useState(false);
+    // Use prop if available, otherwise local state (though we are moving to controlled)
+    const [localShowRouting, setLocalShowRouting] = useState(false);
+
+    // Effective state
+    const showRouting = propShowRouting !== undefined ? propShowRouting : localShowRouting;
+
+    const handleToggleRouting = (show: boolean) => {
+        if (onToggleRouting) {
+            onToggleRouting(show);
+        } else {
+            setLocalShowRouting(show);
+        }
+    };
     const [routeLoading, setRouteLoading] = useState(false);
     const [routeResult, setRouteResult] = useState<RouteResult | null>(null);
     const [selectingPoint, setSelectingPoint] = useState<"start" | "end" | null>(null);
@@ -156,7 +170,7 @@ const MapInterface = ({ onPinClick, filters }: MapInterfaceProps) => {
     };
 
     const handleCloseRouting = () => {
-        setShowRouting(false);
+        handleToggleRouting(false);
         setRouteResult(null);
         setSelectingPoint(null);
         setRouteStart(null);
@@ -344,24 +358,23 @@ const MapInterface = ({ onPinClick, filters }: MapInterfaceProps) => {
                 </Box>
             )}
 
-            {/* Directions FAB - Bottom Left */}
+            {/* Directions FAB - Top Right (below view toggle) */}
             <Tooltip title="Find Route">
                 <Fab
-                    color={showRouting ? "secondary" : "default"}
+                    color={showRouting ? "secondary" : "primary"}
                     size="medium"
-                    onClick={() => setShowRouting(!showRouting)}
+                    onClick={() => handleToggleRouting(!showRouting)}
                     sx={{
                         position: "absolute",
-                        bottom: 24,
-                        left: 16,
-                        zIndex: 1000,
+                        top: 80,
+                        right: 16,
+                        zIndex: 2000, // High z-index to ensure it sits above all map layers
                     }}
                 >
                     <DirectionsIcon />
                 </Fab>
             </Tooltip>
 
-            {/* Recenter FAB - Bottom Right */}
             <Fab
                 color="primary"
                 size="medium"

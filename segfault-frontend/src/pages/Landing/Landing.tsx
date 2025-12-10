@@ -90,7 +90,7 @@ const Landing = () => {
                             <PublicIcon fontSize="small" />
                         </Box>
                         <Typography variant="h6" sx={{ fontWeight: 600, letterSpacing: -0.5, color: '#f1f5f9' }}>
-                            segfault<Box component="span" sx={{ color: '#64748b', fontWeight: 400 }}>tracker</Box>
+                            Segfault<Box component="span" sx={{ color: '#64748b', fontWeight: 400 }}>IssueTracker</Box>
                         </Typography>
                     </Stack>
                     <Button

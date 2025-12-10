@@ -30,9 +30,11 @@ interface DashboardLayoutProps {
     onIssueClick?: (issueId: string) => void;
     filters: FilterState;
     onFilterChange: (newFilters: Partial<FilterState>) => void;
+    showRouting?: boolean;
+    onToggleRouting?: () => void;
 }
 
-const DashboardLayout = ({ children, onIssueClick, filters, onFilterChange }: DashboardLayoutProps) => {
+const DashboardLayout = ({ children, onIssueClick, filters, onFilterChange, showRouting, onToggleRouting }: DashboardLayoutProps) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [drawerOpen, setDrawerOpen] = useState(!isMobile);
@@ -50,6 +52,8 @@ const DashboardLayout = ({ children, onIssueClick, filters, onFilterChange }: Da
             filters={filters}
             onFilterChange={onFilterChange}
             onToggleResolved={toggleResolvedVisibility}
+            showRouting={showRouting}
+            onToggleRouting={onToggleRouting}
         />
     );
 
@@ -114,7 +118,7 @@ const DashboardLayout = ({ children, onIssueClick, filters, onFilterChange }: Da
                             color: '#f1f5f9'
                         }}
                     >
-                        segfault<Box component="span" sx={{ color: '#64748b', fontWeight: 400 }}>tracker</Box>
+                        Segfault<Box component="span" sx={{ color: '#64748b', fontWeight: 400 }}>IssueTracker</Box>
                     </Typography>
                     <NotificationBell />
                     <UserMenu onIssueClick={onIssueClick} />
