@@ -10,6 +10,9 @@ $RESOURCE_GROUP = "Segfault"
 $LOCATION = "westeurope"
 $ACA_ENV_NAME = "segfault-deployment"
 
+# Explicitly set correct frontend URL to override any local .env file baked into the image
+$FRONTEND_URL_VAL = "https://segfault-frontend.politeriver-a25e3b65.westeurope.azurecontainerapps.io"
+
 # ACR credentials
 $ACR_USERNAME = "SegfaultDockerImages"
 $ACR_PASSWORD = "6F6FiaZTXiNeBUk72T1MPVbzyzWxEaeD/bEHO9tmyB+ACRARTYoH"
@@ -54,12 +57,14 @@ if (-not $backendExists) {
         --target-port 3000 `
         --ingress external `
         --min-replicas 1 `
-        --max-replicas 3
+        --max-replicas 3 `
+        --env-vars FRONTEND_URL=$FRONTEND_URL_VAL
 } else {
     az containerapp update `
         --name "segfault-backend" `
         --resource-group $RESOURCE_GROUP `
-        --image "${ACR_ENDPOINT}/segfault-backend:latest"
+        --image "${ACR_ENDPOINT}/segfault-backend:latest" `
+        --set-env-vars FRONTEND_URL=$FRONTEND_URL_VAL
 }
 
 # Get backend URL
