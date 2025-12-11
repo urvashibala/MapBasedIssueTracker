@@ -63,7 +63,7 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+        const apiUrl = import.meta.env.VITE_API_URL;
         const redirectUri = import.meta.env.VITE_GOOGLE_REDIRECT_URI || `${apiUrl}/auth/callback`;
         const scope = 'openid email profile';
 
