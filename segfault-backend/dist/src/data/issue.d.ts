@@ -1,233 +1,220 @@
 import { IssueStatus, IssueType, IssueAuthorized, IssueError } from "../generated/prisma/enums";
 export declare function createAuthenticatedIssue(title: string, description: string, latitude: number, longitude: number, issueType: IssueType, userId: number, imageBlobId?: string): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function createGuestIssue(title: string, description: string, latitude: number, longitude: number, issueType: IssueType, guestTokenId: number, imageBlobId?: string): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function updateIssueImage(issueId: number, imageBlobId: string): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function updateIssueStatus(issueId: number, status: IssueStatus): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function authorizeIssue(issueId: number): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function flagIssueError(issueId: number, error: IssueError): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}>;
-export declare function deleteIssue(issueId: number): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-} | null>;
-export declare function getIssueById(issueId: number): Promise<({
+    _count: {
+        upvotes: number;
+        comments: number;
+    };
     user: {
         id: number;
         name: string | null;
-        email: string;
-    };
+        email: string | null;
+    } | null;
     guestToken: {
         id: number;
         token: string;
     } | null;
-    _count: {
-        comments: number;
-        upvotes: number;
-    };
-} & {
-    error: IssueError;
+    id: number;
     title: string;
     description: string;
     latitude: number;
     longitude: number;
+    status: string;
+    authorized: string;
+    error: string;
+    createdAt: Date;
+    updatedAt: Date;
+    imageBlobId: string | null;
+    severity: number | null;
+    userId: number;
+    guestTokenId: number | null;
+    issueType: string;
+    user_id: number | null;
+    user_name: string | null;
+    user_email: string | null;
+    upvote_count: number;
+    comment_count: number;
+} | null>;
+export declare function createGuestIssue(title: string, description: string, latitude: number, longitude: number, issueType: IssueType, guestTokenId: number, imageBlobId?: string): Promise<{
+    _count: {
+        upvotes: number;
+        comments: number;
+    };
+    user: {
+        id: number;
+        name: string | null;
+        email: string | null;
+    } | null;
+    guestToken: {
+        id: number;
+        token: string;
+    } | null;
+    id: number;
+    title: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+    status: string;
+    authorized: string;
+    error: string;
+    createdAt: Date;
+    updatedAt: Date;
+    imageBlobId: string | null;
+    severity: number | null;
+    userId: number;
+    guestTokenId: number | null;
+    issueType: string;
+    user_id: number | null;
+    user_name: string | null;
+    user_email: string | null;
+    upvote_count: number;
+    comment_count: number;
+} | null>;
+export declare function updateIssueImage(issueId: number, imageBlobId: string): Promise<{
+    error: IssueError;
+    guestTokenId: number | null;
+    id: number;
+    title: string;
+    description: string;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
     updatedAt: Date;
     severity: number | null;
     imageBlobId: string | null;
+    userId: number;
     issueType: IssueType;
+}>;
+export declare function updateIssueStatus(issueId: number, status: IssueStatus): Promise<{
+    error: IssueError;
+    guestTokenId: number | null;
     id: number;
+    title: string;
+    description: string;
+    status: IssueStatus;
+    authorized: IssueAuthorized;
+    createdAt: Date;
+    updatedAt: Date;
+    severity: number | null;
+    imageBlobId: string | null;
+    userId: number;
+    issueType: IssueType;
+}>;
+export declare function authorizeIssue(issueId: number): Promise<{
+    error: IssueError;
+    guestTokenId: number | null;
+    id: number;
+    title: string;
+    description: string;
+    status: IssueStatus;
+    authorized: IssueAuthorized;
+    createdAt: Date;
+    updatedAt: Date;
+    severity: number | null;
+    imageBlobId: string | null;
+    userId: number;
+    issueType: IssueType;
+}>;
+export declare function flagIssueError(issueId: number, error: IssueError): Promise<{
+    error: IssueError;
+    guestTokenId: number | null;
+    id: number;
+    title: string;
+    description: string;
+    status: IssueStatus;
+    authorized: IssueAuthorized;
+    createdAt: Date;
+    updatedAt: Date;
+    severity: number | null;
+    imageBlobId: string | null;
+    userId: number;
+    issueType: IssueType;
+}>;
+export declare function deleteIssue(issueId: number): Promise<{
+    error: IssueError;
+    guestTokenId: number | null;
+    id: number;
+    title: string;
+    description: string;
+    status: IssueStatus;
+    authorized: IssueAuthorized;
+    createdAt: Date;
+    updatedAt: Date;
+    severity: number | null;
+    imageBlobId: string | null;
+    userId: number;
+    issueType: IssueType;
+} | null>;
+export declare function getIssueById(issueId: number): Promise<{
+    _count: {
+        upvotes: number;
+        comments: number;
+    };
+    user: {
+        id: number;
+        name: string | null;
+        email: string | null;
+    } | null;
+    guestToken: {
+        id: number;
+        token: string;
+    } | null;
+    id: number;
+    title: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+    status: string;
+    authorized: string;
+    error: string;
+    createdAt: Date;
+    updatedAt: Date;
+    imageBlobId: string | null;
+    severity: number | null;
     userId: number;
     guestTokenId: number | null;
-}) | null>;
+    issueType: string;
+    user_id: number | null;
+    user_name: string | null;
+    user_email: string | null;
+    upvote_count: number;
+    comment_count: number;
+} | null>;
 export declare function getIssuesByLocationBox(minLat: number, maxLat: number, minLng: number, maxLng: number, filters?: {
     type?: IssueType;
     status?: IssueStatus;
-}): Promise<({
+}): Promise<{
     _count: {
-        comments: number;
         upvotes: number;
+        comments: number;
     };
-} & {
-    error: IssueError;
+    id: number;
     title: string;
     description: string;
     latitude: number;
     longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
+    status: string;
+    issueType: string;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-})[]>;
-export declare function getIssuesByStatus(status: IssueStatus): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
+    upvote_count: number;
+    comment_count: number;
 }[]>;
-export declare function getIssuesByUser(userId: number): Promise<{
-    error: IssueError;
+export declare function getIssuesWithinDistance(centerLat: number, centerLng: number, distanceMeters: number, filters?: {
+    type?: IssueType;
+    status?: IssueStatus;
+}): Promise<{
+    id: number;
     title: string;
     description: string;
     latitude: number;
     longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
+    distance_meters: number;
+    status: string;
+    issueType: string;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
-}[]>;
-export declare function getIssuesByGuestToken(guestTokenId: number): Promise<{
-    error: IssueError;
-    title: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    status: IssueStatus;
-    authorized: IssueAuthorized;
-    createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
-    imageBlobId: string | null;
-    issueType: IssueType;
-    id: number;
-    userId: number;
-    guestTokenId: number | null;
 }[]>;
 export declare function addIssueUpvote(userId: number, issueId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     issueId: number;
 }>;
@@ -235,8 +222,8 @@ export declare function removeIssueUpvote(userId: number, issueId: number): Prom
 export declare function getIssueUpvoteCount(issueId: number): Promise<number>;
 export declare function hasUserUpvotedIssue(userId: number, issueId: number): Promise<boolean>;
 export declare function submitResolutionVote(userId: number, issueId: number, isResolved: boolean): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     issueId: number;
     isResolved: boolean;
@@ -246,8 +233,8 @@ export declare function getResolutionVoteTally(issueId: number): Promise<{
     falseCount: number;
 }>;
 export declare function addComment(userId: number, issueId: number, content: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     content: string;
     issueId: number;
@@ -269,8 +256,8 @@ export declare function getCommentsForIssue(issueId: number): Promise<({
         userId: number;
     }[];
 } & {
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     content: string;
     issueId: number;
@@ -279,8 +266,8 @@ export declare function getCommentsForIssue(issueId: number): Promise<({
     isSystemGenerated: boolean;
 })[]>;
 export declare function deleteComment(commentId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     content: string;
     issueId: number;
@@ -289,8 +276,8 @@ export declare function deleteComment(commentId: number): Promise<{
     isSystemGenerated: boolean;
 } | null>;
 export declare function flagComment(commentId: number, reason: string | null): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     content: string;
     issueId: number;
@@ -299,12 +286,45 @@ export declare function flagComment(commentId: number, reason: string | null): P
     isSystemGenerated: boolean;
 }>;
 export declare function addCommentUpvote(userId: number, commentId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number;
     commentId: number;
 }>;
 export declare function removeCommentUpvote(userId: number, commentId: number): Promise<boolean>;
+export declare function getIssuesByUser(userId: number): Promise<{
+    id: number;
+    title: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+    status: string;
+    issueType: string;
+    createdAt: Date;
+    imageBlobId: string | null;
+}[]>;
+export declare function getIssuesByStatus(status: IssueStatus): Promise<{
+    id: number;
+    title: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+    status: string;
+    issueType: string;
+    createdAt: Date;
+    imageBlobId: string | null;
+}[]>;
+export declare function getIssuesByGuestToken(guestTokenId: number): Promise<{
+    id: number;
+    title: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+    status: string;
+    issueType: string;
+    createdAt: Date;
+    imageBlobId: string | null;
+}[]>;
 declare const _default: {
     createAuthenticatedIssue: typeof createAuthenticatedIssue;
     createGuestIssue: typeof createGuestIssue;
@@ -315,6 +335,7 @@ declare const _default: {
     deleteIssue: typeof deleteIssue;
     getIssueById: typeof getIssueById;
     getIssuesByLocationBox: typeof getIssuesByLocationBox;
+    getIssuesWithinDistance: typeof getIssuesWithinDistance;
     getIssuesByStatus: typeof getIssuesByStatus;
     getIssuesByUser: typeof getIssuesByUser;
     getIssuesByGuestToken: typeof getIssuesByGuestToken;

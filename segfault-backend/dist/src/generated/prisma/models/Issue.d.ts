@@ -15,16 +15,12 @@ export type AggregateIssue = {
 };
 export type IssueAvgAggregateOutputType = {
     id: number | null;
-    latitude: number | null;
-    longitude: number | null;
     severity: number | null;
     userId: number | null;
     guestTokenId: number | null;
 };
 export type IssueSumAggregateOutputType = {
     id: number | null;
-    latitude: number | null;
-    longitude: number | null;
     severity: number | null;
     userId: number | null;
     guestTokenId: number | null;
@@ -33,8 +29,6 @@ export type IssueMinAggregateOutputType = {
     id: number | null;
     title: string | null;
     description: string | null;
-    latitude: number | null;
-    longitude: number | null;
     status: $Enums.IssueStatus | null;
     authorized: $Enums.IssueAuthorized | null;
     error: $Enums.IssueError | null;
@@ -50,8 +44,6 @@ export type IssueMaxAggregateOutputType = {
     id: number | null;
     title: string | null;
     description: string | null;
-    latitude: number | null;
-    longitude: number | null;
     status: $Enums.IssueStatus | null;
     authorized: $Enums.IssueAuthorized | null;
     error: $Enums.IssueError | null;
@@ -67,8 +59,6 @@ export type IssueCountAggregateOutputType = {
     id: number;
     title: number;
     description: number;
-    latitude: number;
-    longitude: number;
     status: number;
     authorized: number;
     error: number;
@@ -83,16 +73,12 @@ export type IssueCountAggregateOutputType = {
 };
 export type IssueAvgAggregateInputType = {
     id?: true;
-    latitude?: true;
-    longitude?: true;
     severity?: true;
     userId?: true;
     guestTokenId?: true;
 };
 export type IssueSumAggregateInputType = {
     id?: true;
-    latitude?: true;
-    longitude?: true;
     severity?: true;
     userId?: true;
     guestTokenId?: true;
@@ -101,8 +87,6 @@ export type IssueMinAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
-    latitude?: true;
-    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
@@ -118,8 +102,6 @@ export type IssueMaxAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
-    latitude?: true;
-    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
@@ -135,8 +117,6 @@ export type IssueCountAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
-    latitude?: true;
-    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
@@ -229,8 +209,6 @@ export type IssueGroupByOutputType = {
     id: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status: $Enums.IssueStatus;
     authorized: $Enums.IssueAuthorized;
     error: $Enums.IssueError;
@@ -257,8 +235,6 @@ export type IssueWhereInput = {
     id?: Prisma.IntFilter<"Issue"> | number;
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
-    latitude?: Prisma.FloatFilter<"Issue"> | number;
-    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
@@ -279,8 +255,6 @@ export type IssueOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
@@ -304,8 +278,6 @@ export type IssueWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.IssueWhereInput | Prisma.IssueWhereInput[];
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
-    latitude?: Prisma.FloatFilter<"Issue"> | number;
-    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
@@ -326,8 +298,6 @@ export type IssueOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
@@ -351,8 +321,6 @@ export type IssueScalarWhereWithAggregatesInput = {
     id?: Prisma.IntWithAggregatesFilter<"Issue"> | number;
     title?: Prisma.StringWithAggregatesFilter<"Issue"> | string;
     description?: Prisma.StringWithAggregatesFilter<"Issue"> | string;
-    latitude?: Prisma.FloatWithAggregatesFilter<"Issue"> | number;
-    longitude?: Prisma.FloatWithAggregatesFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusWithAggregatesFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedWithAggregatesFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorWithAggregatesFilter<"Issue"> | $Enums.IssueError;
@@ -367,8 +335,6 @@ export type IssueScalarWhereWithAggregatesInput = {
 export type IssueCreateInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -387,8 +353,6 @@ export type IssueUncheckedCreateInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -406,8 +370,6 @@ export type IssueUncheckedCreateInput = {
 export type IssueUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -426,8 +388,6 @@ export type IssueUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -446,8 +406,6 @@ export type IssueCreateManyInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -462,8 +420,6 @@ export type IssueCreateManyInput = {
 export type IssueUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -477,8 +433,6 @@ export type IssueUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -502,8 +456,6 @@ export type IssueCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
@@ -517,8 +469,6 @@ export type IssueCountOrderByAggregateInput = {
 };
 export type IssueAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     severity?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
@@ -527,8 +477,6 @@ export type IssueMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
@@ -544,8 +492,6 @@ export type IssueMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
@@ -559,8 +505,6 @@ export type IssueMinOrderByAggregateInput = {
 };
 export type IssueSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    latitude?: Prisma.SortOrder;
-    longitude?: Prisma.SortOrder;
     severity?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
@@ -645,13 +589,6 @@ export type IssueUncheckedUpdateManyWithoutGuestTokenNestedInput = {
     updateMany?: Prisma.IssueUpdateManyWithWhereWithoutGuestTokenInput | Prisma.IssueUpdateManyWithWhereWithoutGuestTokenInput[];
     deleteMany?: Prisma.IssueScalarWhereInput | Prisma.IssueScalarWhereInput[];
 };
-export type FloatFieldUpdateOperationsInput = {
-    set?: number;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
-};
 export type EnumIssueStatusFieldUpdateOperationsInput = {
     set?: $Enums.IssueStatus;
 };
@@ -710,8 +647,6 @@ export type IssueUpdateOneRequiredWithoutCommentsNestedInput = {
 export type IssueCreateWithoutUserInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -729,8 +664,6 @@ export type IssueUncheckedCreateWithoutUserInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -772,8 +705,6 @@ export type IssueScalarWhereInput = {
     id?: Prisma.IntFilter<"Issue"> | number;
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
-    latitude?: Prisma.FloatFilter<"Issue"> | number;
-    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
@@ -788,8 +719,6 @@ export type IssueScalarWhereInput = {
 export type IssueCreateWithoutGuestTokenInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -807,8 +736,6 @@ export type IssueUncheckedCreateWithoutGuestTokenInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -846,8 +773,6 @@ export type IssueUpdateManyWithWhereWithoutGuestTokenInput = {
 export type IssueCreateWithoutUpvotesInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -865,8 +790,6 @@ export type IssueUncheckedCreateWithoutUpvotesInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -896,8 +819,6 @@ export type IssueUpdateToOneWithWhereWithoutUpvotesInput = {
 export type IssueUpdateWithoutUpvotesInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -915,8 +836,6 @@ export type IssueUncheckedUpdateWithoutUpvotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -933,8 +852,6 @@ export type IssueUncheckedUpdateWithoutUpvotesInput = {
 export type IssueCreateWithoutResolutionVotesInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -952,8 +869,6 @@ export type IssueUncheckedCreateWithoutResolutionVotesInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -983,8 +898,6 @@ export type IssueUpdateToOneWithWhereWithoutResolutionVotesInput = {
 export type IssueUpdateWithoutResolutionVotesInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1002,8 +915,6 @@ export type IssueUncheckedUpdateWithoutResolutionVotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1020,8 +931,6 @@ export type IssueUncheckedUpdateWithoutResolutionVotesInput = {
 export type IssueCreateWithoutCommentsInput = {
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -1039,8 +948,6 @@ export type IssueUncheckedCreateWithoutCommentsInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -1070,8 +977,6 @@ export type IssueUpdateToOneWithWhereWithoutCommentsInput = {
 export type IssueUpdateWithoutCommentsInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1089,8 +994,6 @@ export type IssueUncheckedUpdateWithoutCommentsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1108,8 +1011,6 @@ export type IssueCreateManyUserInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -1123,8 +1024,6 @@ export type IssueCreateManyUserInput = {
 export type IssueUpdateWithoutUserInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1142,8 +1041,6 @@ export type IssueUncheckedUpdateWithoutUserInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1161,8 +1058,6 @@ export type IssueUncheckedUpdateManyWithoutUserInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1177,8 +1072,6 @@ export type IssueCreateManyGuestTokenInput = {
     id?: number;
     title: string;
     description: string;
-    latitude: number;
-    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
@@ -1192,8 +1085,6 @@ export type IssueCreateManyGuestTokenInput = {
 export type IssueUpdateWithoutGuestTokenInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1211,8 +1102,6 @@ export type IssueUncheckedUpdateWithoutGuestTokenInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1230,8 +1119,6 @@ export type IssueUncheckedUpdateManyWithoutGuestTokenInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
@@ -1286,8 +1173,6 @@ export type IssueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     id?: boolean;
     title?: boolean;
     description?: boolean;
-    latitude?: boolean;
-    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
@@ -1309,8 +1194,6 @@ export type IssueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     id?: boolean;
     title?: boolean;
     description?: boolean;
-    latitude?: boolean;
-    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
@@ -1328,8 +1211,6 @@ export type IssueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     id?: boolean;
     title?: boolean;
     description?: boolean;
-    latitude?: boolean;
-    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
@@ -1347,8 +1228,6 @@ export type IssueSelectScalar = {
     id?: boolean;
     title?: boolean;
     description?: boolean;
-    latitude?: boolean;
-    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
@@ -1360,7 +1239,7 @@ export type IssueSelectScalar = {
     guestTokenId?: boolean;
     issueType?: boolean;
 };
-export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "latitude" | "longitude" | "status" | "authorized" | "error" | "createdAt" | "updatedAt" | "severity" | "imageBlobId" | "userId" | "guestTokenId" | "issueType", ExtArgs["result"]["issue"]>;
+export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "authorized" | "error" | "createdAt" | "updatedAt" | "severity" | "imageBlobId" | "userId" | "guestTokenId" | "issueType", ExtArgs["result"]["issue"]>;
 export type IssueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     comments?: boolean | Prisma.Issue$commentsArgs<ExtArgs>;
@@ -1390,8 +1269,6 @@ export type $IssuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
         id: number;
         title: string;
         description: string;
-        latitude: number;
-        longitude: number;
         status: $Enums.IssueStatus;
         authorized: $Enums.IssueAuthorized;
         error: $Enums.IssueError;
@@ -1764,8 +1641,6 @@ export interface IssueFieldRefs {
     readonly id: Prisma.FieldRef<"Issue", 'Int'>;
     readonly title: Prisma.FieldRef<"Issue", 'String'>;
     readonly description: Prisma.FieldRef<"Issue", 'String'>;
-    readonly latitude: Prisma.FieldRef<"Issue", 'Float'>;
-    readonly longitude: Prisma.FieldRef<"Issue", 'Float'>;
     readonly status: Prisma.FieldRef<"Issue", 'IssueStatus'>;
     readonly authorized: Prisma.FieldRef<"Issue", 'IssueAuthorized'>;
     readonly error: Prisma.FieldRef<"Issue", 'IssueError'>;

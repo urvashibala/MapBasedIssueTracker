@@ -5,7 +5,9 @@
  */
 import TinyQueue from "tinyqueue";
 import * as turf from "@turf/turf";
+import axios from "axios";
 import { prisma } from "../data/prisma/prismaClient";
+import { IssueStatus } from "../generated/prisma/enums";
 /**
  * Calculates Euclidean distance between two points (heuristic for A*)
  */
@@ -47,22 +49,143 @@ async function findNearestNode(lat, lng) {
 /**
  * Build adjacency list from edges
  */
-function buildAdjacencyList(edges) {
+/**
+ * Build adjacency list from edges
+ */
+function buildAdjacencyList(edges, activeIssues = []) {
     const adj = new Map();
     for (const edge of edges) {
         if (!adj.has(edge.startNodeId)) {
             adj.set(edge.startNodeId, []);
         }
-        // FIX: Use penalty of 1 as default when penalty is 0 (no penalty applied yet)
-        const penalty = edge.penalty === 0 ? 1 : edge.penalty;
+        // Base penalty from DB
+        let penalty = edge.penalty === 0 ? 1 : edge.penalty;
+        // Dynamic Issue Penalty
+        // Check if any active issue is close to this edge
+        // Simplified: Check if issue is near the start node
+        // In a real system, we'd use spatial index or check distance to line segment
+        const edgeStartNode = edges.find(e => e.id === edge.id); // This is inefficient if we look up, but we have startNodeId
+        // Optimization: We pass nodes or assume logic.
+        // Actually, we can check issues against the start node of the edge
+        // Since we don't have node coords here easily without looking up, we might do this calculation locally in findPath or pass nodeMap here.
+        // Better: Calculate 'risk zones' into a Set or fast lookup before calling this.
+        // traffic Simulation
+        const trafficFactor = 1.0;
         adj.get(edge.startNodeId).push({
             nodeId: edge.endNodeId,
-            cost: edge.distance * penalty,
+            cost: edge.distance * penalty * trafficFactor,
             distance: edge.distance,
             edgeId: edge.id,
         });
     }
     return adj;
+}
+/**
+ * Ingest OSM Data for a Bounding Box
+ * bbox format: [minLat, minLng, maxLat, maxLng]
+ */
+export async function ingestOSMData(bbox) {
+    const [minLat, minLng, maxLat, maxLng] = bbox;
+    console.log(`Ingesting OSM data for bbox: ${bbox}`);
+    // Overpass API Query
+    // [out:json];(way[highway]({s},{w},{n},{e});>;);out body;
+    const query = `
+        [out:json][timeout:25];
+        (
+          way["highway"](${minLat},${minLng},${maxLat},${maxLng});
+        );
+        out body;
+        >;
+        out skel qt;
+    `;
+    try {
+        const response = await axios.post("https://overpass-api.de/api/interpreter", `data=${encodeURIComponent(query)}`, {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        });
+        const elements = response.data.elements;
+        if (!elements)
+            throw new Error("No elements found in Overpass response");
+        console.log(`Fetched ${elements.length} elements from OSM`);
+        const nodes = new Map();
+        const ways = [];
+        // Parse elements
+        for (const el of elements) {
+            if (el.type === "node") {
+                nodes.set(el.id, { lat: el.lat, lon: el.lon });
+            }
+            else if (el.type === "way") {
+                ways.push(el);
+            }
+        }
+        console.log(`Parsed ${nodes.size} nodes and ${ways.length} ways`);
+        // Transaction to save to DB
+        // We will process ways and create edges
+        // Note: This can be slow for large datasets. For production, use bulk insert or stream.
+        let newNodesCount = 0;
+        let newEdgesCount = 0;
+        for (const way of ways) {
+            const wayNodes = way.nodes;
+            if (wayNodes.length < 2)
+                continue;
+            // Determine base penalty based on highway type
+            let basePenalty = 1.0;
+            const hw = way.tags?.highway;
+            if (hw === 'motorway' || hw === 'trunk')
+                basePenalty = 0.8; // Fast
+            else if (hw === 'primary')
+                basePenalty = 0.9;
+            else if (hw === 'residential')
+                basePenalty = 1.2; // Slower
+            else if (hw === 'service' || hw === 'track')
+                basePenalty = 1.5;
+            for (let i = 0; i < wayNodes.length - 1; i++) {
+                const startId = wayNodes[i];
+                const endId = wayNodes[i + 1];
+                const startNode = nodes.get(startId);
+                const endNode = nodes.get(endId);
+                if (startNode && endNode) {
+                    // Create/Ensure nodes exist
+                    const n1 = await prisma.graphNode.upsert({
+                        where: { osmId: startId.toString() },
+                        create: { osmId: startId.toString(), latitude: startNode.lat, longitude: startNode.lon },
+                        update: {},
+                    });
+                    const n2 = await prisma.graphNode.upsert({
+                        where: { osmId: endId.toString() },
+                        create: { osmId: endId.toString(), latitude: endNode.lat, longitude: endNode.lon },
+                        update: {},
+                    });
+                    // Distance
+                    const dist = turf.distance(turf.point([startNode.lon, startNode.lat]), turf.point([endNode.lon, endNode.lat]), { units: 'meters' });
+                    // Create Edge (One way unless specified? OSM ways are generally one way if oneway=yes, but assuming bidirectional for simplicity for now or creating two edges)
+                    // Simplified: Create bidirectional for all for this prototype unless oneway tag is explicit
+                    const createEdge = async (fromId, toId) => {
+                        await prisma.graphEdge.create({
+                            data: {
+                                startNodeId: fromId,
+                                endNodeId: toId,
+                                distance: dist,
+                                baseCost: dist,
+                                penalty: basePenalty
+                            }
+                        });
+                        newEdgesCount++;
+                    };
+                    await createEdge(n1.id, n2.id);
+                    // Verify oneway
+                    if (way.tags?.oneway !== 'yes') {
+                        await createEdge(n2.id, n1.id);
+                    }
+                }
+            }
+        }
+        console.log(`Ingestion complete. Added edges.`);
+        return { success: true, nodes: nodes.size, ways: ways.length };
+    }
+    catch (error) {
+        console.error("OSM Ingestion Error:", error);
+        throw error;
+    }
 }
 /**
  * A* pathfinding algorithm
@@ -77,20 +200,60 @@ export async function findPath(startLat, startLng, endLat, endLng) {
         return null;
     }
     console.log(`Start node: ${startNode.id}, End node: ${endNode.id}`);
-    // Step 2: Load graph into memory
-    const [allNodes, allEdges] = await Promise.all([
+    // Step 2: Load graph into memory and get active issues using PostGIS
+    const [allNodes, allEdges, activeIssues] = await Promise.all([
         prisma.graphNode.findMany({
             select: { id: true, latitude: true, longitude: true },
         }),
         prisma.graphEdge.findMany({
             select: { id: true, startNodeId: true, endNodeId: true, distance: true, baseCost: true, penalty: true },
         }),
+        // Use PostGIS to get issue locations
+        prisma.$queryRaw `
+            SELECT 
+                ST_Y(location) as latitude,
+                ST_X(location) as longitude,
+                "issueType", severity
+            FROM "Issue" 
+            WHERE status != 'RESOLVED'::"IssueStatus"
+            AND location IS NOT NULL
+        `
     ]);
-    console.log(`Loaded ${allNodes.length} nodes and ${allEdges.length} edges`);
+    console.log(`Loaded ${allNodes.length} nodes, ${allEdges.length} edges, and ${activeIssues.length} active issues`);
     // Build node lookup
     const nodeMap = new Map();
     for (const node of allNodes) {
         nodeMap.set(node.id, node);
+    }
+    // Apply dynamic penalties to edges
+    // For each issue, find nearby edges using PostGIS instead of manual coordinate filtering
+    const issueRadius = 50; // 50 meters
+    // We update the 'penalty' in the edge objects in memory
+    for (const issue of activeIssues) {
+        // Use PostGIS to find nodes near each issue (within 50 meters)
+        const nearbyNodes = await prisma.$queryRaw `
+            SELECT gn.id
+            FROM "GraphNode" gn
+            WHERE ST_DWithin(
+                ST_SetSRID(ST_MakePoint(gn.longitude, gn.latitude), 4326)::geography,
+                ST_SetSRID(ST_MakePoint(${issue.longitude}, ${issue.latitude}), 4326)::geography,
+                ${issueRadius}
+            )
+        `;
+        const nearbyNodeIds = new Set(nearbyNodes.map(n => n.id));
+        // Find edges connected to these nodes
+        for (const edge of allEdges) {
+            if (nearbyNodeIds.has(edge.startNodeId) || nearbyNodeIds.has(edge.endNodeId)) {
+                // Calculate penalty based on severity (1-5)
+                // Formula: Multiplier = 1 + (Severity * 2)
+                // Severity 1 => 3x cost
+                // Severity 3 => 7x cost  
+                // Severity 5 => 11x cost (Avoid at all costs)
+                const severity = issue.severity || 1;
+                const multiplier = 1 + (severity * 2);
+                edge.penalty = (edge.penalty || 1) * multiplier;
+            }
+        }
     }
     // Build adjacency list
     const adjacency = buildAdjacencyList(allEdges);
@@ -157,5 +320,5 @@ export async function findPath(startLat, startLng, endLat, endLng) {
     console.log(`No path found after visiting ${visited.size} nodes`);
     return null;
 }
-export default { findPath };
+export default { findPath, ingestOSMData };
 //# sourceMappingURL=PathfindingService.js.map

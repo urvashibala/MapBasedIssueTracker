@@ -8,6 +8,15 @@ declare class AzureRedisClient {
     setex(key: string, seconds: number, value: string): Promise<"OK">;
     del(...keys: string[]): Promise<number>;
     mget(...keys: string[]): Promise<(string | null)[]>;
+    /**
+     * Pipelined SETEX for many keys in a single Redis round-trip.
+     * Uses MULTI/EXEC under the hood.
+     */
+    setexMany(entries: Array<{
+        key: string;
+        seconds: number;
+        value: string;
+    }>): Promise<void>;
     exists(...keys: string[]): Promise<number>;
     keys(pattern: string): Promise<string[]>;
     ttl(key: string): Promise<number>;

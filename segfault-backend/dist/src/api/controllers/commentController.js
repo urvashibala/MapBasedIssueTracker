@@ -51,10 +51,18 @@ export async function createComment(req, res) {
         if (!content || typeof content !== "string" || content.trim().length === 0) {
             return res.status(400).json({ error: "Comment content is required" });
         }
-        const issue = await prisma.issue.findUnique({ where: { id: issueId } });
-        if (!issue) {
+        const issueCoords = await prisma.$queryRaw `
+            SELECT
+                ST_Y(i.location) as latitude,
+                ST_X(i.location) as longitude
+            FROM "Issue" i
+            WHERE i.id = ${issueId}
+            AND i.location IS NOT NULL
+            LIMIT 1
+        `;
+        const issue = issueCoords[0];
+        if (!issue)
             return res.status(404).json({ error: "Issue not found" });
-        }
         // Geofencing check - users must be within 5km of the issue
         const { userLat, userLng } = req.body;
         if (userLat === undefined || userLng === undefined) {

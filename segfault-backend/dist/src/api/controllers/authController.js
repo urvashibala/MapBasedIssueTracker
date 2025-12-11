@@ -1,4 +1,4 @@
-import { loginWithGoogle, generateGuestSession, registerWithEmail, loginWithEmail } from "../../services/authService";
+import { loginWithGoogle, generateGuestSession, registerWithEmail, loginWithEmail, verify2FACode } from "../../services/authService";
 import { FRONTEND_URL } from "../../appconfig";
 export async function handleGoogleCallback(req, res) {
     try {
@@ -38,7 +38,7 @@ export async function handleGuestLogin(_req, res) {
         const { token, guestTokenId } = await generateGuestSession();
         const oneDayMs = 1000 * 60 * 60 * 24;
         res.cookie('session', token, { httpOnly: true, maxAge: oneDayMs, sameSite: 'lax' });
-        return res.status(200).json({ ok: true, guestTokenId });
+        return res.status(200).json({ ok: true, guestTokenId, token });
     }
     catch (err) {
         console.error('Guest login failed', err);
@@ -54,7 +54,11 @@ export async function handleRegister(req, res) {
         if (!password || typeof password !== 'string' || password.length < 6) {
             return res.status(400).json({ error: 'Password must be at least 6 characters' });
         }
-        const token = await registerWithEmail(email.trim().toLowerCase(), password, name ?? null);
+        const result = await registerWithEmail(email.trim().toLowerCase(), password, name ?? null);
+        if (typeof result === 'object' && 'require2fa' in result) {
+            return res.status(200).json(result);
+        }
+        const token = result;
         const sevenDaysMs = 1000 * 60 * 60 * 24 * 7;
         res.cookie('session', token, { httpOnly: true, maxAge: sevenDaysMs, sameSite: 'lax' });
         return res.status(201).json({ ok: true, token });
@@ -73,7 +77,11 @@ export async function handleLogin(req, res) {
         if (!password || typeof password !== 'string') {
             return res.status(400).json({ error: 'Password is required' });
         }
-        const token = await loginWithEmail(email.trim().toLowerCase(), password);
+        const result = await loginWithEmail(email.trim().toLowerCase(), password);
+        if (typeof result === 'object' && 'require2fa' in result) {
+            return res.status(200).json(result);
+        }
+        const token = result;
         const sevenDaysMs = 1000 * 60 * 60 * 24 * 7;
         res.cookie('session', token, { httpOnly: true, maxAge: sevenDaysMs, sameSite: 'lax' });
         return res.status(200).json({ ok: true, token });
@@ -81,6 +89,22 @@ export async function handleLogin(req, res) {
     catch (err) {
         console.error('Login failed', err);
         return res.status(401).json({ error: err?.message ?? 'Login failed' });
+    }
+}
+export async function handleVerify2FA(req, res) {
+    try {
+        const { userId, code } = req.body;
+        if (!userId || !code) {
+            return res.status(400).json({ error: "User ID and code are required" });
+        }
+        const token = await verify2FACode(parseInt(userId), code);
+        const sevenDaysMs = 1000 * 60 * 60 * 24 * 7;
+        res.cookie('session', token, { httpOnly: true, maxAge: sevenDaysMs, sameSite: 'lax' });
+        return res.status(200).json({ ok: true, token });
+    }
+    catch (err) {
+        console.error('2FA verification failed', err);
+        return res.status(400).json({ error: err?.message ?? "Verification failed" });
     }
 }
 // ... existing imports
@@ -107,5 +131,5 @@ export async function changePassword(req, res) {
         return res.status(500).json({ error: err?.message ?? "Failed to change password" });
     }
 }
-export default { handleGoogleCallback, handleGoogleLogin, handleGuestLogin, handleRegister, handleLogin, changePassword };
+export default { handleGoogleCallback, handleGoogleLogin, handleGuestLogin, handleRegister, handleLogin, changePassword, handleVerify2FA };
 //# sourceMappingURL=authController.js.map

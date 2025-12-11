@@ -1,9 +1,10 @@
 import { UserRole } from "../generated/prisma/enums";
 export declare function createNewUser(email: string, password: string, name: string | null, role: UserRole, picture?: string | null): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -13,10 +14,11 @@ export declare function createNewUser(email: string, password: string, name: str
     credibility: number;
 }>;
 export declare function getUserById(id: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -26,10 +28,11 @@ export declare function getUserById(id: number): Promise<{
     credibility: number;
 } | null>;
 export declare function getUserByEmail(email: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -42,10 +45,11 @@ export declare function updateUserProfile(userId: number, data: {
     name?: string | null;
     email?: string;
 }): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -55,10 +59,11 @@ export declare function updateUserProfile(userId: number, data: {
     credibility: number;
 }>;
 export declare function updateUserPassword(userId: number, newHashedPassword: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -68,10 +73,11 @@ export declare function updateUserPassword(userId: number, newHashedPassword: st
     credibility: number;
 }>;
 export declare function deleteUser(userId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -81,10 +87,11 @@ export declare function deleteUser(userId: number): Promise<{
     credibility: number;
 } | null>;
 export declare function banUser(userId: number, reason: string | null, expiresAt: Date | null): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -94,10 +101,11 @@ export declare function banUser(userId: number, reason: string | null, expiresAt
     credibility: number;
 }>;
 export declare function unbanUser(userId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -107,10 +115,11 @@ export declare function unbanUser(userId: number): Promise<{
     credibility: number;
 }>;
 export declare function updateUserCredibility(userId: number, delta: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -121,10 +130,11 @@ export declare function updateUserCredibility(userId: number, delta: number): Pr
 }>;
 export declare function getAllUsers(page?: number, pageSize?: number): Promise<{
     users: {
-        createdAt: Date;
         id: number;
+        createdAt: Date;
         name: string | null;
         email: string;
+        emailVerified: boolean;
         password: string;
         picture: string | null;
         role: UserRole;
@@ -138,10 +148,11 @@ export declare function getAllUsers(page?: number, pageSize?: number): Promise<{
     pageSize: number;
 }>;
 export declare function getAllUsersUnsafe(): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -152,10 +163,11 @@ export declare function getAllUsersUnsafe(): Promise<{
 }[]>;
 export declare function getBannedUsers(page?: number, pageSize?: number): Promise<{
     users: {
-        createdAt: Date;
         id: number;
+        createdAt: Date;
         name: string | null;
         email: string;
+        emailVerified: boolean;
         password: string;
         picture: string | null;
         role: UserRole;
@@ -169,10 +181,11 @@ export declare function getBannedUsers(page?: number, pageSize?: number): Promis
     pageSize: number;
 }>;
 export declare function getBannedUsersUnsafe(): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     name: string | null;
     email: string;
+    emailVerified: boolean;
     password: string;
     picture: string | null;
     role: UserRole;
@@ -200,31 +213,31 @@ export declare function getBadgesForUser(userId: number): Promise<{
     awardedAt: Date;
 }[]>;
 export declare function createGuestToken(token: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     token: string;
 }>;
 export declare function getGuestTokenByToken(token: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     token: string;
 } | null>;
 export declare function deleteGuestToken(token: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     token: string;
 } | null>;
 export declare function getNotificationsForUser(userId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number | null;
     type: import("../generated/prisma/enums").NotificationType;
     message: string;
     read: boolean;
 }[]>;
 export declare function setNotificationRead(notificationId: number, read: boolean): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number | null;
     type: import("../generated/prisma/enums").NotificationType;
     message: string;

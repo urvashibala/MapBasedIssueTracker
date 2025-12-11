@@ -63,6 +63,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export const UserScalarFieldEnum = {
     id: 'id',
     email: 'email',
+    emailVerified: 'emailVerified',
     password: 'password',
     name: 'name',
     picture: 'picture',
@@ -88,8 +89,6 @@ export const IssueScalarFieldEnum = {
     id: 'id',
     title: 'title',
     description: 'description',
-    latitude: 'latitude',
-    longitude: 'longitude',
     status: 'status',
     authorized: 'authorized',
     error: 'error',

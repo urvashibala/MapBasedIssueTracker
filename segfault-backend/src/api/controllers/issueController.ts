@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 // Fix: import Prisma namespace from @prisma/client to avoid local path resolution issues
 import { Prisma } from "@prisma/client";
 import * as turf from "@turf/turf";
+import { getIssuesInBounds as getCachedIssuesInBounds } from "../../services/IssueCacheService";
 import {
     createAuthenticatedIssue,
     createGuestIssue,
@@ -337,9 +338,8 @@ export async function getIssuesInBounds(req: Request, res: Response) {
         }
 
         // Use the cache service for fast loading
-        const { getIssuesInBounds: getCachedIssues } = await import("../../services/IssueCacheService");
         const showResolved = req.query.showResolved === 'true';
-        const cachedIssues = await getCachedIssues(minLat, maxLat, minLng, maxLng, showResolved);
+        const cachedIssues = await getCachedIssuesInBounds(minLat, maxLat, minLng, maxLng, showResolved);
 
         // Calculate urgency score and format response
         const now = new Date();

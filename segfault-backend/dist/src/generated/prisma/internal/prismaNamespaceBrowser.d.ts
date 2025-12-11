@@ -64,6 +64,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export declare const UserScalarFieldEnum: {
     readonly id: "id";
     readonly email: "email";
+    readonly emailVerified: "emailVerified";
     readonly password: "password";
     readonly name: "name";
     readonly picture: "picture";
@@ -92,8 +93,6 @@ export declare const IssueScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
-    readonly latitude: "latitude";
-    readonly longitude: "longitude";
     readonly status: "status";
     readonly authorized: "authorized";
     readonly error: "error";

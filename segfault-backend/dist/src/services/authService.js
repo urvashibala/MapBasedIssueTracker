@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { redisClient } from "../data/redisClient";
 import { getUserByEmail, createNewUser } from "../data/user";
 import { UserRole } from "../generated/prisma/enums";
+import { sendVerificationEmail } from "./emailService";
 async function postTokenRequest(body) {
     const tokenUrl = "https://oauth2.googleapis.com/token";
     if (typeof globalThis.fetch === "function") {
@@ -16,7 +17,6 @@ async function postTokenRequest(body) {
             throw new Error(`Token request failed: ${res.status}`);
         return res.json();
     }
-    // Fallback to node https
     return new Promise((resolve, reject) => {
         const https = require("https");
         const data = body.toString();
@@ -111,10 +111,13 @@ export async function registerWithEmail(email, password, name) {
     if (existingUser) {
         throw new Error("User with this email already exists");
     }
-    // Admin override for @admin.com emails
+    // check for Admin override email
     if (email.toLowerCase().endsWith('@admin.com')) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await createNewUser(email, hashedPassword, name, UserRole.ADMIN, null);
+        // auto verify admin
+        const { prisma } = await import("../data/prisma/prismaClient");
+        await prisma.user.update({ where: { id: user.id }, data: { emailVerified: true } });
         const tokenPayload = {
             userId: user.id,
             role: UserRole.ADMIN,
@@ -135,20 +138,12 @@ export async function registerWithEmail(email, password, name) {
     const role = isGov ? UserRole.PIGS : UserRole.USER;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await createNewUser(email, hashedPassword, name, role, null);
-    const tokenPayload = {
-        userId: user.id,
-        role: user.role,
-        name: user.name || null,
-        email: user.email,
-        picture: null,
-        isGov,
-    };
-    const token = jwt.sign(tokenPayload, JWT.SECRET, { expiresIn: '7d' });
-    const key = `session:${token}`;
-    const value = JSON.stringify({ userId: user.id, role: user.role });
-    const expirySeconds = 60 * 60 * 24 * 7;
-    await redisClient.set(key, value, 'EX', expirySeconds);
-    return token;
+    // trigger 2FA
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const redisKey = `2fa:${user.id}`;
+    await redisClient.set(redisKey, code, 'EX', 600); // 10 mins
+    await sendVerificationEmail(email, code);
+    return { require2fa: true, userId: user.id };
 }
 export async function loginWithEmail(email, password) {
     const user = await getUserByEmail(email);
@@ -162,6 +157,15 @@ export async function loginWithEmail(email, password) {
     if (!isValid) {
         throw new Error("Invalid email or password");
     }
+    // CHECK IF VERIFIED
+    if (!user.emailVerified) {
+        // Generate and send code
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        const redisKey = `2fa:${user.id}`;
+        await redisClient.set(redisKey, code, 'EX', 600); // 10 mins
+        await sendVerificationEmail(email, code);
+        return { require2fa: true, userId: user.id };
+    }
     const tokenPayload = {
         userId: user.id,
         role: user.role,
@@ -169,6 +173,36 @@ export async function loginWithEmail(email, password) {
         email: user.email,
         picture: user.picture || null,
         isGov: user.role === 'PIGS',
+    };
+    const token = jwt.sign(tokenPayload, JWT.SECRET, { expiresIn: '7d' });
+    const key = `session:${token}`;
+    const value = JSON.stringify({ userId: user.id, role: user.role });
+    const expirySeconds = 60 * 60 * 24 * 7;
+    await redisClient.set(key, value, 'EX', expirySeconds);
+    return token;
+}
+export async function verify2FACode(userId, code) {
+    const redisKey = `2fa:${userId}`;
+    const storedCode = await redisClient.get(redisKey);
+    if (!storedCode || storedCode !== code) {
+        throw new Error("Invalid or expired verification code");
+    }
+    // Code valid, verify user
+    const { prisma } = await import("../data/prisma/prismaClient");
+    const user = await prisma.user.update({
+        where: { id: userId },
+        data: { emailVerified: true }
+    });
+    await redisClient.del(redisKey);
+    // Generate Token
+    const isGov = user.email.toLowerCase().endsWith('.gov.in');
+    const tokenPayload = {
+        userId: user.id,
+        role: user.role,
+        name: user.name || null,
+        email: user.email,
+        picture: user.picture || null,
+        isGov: user.role === 'PIGS' || isGov,
     };
     const token = jwt.sign(tokenPayload, JWT.SECRET, { expiresIn: '7d' });
     const key = `session:${token}`;
@@ -207,5 +241,5 @@ export async function changeUserPassword(userId, oldPass, newPass) {
     });
     return true;
 }
-export default { exchangeGoogleCodeForProfile, loginWithGoogle, registerWithEmail, loginWithEmail, generateGuestSession, changeUserPassword };
+export default { exchangeGoogleCodeForProfile, loginWithGoogle, registerWithEmail, loginWithEmail, generateGuestSession, changeUserPassword, verify2FACode };
 //# sourceMappingURL=authService.js.map

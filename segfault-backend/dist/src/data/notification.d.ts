@@ -1,15 +1,15 @@
 import { NotificationType } from "../generated/prisma/enums";
 export declare function createNotification(userId: number, type: NotificationType, message: string): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number | null;
     type: NotificationType;
     message: string;
     read: boolean;
 }>;
 export declare function getUserNotifications(userId: number): Promise<{
-    createdAt: Date;
     id: number;
+    createdAt: Date;
     userId: number | null;
     type: NotificationType;
     message: string;

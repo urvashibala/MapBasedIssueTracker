@@ -286,6 +286,13 @@ export type GraphNodeScalarRelationFilter = {
     is?: Prisma.GraphNodeWhereInput;
     isNot?: Prisma.GraphNodeWhereInput;
 };
+export type FloatFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+};
 export type GraphNodeCreateNestedOneWithoutOutgoingInput = {
     create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
     connectOrCreate?: Prisma.GraphNodeCreateOrConnectWithoutOutgoingInput;

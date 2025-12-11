@@ -1,5 +1,8 @@
+// Fix: import Prisma namespace from @prisma/client to avoid local path resolution issues
+import { Prisma } from "@prisma/client";
 import * as turf from "@turf/turf";
-import { createAuthenticatedIssue, createGuestIssue, getIssueById, getIssuesByStatus, getIssuesByLocationBox, addIssueUpvote, removeIssueUpvote, getIssueUpvoteCount, hasUserUpvotedIssue, } from "../../data/issue";
+import { getIssuesInBounds as getCachedIssuesInBounds } from "../../services/IssueCacheService";
+import { createAuthenticatedIssue, createGuestIssue, getIssueById, getIssuesByLocationBox, addIssueUpvote, removeIssueUpvote, getIssueUpvoteCount, hasUserUpvotedIssue, } from "../../data/issue";
 import { prisma } from "../../data/prisma/prismaClient";
 import { IssueStatus, IssueType } from "../../generated/prisma/enums";
 import { recalculatePenalties } from "../../services/PenaltyService";
@@ -28,25 +31,45 @@ const ISSUE_TYPE_INFO = {
 export async function getIssues(req, res) {
     try {
         const { type, status, showResolved } = req.query;
-        const where = {};
+        // Build dynamic WHERE clause parts (validated enum values only)
+        const conditions = ['i.location IS NOT NULL'];
         if (type && typeof type === "string") {
-            where.issueType = type;
+            conditions.push(`i."issueType" = '${type}'::"IssueType"`);
         }
         if (status && typeof status === "string") {
-            where.status = status;
+            conditions.push(`i.status = '${status}'::"IssueStatus"`);
         }
         else if (showResolved !== "true") {
-            where.status = { not: IssueStatus.RESOLVED };
+            conditions.push(`i.status != 'RESOLVED'::"IssueStatus"`);
         }
-        const issues = await prisma.issue.findMany({
-            where,
-            orderBy: { createdAt: "desc" },
-            include: {
-                user: { select: { id: true, name: true } },
-                _count: { select: { upvotes: true, comments: true } },
-            },
-            take: 100,
-        });
+        const whereClause = conditions.length ? conditions.join(' AND ') : 'TRUE';
+        // Build full SQL string and execute with $queryRawUnsafe to avoid Prisma raw fragment issues
+        const sql = `
+            SELECT 
+                i.id, i.title, i."issueType", i.status, i.description,
+                ST_Y(i.location) AS latitude,
+                ST_X(i.location) AS longitude,
+                i."createdAt", i."userId", i."guestTokenId",
+                u.name AS user_name,
+                COALESCE(uv.upvote_count, 0) AS upvote_count,
+                COALESCE(cm.comment_count, 0) AS comment_count
+            FROM "Issue" i
+            LEFT JOIN "User" u ON i."userId" = u.id
+            LEFT JOIN (
+                SELECT "issueId", COUNT(*) AS upvote_count 
+                FROM "IssueUpvote" 
+                GROUP BY "issueId"
+            ) uv ON i.id = uv."issueId"
+            LEFT JOIN (
+                SELECT "issueId", COUNT(*) AS comment_count 
+                FROM "Comment" 
+                GROUP BY "issueId"
+            ) cm ON i.id = cm."issueId"
+            WHERE ${whereClause}
+            ORDER BY i."createdAt" DESC
+            LIMIT 100
+        `;
+        const issues = await prisma.$queryRawUnsafe(sql);
         const formatted = issues.map((issue) => ({
             id: String(issue.id),
             title: issue.title,
@@ -56,8 +79,8 @@ export async function getIssues(req, res) {
             location: `${issue.latitude}, ${issue.longitude}`,
             lat: issue.latitude,
             lng: issue.longitude,
-            voteCount: issue._count.upvotes,
-            commentCount: issue._count.comments,
+            voteCount: Number(issue.upvote_count),
+            commentCount: Number(issue.comment_count),
             reportedAt: issue.createdAt.toISOString(),
             reporterId: issue.guestTokenId ? undefined : String(issue.userId),
         }));
@@ -114,7 +137,7 @@ export async function getIssue(req, res) {
             commentCount: issue._count.comments,
             hasVoted,
             reportedAt: issue.createdAt.toISOString(),
-            reporter: issue.guestTokenId
+            reporter: issue.guestTokenId || !issue.user
                 ? { name: "Anonymous", isGuest: true }
                 : { id: String(issue.user.id), name: issue.user.name, email: issue.user.email },
         };
@@ -161,6 +184,10 @@ export async function createIssue(req, res) {
         else {
             issue = await createAuthenticatedIssue(title, description, latitude, longitude, issueType, req.user.id, imageBlobId);
         }
+        if (!issue) {
+            console.error("Issue creation returned null/undefined");
+            return res.status(500).json({ error: "Failed to create issue" });
+        }
         recalculatePenalties().catch((err) => console.error("Failed to recalculate penalties:", err));
         // Always send to moderation queue - Azure Function will authorize the issue
         sendToModerationQueue({
@@ -203,15 +230,20 @@ export async function voteOnIssue(req, res) {
         if (!issue) {
             return res.status(404).json({ error: "Issue not found" });
         }
-        // Geofencing check - users must be within 5km of the issue
+        // PostGIS-based geofencing check - users must be within 5km of the issue
         const { userLat, userLng } = req.body;
         if (userLat === undefined || userLng === undefined) {
             return res.status(400).json({ error: "Location required to vote. Please enable location access." });
         }
-        const userPoint = turf.point([userLng, userLat]);
-        const issuePoint = turf.point([issue.longitude, issue.latitude]);
-        const distance = turf.distance(userPoint, issuePoint, { units: "kilometers" });
-        if (distance > 5) {
+        // Use PostGIS to check distance instead of turf.js
+        const distanceCheck = await prisma.$queryRaw `
+            SELECT ST_Distance(
+                ST_SetSRID(ST_MakePoint(${issue.longitude}, ${issue.latitude}), 4326)::geography,
+                ST_SetSRID(ST_MakePoint(${userLng}, ${userLat}), 4326)::geography
+            ) as distance_meters
+        `;
+        const distance = distanceCheck[0]?.distance_meters || Infinity;
+        if (distance > 5000) { // 5km in meters
             return res.status(403).json({ error: "You must be within 5km of the issue to vote." });
         }
         const hasVoted = await hasUserUpvotedIssue(req.user.id, issueId);
@@ -243,9 +275,8 @@ export async function getIssuesInBounds(req, res) {
             });
         }
         // Use the cache service for fast loading
-        const { getIssuesInBounds: getCachedIssues } = await import("../../services/IssueCacheService");
         const showResolved = req.query.showResolved === 'true';
-        const cachedIssues = await getCachedIssues(minLat, maxLat, minLng, maxLng, showResolved);
+        const cachedIssues = await getCachedIssuesInBounds(minLat, maxLat, minLng, maxLng, showResolved);
         // Calculate urgency score and format response
         const now = new Date();
         const issueType = req.query.type;

@@ -112,6 +112,29 @@ class AzureRedisClient {
             return keys.map(() => null);
         }
     }
+    /**
+     * Pipelined SETEX for many keys in a single Redis round-trip.
+     * Uses MULTI/EXEC under the hood.
+     */
+    async setexMany(entries) {
+        const c = await getClient();
+        if (!c || entries.length === 0)
+            return;
+        try {
+            const multi = c.multi();
+            for (const entry of entries) {
+                if (!entry?.key)
+                    continue;
+                if (!Number.isFinite(entry.seconds) || entry.seconds <= 0)
+                    continue;
+                multi.setEx(entry.key, entry.seconds, entry.value);
+            }
+            await multi.exec();
+        }
+        catch (error) {
+            console.error("Redis SETEX MANY error:", error);
+        }
+    }
     async exists(...keys) {
         const c = await getClient();
         if (!c)
