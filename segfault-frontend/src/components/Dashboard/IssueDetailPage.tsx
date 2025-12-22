@@ -12,6 +12,7 @@ import {
     Paper,
     CircularProgress,
     Alert,
+    CardMedia,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -62,6 +63,9 @@ const IssueDetailPage = ({ open, onClose, issueId, onFindOnMap }: IssueDetailPag
                 issueRoutes.getIssueById(issueId),
                 commentRoutes.getComments(issueId),
             ]);
+
+            console.log('Issue data received:', issueData);
+            console.log('Image URL:', issueData.imageUrl);
 
             setIssue(issueData);
             setComments(commentsData);
@@ -231,6 +235,22 @@ const IssueDetailPage = ({ open, onClose, issueId, onFindOnMap }: IssueDetailPag
                     <Alert severity="error">{error}</Alert>
                 ) : issue ? (
                     <>
+                        {/* Issue Photo */}
+                        {issue.imageUrl && (
+                            <CardMedia
+                                component="img"
+                                image={issue.imageUrl}
+                                alt={issue.title}
+                                sx={{
+                                    width: '100%',
+                                    height: 200,
+                                    objectFit: 'cover',
+                                    borderRadius: 2,
+                                    mb: 2,
+                                }}
+                            />
+                        )}
+
                         <Typography variant="h5" fontWeight={700} gutterBottom>
                             {issue.title}
                         </Typography>

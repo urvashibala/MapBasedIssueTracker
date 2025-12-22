@@ -75,14 +75,16 @@ export declare function updateIssueImage(issueId: number, imageBlobId: string): 
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     issueType: IssueType;
+    severity: number | null;
+    updatedAt: Date;
 }>;
 export declare function updateIssueStatus(issueId: number, status: IssueStatus): Promise<{
     error: IssueError;
@@ -90,14 +92,16 @@ export declare function updateIssueStatus(issueId: number, status: IssueStatus):
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     issueType: IssueType;
+    severity: number | null;
+    updatedAt: Date;
 }>;
 export declare function authorizeIssue(issueId: number): Promise<{
     error: IssueError;
@@ -105,14 +109,16 @@ export declare function authorizeIssue(issueId: number): Promise<{
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     issueType: IssueType;
+    severity: number | null;
+    updatedAt: Date;
 }>;
 export declare function flagIssueError(issueId: number, error: IssueError): Promise<{
     error: IssueError;
@@ -120,14 +126,16 @@ export declare function flagIssueError(issueId: number, error: IssueError): Prom
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     issueType: IssueType;
+    severity: number | null;
+    updatedAt: Date;
 }>;
 export declare function deleteIssue(issueId: number): Promise<{
     error: IssueError;
@@ -135,14 +143,16 @@ export declare function deleteIssue(issueId: number): Promise<{
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: IssueStatus;
     authorized: IssueAuthorized;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     issueType: IssueType;
+    severity: number | null;
+    updatedAt: Date;
 } | null>;
 export declare function getIssueById(issueId: number): Promise<{
     _count: {

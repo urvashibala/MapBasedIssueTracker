@@ -49,7 +49,9 @@ export const ModelName = {
     CommentUpvote: 'CommentUpvote',
     Notification: 'Notification',
     GraphNode: 'GraphNode',
-    GraphEdge: 'GraphEdge'
+    GraphEdge: 'GraphEdge',
+    playing_with_neon: 'playing_with_neon',
+    spatial_ref_sys: 'spatial_ref_sys'
 };
 /*
  * Enums
@@ -63,16 +65,16 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export const UserScalarFieldEnum = {
     id: 'id',
     email: 'email',
-    emailVerified: 'emailVerified',
     password: 'password',
     name: 'name',
-    picture: 'picture',
     createdAt: 'createdAt',
     role: 'role',
     isBanned: 'isBanned',
     banExpiresAt: 'banExpiresAt',
     banReason: 'banReason',
-    credibility: 'credibility'
+    credibility: 'credibility',
+    picture: 'picture',
+    emailVerified: 'emailVerified'
 };
 export const UserBadgeScalarFieldEnum = {
     id: 'id',
@@ -89,16 +91,18 @@ export const IssueScalarFieldEnum = {
     id: 'id',
     title: 'title',
     description: 'description',
+    latitude: 'latitude',
+    longitude: 'longitude',
     status: 'status',
     authorized: 'authorized',
     error: 'error',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    severity: 'severity',
     imageBlobId: 'imageBlobId',
     userId: 'userId',
     guestTokenId: 'guestTokenId',
-    issueType: 'issueType'
+    issueType: 'issueType',
+    severity: 'severity',
+    updatedAt: 'updatedAt'
 };
 export const IssueUpvoteScalarFieldEnum = {
     id: 'id',
@@ -150,6 +154,18 @@ export const GraphEdgeScalarFieldEnum = {
     distance: 'distance',
     baseCost: 'baseCost',
     penalty: 'penalty'
+};
+export const Playing_with_neonScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    value: 'value'
+};
+export const Spatial_ref_sysScalarFieldEnum = {
+    srid: 'srid',
+    auth_name: 'auth_name',
+    auth_srid: 'auth_srid',
+    srtext: 'srtext',
+    proj4text: 'proj4text'
 };
 export const SortOrder = {
     asc: 'asc',

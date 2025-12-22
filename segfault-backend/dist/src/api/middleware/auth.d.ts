@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 export interface AuthUser {
     id: number;
-    role: "USER" | "ADMIN" | "GUEST";
+    role: "USER" | "ADMIN" | "GUEST" | "PIGS";
     email?: string;
     guestTokenId?: number;
 }

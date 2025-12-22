@@ -57,4 +57,14 @@ export type GraphNode = Prisma.GraphNodeModel;
  *
  */
 export type GraphEdge = Prisma.GraphEdgeModel;
+/**
+ * Model playing_with_neon
+ *
+ */
+export type playing_with_neon = Prisma.playing_with_neonModel;
+/**
+ * Model spatial_ref_sys
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ */
+export type spatial_ref_sys = Prisma.spatial_ref_sysModel;
 //# sourceMappingURL=browser.d.ts.map

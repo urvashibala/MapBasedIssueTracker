@@ -52,6 +52,8 @@ export declare const ModelName: {
     readonly Notification: "Notification";
     readonly GraphNode: "GraphNode";
     readonly GraphEdge: "GraphEdge";
+    readonly playing_with_neon: "playing_with_neon";
+    readonly spatial_ref_sys: "spatial_ref_sys";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -64,16 +66,16 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export declare const UserScalarFieldEnum: {
     readonly id: "id";
     readonly email: "email";
-    readonly emailVerified: "emailVerified";
     readonly password: "password";
     readonly name: "name";
-    readonly picture: "picture";
     readonly createdAt: "createdAt";
     readonly role: "role";
     readonly isBanned: "isBanned";
     readonly banExpiresAt: "banExpiresAt";
     readonly banReason: "banReason";
     readonly credibility: "credibility";
+    readonly picture: "picture";
+    readonly emailVerified: "emailVerified";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 export declare const UserBadgeScalarFieldEnum: {
@@ -93,16 +95,18 @@ export declare const IssueScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
+    readonly latitude: "latitude";
+    readonly longitude: "longitude";
     readonly status: "status";
     readonly authorized: "authorized";
     readonly error: "error";
     readonly createdAt: "createdAt";
-    readonly updatedAt: "updatedAt";
-    readonly severity: "severity";
     readonly imageBlobId: "imageBlobId";
     readonly userId: "userId";
     readonly guestTokenId: "guestTokenId";
     readonly issueType: "issueType";
+    readonly severity: "severity";
+    readonly updatedAt: "updatedAt";
 };
 export type IssueScalarFieldEnum = (typeof IssueScalarFieldEnum)[keyof typeof IssueScalarFieldEnum];
 export declare const IssueUpvoteScalarFieldEnum: {
@@ -163,6 +167,20 @@ export declare const GraphEdgeScalarFieldEnum: {
     readonly penalty: "penalty";
 };
 export type GraphEdgeScalarFieldEnum = (typeof GraphEdgeScalarFieldEnum)[keyof typeof GraphEdgeScalarFieldEnum];
+export declare const Playing_with_neonScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly value: "value";
+};
+export type Playing_with_neonScalarFieldEnum = (typeof Playing_with_neonScalarFieldEnum)[keyof typeof Playing_with_neonScalarFieldEnum];
+export declare const Spatial_ref_sysScalarFieldEnum: {
+    readonly srid: "srid";
+    readonly auth_name: "auth_name";
+    readonly auth_srid: "auth_srid";
+    readonly srtext: "srtext";
+    readonly proj4text: "proj4text";
+};
+export type Spatial_ref_sysScalarFieldEnum = (typeof Spatial_ref_sysScalarFieldEnum)[keyof typeof Spatial_ref_sysScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

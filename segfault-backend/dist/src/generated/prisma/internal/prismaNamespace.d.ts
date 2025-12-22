@@ -264,6 +264,8 @@ export declare const ModelName: {
     readonly Notification: "Notification";
     readonly GraphNode: "GraphNode";
     readonly GraphEdge: "GraphEdge";
+    readonly playing_with_neon: "playing_with_neon";
+    readonly spatial_ref_sys: "spatial_ref_sys";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -276,7 +278,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "userBadge" | "guestToken" | "issue" | "issueUpvote" | "issueResolutionVote" | "comment" | "commentUpvote" | "notification" | "graphNode" | "graphEdge";
+        modelProps: "user" | "userBadge" | "guestToken" | "issue" | "issueUpvote" | "issueResolutionVote" | "comment" | "commentUpvote" | "notification" | "graphNode" | "graphEdge" | "playing_with_neon" | "spatial_ref_sys";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -1094,6 +1096,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        playing_with_neon: {
+            payload: Prisma.$playing_with_neonPayload<ExtArgs>;
+            fields: Prisma.playing_with_neonFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.playing_with_neonFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.playing_with_neonFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                findFirst: {
+                    args: Prisma.playing_with_neonFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.playing_with_neonFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                findMany: {
+                    args: Prisma.playing_with_neonFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>[];
+                };
+                create: {
+                    args: Prisma.playing_with_neonCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                createMany: {
+                    args: Prisma.playing_with_neonCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.playing_with_neonCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>[];
+                };
+                delete: {
+                    args: Prisma.playing_with_neonDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                update: {
+                    args: Prisma.playing_with_neonUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.playing_with_neonDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.playing_with_neonUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.playing_with_neonUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>[];
+                };
+                upsert: {
+                    args: Prisma.playing_with_neonUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$playing_with_neonPayload>;
+                };
+                aggregate: {
+                    args: Prisma.Playing_with_neonAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregatePlaying_with_neon>;
+                };
+                groupBy: {
+                    args: Prisma.playing_with_neonGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.Playing_with_neonGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.playing_with_neonCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.Playing_with_neonCountAggregateOutputType> | number;
+                };
+            };
+        };
+        spatial_ref_sys: {
+            payload: Prisma.$spatial_ref_sysPayload<ExtArgs>;
+            fields: Prisma.spatial_ref_sysFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.spatial_ref_sysFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.spatial_ref_sysFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                findFirst: {
+                    args: Prisma.spatial_ref_sysFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.spatial_ref_sysFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                findMany: {
+                    args: Prisma.spatial_ref_sysFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[];
+                };
+                create: {
+                    args: Prisma.spatial_ref_sysCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                createMany: {
+                    args: Prisma.spatial_ref_sysCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.spatial_ref_sysCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[];
+                };
+                delete: {
+                    args: Prisma.spatial_ref_sysDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                update: {
+                    args: Prisma.spatial_ref_sysUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.spatial_ref_sysDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.spatial_ref_sysUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.spatial_ref_sysUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>[];
+                };
+                upsert: {
+                    args: Prisma.spatial_ref_sysUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$spatial_ref_sysPayload>;
+                };
+                aggregate: {
+                    args: Prisma.Spatial_ref_sysAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateSpatial_ref_sys>;
+                };
+                groupBy: {
+                    args: Prisma.spatial_ref_sysGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.Spatial_ref_sysGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.spatial_ref_sysCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.Spatial_ref_sysCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -1131,16 +1281,16 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export declare const UserScalarFieldEnum: {
     readonly id: "id";
     readonly email: "email";
-    readonly emailVerified: "emailVerified";
     readonly password: "password";
     readonly name: "name";
-    readonly picture: "picture";
     readonly createdAt: "createdAt";
     readonly role: "role";
     readonly isBanned: "isBanned";
     readonly banExpiresAt: "banExpiresAt";
     readonly banReason: "banReason";
     readonly credibility: "credibility";
+    readonly picture: "picture";
+    readonly emailVerified: "emailVerified";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 export declare const UserBadgeScalarFieldEnum: {
@@ -1160,16 +1310,18 @@ export declare const IssueScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
+    readonly latitude: "latitude";
+    readonly longitude: "longitude";
     readonly status: "status";
     readonly authorized: "authorized";
     readonly error: "error";
     readonly createdAt: "createdAt";
-    readonly updatedAt: "updatedAt";
-    readonly severity: "severity";
     readonly imageBlobId: "imageBlobId";
     readonly userId: "userId";
     readonly guestTokenId: "guestTokenId";
     readonly issueType: "issueType";
+    readonly severity: "severity";
+    readonly updatedAt: "updatedAt";
 };
 export type IssueScalarFieldEnum = (typeof IssueScalarFieldEnum)[keyof typeof IssueScalarFieldEnum];
 export declare const IssueUpvoteScalarFieldEnum: {
@@ -1230,6 +1382,20 @@ export declare const GraphEdgeScalarFieldEnum: {
     readonly penalty: "penalty";
 };
 export type GraphEdgeScalarFieldEnum = (typeof GraphEdgeScalarFieldEnum)[keyof typeof GraphEdgeScalarFieldEnum];
+export declare const Playing_with_neonScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly value: "value";
+};
+export type Playing_with_neonScalarFieldEnum = (typeof Playing_with_neonScalarFieldEnum)[keyof typeof Playing_with_neonScalarFieldEnum];
+export declare const Spatial_ref_sysScalarFieldEnum: {
+    readonly srid: "srid";
+    readonly auth_name: "auth_name";
+    readonly auth_srid: "auth_srid";
+    readonly srtext: "srtext";
+    readonly proj4text: "proj4text";
+};
+export type Spatial_ref_sysScalarFieldEnum = (typeof Spatial_ref_sysScalarFieldEnum)[keyof typeof Spatial_ref_sysScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -1265,10 +1431,6 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>;
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>;
@@ -1284,6 +1446,18 @@ export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'UserRole[]'
  */
 export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>;
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
 /**
  * Reference to a field of type 'IssueStatus'
  */
@@ -1324,14 +1498,6 @@ export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'NotificationType[]'
  */
 export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>;
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1427,6 +1593,8 @@ export type GlobalOmitConfig = {
     notification?: Prisma.NotificationOmit;
     graphNode?: Prisma.GraphNodeOmit;
     graphEdge?: Prisma.GraphEdgeOmit;
+    playing_with_neon?: Prisma.playing_with_neonOmit;
+    spatial_ref_sys?: Prisma.spatial_ref_sysOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

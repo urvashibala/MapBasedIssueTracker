@@ -1,4 +1,4 @@
-export declare const FRONTEND_URL: string;
+export declare const FRONTEND_URL = "https://segfault-frontend.politeriver-a25e3b65.westeurope.azurecontainerapps.io";
 export declare const GOOGLE_OAUTH: {
     CLIENT_ID: string;
     CLIENT_SECRET: string;

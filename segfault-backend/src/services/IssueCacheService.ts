@@ -25,6 +25,7 @@ export interface IssueSummary {
     voteCount: number;
     commentCount: number;
     createdAt: string;
+    imageBlobId: string | null;
 }
 
 type IssueSummaryRow = {
@@ -37,6 +38,7 @@ type IssueSummaryRow = {
     createdAt: Date;
     upvote_count: number;
     comment_count: number;
+    imageBlobId: string | null;
 };
 
 function toIssueSummary(row: IssueSummaryRow): IssueSummary {
@@ -50,6 +52,7 @@ function toIssueSummary(row: IssueSummaryRow): IssueSummary {
         voteCount: Number(row.upvote_count ?? 0),
         commentCount: Number(row.comment_count ?? 0),
         createdAt: row.createdAt.toISOString(),
+        imageBlobId: row.imageBlobId,
     };
 }
 
@@ -145,7 +148,7 @@ async function queryIssuesInBoundsWithCounts(
 ): Promise<IssueSummaryRow[]> {
     return prisma.$queryRawUnsafe<IssueSummaryRow[]>(
         `WITH bbox AS (
-            SELECT i.id, i.title, i.status, i."issueType", i.location, i."createdAt"
+            SELECT i.id, i.title, i.status, i."issueType", i.location, i."createdAt", i."imageBlobId"
             FROM "Issue" i
             WHERE i.location && ST_MakeEnvelope($1, $2, $3, $4, 4326)
             AND ST_Within(i.location, ST_MakeEnvelope($1, $2, $3, $4, 4326))
@@ -156,6 +159,7 @@ async function queryIssuesInBoundsWithCounts(
             ST_Y(b.location) as latitude,
             ST_X(b.location) as longitude,
             b."createdAt",
+            b."imageBlobId",
             COALESCE(uv.upvote_count, 0) as upvote_count,
             COALESCE(cm.comment_count, 0) as comment_count
         FROM bbox b
@@ -192,6 +196,7 @@ async function queryIssueSummariesByIds(ids: number[], includeResolved: boolean)
             ST_Y(i.location) as latitude,
             ST_X(i.location) as longitude,
             i."createdAt",
+            i."imageBlobId",
             COALESCE(uv.upvote_count, 0) as upvote_count,
             COALESCE(cm.comment_count, 0) as comment_count
         FROM "Issue" i

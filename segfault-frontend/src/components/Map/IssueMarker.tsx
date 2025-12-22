@@ -1,5 +1,5 @@
 import { Marker, Popup } from "react-leaflet";
-import { Box, Typography, Button, Chip } from "@mui/material";
+import { Box, Typography, Button, Chip, CardMedia } from "@mui/material";
 import { getStatusIcon, getUrgencyIcon } from "./markerIcons";
 import type { MapIssue } from "../../api/routes";
 
@@ -36,7 +36,23 @@ const IssueMarker = ({ issue, visualizationMode, onClick }: IssueMarkerProps) =>
   return (
     <Marker position={[issue.lat, issue.lng]} icon={icon}>
       <Popup>
-        <Box sx={{ minWidth: 200, p: 0.5 }}>
+        <Box sx={{ minWidth: 220, maxWidth: 280, p: 0.5 }}>
+          {/* Issue Photo */}
+          {issue.imageUrl && (
+            <CardMedia
+              component="img"
+              image={issue.imageUrl}
+              alt={issue.title}
+              sx={{
+                width: "100%",
+                height: 120,
+                objectFit: "cover",
+                borderRadius: 1,
+                mb: 1.5,
+              }}
+            />
+          )}
+
           <Typography variant="subtitle1" fontWeight={600} gutterBottom>
             {issue.title}
           </Typography>

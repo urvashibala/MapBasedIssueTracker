@@ -24,44 +24,44 @@ export type UserSumAggregateOutputType = {
 export type UserMinAggregateOutputType = {
     id: number | null;
     email: string | null;
-    emailVerified: boolean | null;
     password: string | null;
     name: string | null;
-    picture: string | null;
     createdAt: Date | null;
     role: $Enums.UserRole | null;
     isBanned: boolean | null;
     banExpiresAt: Date | null;
     banReason: string | null;
     credibility: number | null;
+    picture: string | null;
+    emailVerified: boolean | null;
 };
 export type UserMaxAggregateOutputType = {
     id: number | null;
     email: string | null;
-    emailVerified: boolean | null;
     password: string | null;
     name: string | null;
-    picture: string | null;
     createdAt: Date | null;
     role: $Enums.UserRole | null;
     isBanned: boolean | null;
     banExpiresAt: Date | null;
     banReason: string | null;
     credibility: number | null;
+    picture: string | null;
+    emailVerified: boolean | null;
 };
 export type UserCountAggregateOutputType = {
     id: number;
     email: number;
-    emailVerified: number;
     password: number;
     name: number;
-    picture: number;
     createdAt: number;
     role: number;
     isBanned: number;
     banExpiresAt: number;
     banReason: number;
     credibility: number;
+    picture: number;
+    emailVerified: number;
     _all: number;
 };
 export type UserAvgAggregateInputType = {
@@ -75,44 +75,44 @@ export type UserSumAggregateInputType = {
 export type UserMinAggregateInputType = {
     id?: true;
     email?: true;
-    emailVerified?: true;
     password?: true;
     name?: true;
-    picture?: true;
     createdAt?: true;
     role?: true;
     isBanned?: true;
     banExpiresAt?: true;
     banReason?: true;
     credibility?: true;
+    picture?: true;
+    emailVerified?: true;
 };
 export type UserMaxAggregateInputType = {
     id?: true;
     email?: true;
-    emailVerified?: true;
     password?: true;
     name?: true;
-    picture?: true;
     createdAt?: true;
     role?: true;
     isBanned?: true;
     banExpiresAt?: true;
     banReason?: true;
     credibility?: true;
+    picture?: true;
+    emailVerified?: true;
 };
 export type UserCountAggregateInputType = {
     id?: true;
     email?: true;
-    emailVerified?: true;
     password?: true;
     name?: true;
-    picture?: true;
     createdAt?: true;
     role?: true;
     isBanned?: true;
     banExpiresAt?: true;
     banReason?: true;
     credibility?: true;
+    picture?: true;
+    emailVerified?: true;
     _all?: true;
 };
 export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -194,16 +194,16 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
     id: number;
     email: string;
-    emailVerified: boolean;
     password: string;
     name: string | null;
-    picture: string | null;
     createdAt: Date;
     role: $Enums.UserRole;
     isBanned: boolean;
     banExpiresAt: Date | null;
     banReason: string | null;
     credibility: number;
+    picture: string | null;
+    emailVerified: boolean;
     _count: UserCountAggregateOutputType | null;
     _avg: UserAvgAggregateOutputType | null;
     _sum: UserSumAggregateOutputType | null;
@@ -219,44 +219,44 @@ export type UserWhereInput = {
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     id?: Prisma.IntFilter<"User"> | number;
     email?: Prisma.StringFilter<"User"> | string;
-    emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     password?: Prisma.StringFilter<"User"> | string;
     name?: Prisma.StringNullableFilter<"User"> | string | null;
-    picture?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole;
     isBanned?: Prisma.BoolFilter<"User"> | boolean;
     banExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     banReason?: Prisma.StringNullableFilter<"User"> | string | null;
     credibility?: Prisma.IntFilter<"User"> | number;
-    issues?: Prisma.IssueListRelationFilter;
+    picture?: Prisma.StringNullableFilter<"User"> | string | null;
+    emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     comments?: Prisma.CommentListRelationFilter;
     commentUpvotes?: Prisma.CommentUpvoteListRelationFilter;
-    issueUpvotes?: Prisma.IssueUpvoteListRelationFilter;
+    issues?: Prisma.IssueListRelationFilter;
     resolutionVotes?: Prisma.IssueResolutionVoteListRelationFilter;
-    badges?: Prisma.UserBadgeListRelationFilter;
+    issueUpvotes?: Prisma.IssueUpvoteListRelationFilter;
     notifications?: Prisma.NotificationListRelationFilter;
+    badges?: Prisma.UserBadgeListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
-    emailVerified?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrderInput | Prisma.SortOrder;
-    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isBanned?: Prisma.SortOrder;
     banExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     banReason?: Prisma.SortOrderInput | Prisma.SortOrder;
     credibility?: Prisma.SortOrder;
-    issues?: Prisma.IssueOrderByRelationAggregateInput;
+    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
+    emailVerified?: Prisma.SortOrder;
     comments?: Prisma.CommentOrderByRelationAggregateInput;
     commentUpvotes?: Prisma.CommentUpvoteOrderByRelationAggregateInput;
-    issueUpvotes?: Prisma.IssueUpvoteOrderByRelationAggregateInput;
+    issues?: Prisma.IssueOrderByRelationAggregateInput;
     resolutionVotes?: Prisma.IssueResolutionVoteOrderByRelationAggregateInput;
-    badges?: Prisma.UserBadgeOrderByRelationAggregateInput;
+    issueUpvotes?: Prisma.IssueUpvoteOrderByRelationAggregateInput;
     notifications?: Prisma.NotificationOrderByRelationAggregateInput;
+    badges?: Prisma.UserBadgeOrderByRelationAggregateInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -264,37 +264,37 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     OR?: Prisma.UserWhereInput[];
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
-    emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     password?: Prisma.StringFilter<"User"> | string;
     name?: Prisma.StringNullableFilter<"User"> | string | null;
-    picture?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole;
     isBanned?: Prisma.BoolFilter<"User"> | boolean;
     banExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
     banReason?: Prisma.StringNullableFilter<"User"> | string | null;
     credibility?: Prisma.IntFilter<"User"> | number;
-    issues?: Prisma.IssueListRelationFilter;
+    picture?: Prisma.StringNullableFilter<"User"> | string | null;
+    emailVerified?: Prisma.BoolFilter<"User"> | boolean;
     comments?: Prisma.CommentListRelationFilter;
     commentUpvotes?: Prisma.CommentUpvoteListRelationFilter;
-    issueUpvotes?: Prisma.IssueUpvoteListRelationFilter;
+    issues?: Prisma.IssueListRelationFilter;
     resolutionVotes?: Prisma.IssueResolutionVoteListRelationFilter;
-    badges?: Prisma.UserBadgeListRelationFilter;
+    issueUpvotes?: Prisma.IssueUpvoteListRelationFilter;
     notifications?: Prisma.NotificationListRelationFilter;
+    badges?: Prisma.UserBadgeListRelationFilter;
 }, "id" | "email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
-    emailVerified?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrderInput | Prisma.SortOrder;
-    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isBanned?: Prisma.SortOrder;
     banExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     banReason?: Prisma.SortOrderInput | Prisma.SortOrder;
     credibility?: Prisma.SortOrder;
+    picture?: Prisma.SortOrderInput | Prisma.SortOrder;
+    emailVerified?: Prisma.SortOrder;
     _count?: Prisma.UserCountOrderByAggregateInput;
     _avg?: Prisma.UserAvgOrderByAggregateInput;
     _max?: Prisma.UserMaxOrderByAggregateInput;
@@ -307,153 +307,153 @@ export type UserScalarWhereWithAggregatesInput = {
     NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
     id?: Prisma.IntWithAggregatesFilter<"User"> | number;
     email?: Prisma.StringWithAggregatesFilter<"User"> | string;
-    emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
     password?: Prisma.StringWithAggregatesFilter<"User"> | string;
     name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
-    picture?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
     role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole;
     isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
     banExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null;
     banReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     credibility?: Prisma.IntWithAggregatesFilter<"User"> | number;
+    picture?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
+    emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
 };
 export type UserCreateInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserUpdateInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateManyInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
+    picture?: string | null;
+    emailVerified?: boolean;
 };
 export type UserUpdateManyMutationInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type UserUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type UserCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
-    emailVerified?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
-    picture?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isBanned?: Prisma.SortOrder;
     banExpiresAt?: Prisma.SortOrder;
     banReason?: Prisma.SortOrder;
     credibility?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
+    emailVerified?: Prisma.SortOrder;
 };
 export type UserAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -462,30 +462,30 @@ export type UserAvgOrderByAggregateInput = {
 export type UserMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
-    emailVerified?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
-    picture?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isBanned?: Prisma.SortOrder;
     banExpiresAt?: Prisma.SortOrder;
     banReason?: Prisma.SortOrder;
     credibility?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
+    emailVerified?: Prisma.SortOrder;
 };
 export type UserMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
-    emailVerified?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
-    picture?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isBanned?: Prisma.SortOrder;
     banExpiresAt?: Prisma.SortOrder;
     banReason?: Prisma.SortOrder;
     credibility?: Prisma.SortOrder;
+    picture?: Prisma.SortOrder;
+    emailVerified?: Prisma.SortOrder;
 };
 export type UserSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -502,9 +502,6 @@ export type UserNullableScalarRelationFilter = {
 export type StringFieldUpdateOperationsInput = {
     set?: string;
 };
-export type BoolFieldUpdateOperationsInput = {
-    set?: boolean;
-};
 export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null;
 };
@@ -513,6 +510,9 @@ export type DateTimeFieldUpdateOperationsInput = {
 };
 export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole;
+};
+export type BoolFieldUpdateOperationsInput = {
+    set?: boolean;
 };
 export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null;
@@ -612,41 +612,41 @@ export type UserUpdateOneWithoutNotificationsNestedInput = {
 };
 export type UserCreateWithoutBadgesInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutBadgesInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutBadgesInput = {
@@ -664,81 +664,81 @@ export type UserUpdateToOneWithWhereWithoutBadgesInput = {
 };
 export type UserUpdateWithoutBadgesInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutBadgesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutIssuesInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutIssuesInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutIssuesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -755,81 +755,81 @@ export type UserUpdateToOneWithWhereWithoutIssuesInput = {
 };
 export type UserUpdateWithoutIssuesInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutIssuesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutIssueUpvotesInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutIssueUpvotesInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutIssueUpvotesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -846,81 +846,81 @@ export type UserUpdateToOneWithWhereWithoutIssueUpvotesInput = {
 };
 export type UserUpdateWithoutIssueUpvotesInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutIssueUpvotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutResolutionVotesInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutResolutionVotesInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutResolutionVotesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -937,81 +937,81 @@ export type UserUpdateToOneWithWhereWithoutResolutionVotesInput = {
 };
 export type UserUpdateWithoutResolutionVotesInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutResolutionVotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutCommentsInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutCommentsInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutCommentsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -1028,81 +1028,81 @@ export type UserUpdateToOneWithWhereWithoutCommentsInput = {
 };
 export type UserUpdateWithoutCommentsInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutCommentsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutCommentUpvotesInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutCommentUpvotesInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
-    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutCommentUpvotesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -1119,80 +1119,80 @@ export type UserUpdateToOneWithWhereWithoutCommentUpvotesInput = {
 };
 export type UserUpdateWithoutCommentUpvotesInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutCommentUpvotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
-    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutNotificationsInput = {
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutUserInput;
     badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutNotificationsInput = {
     id?: number;
     email: string;
-    emailVerified?: boolean;
     password: string;
     name?: string | null;
-    picture?: string | null;
     createdAt?: Date | string;
     role?: $Enums.UserRole;
     isBanned?: boolean;
     banExpiresAt?: Date | string | null;
     banReason?: string | null;
     credibility?: number;
-    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
+    picture?: string | null;
+    emailVerified?: boolean;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedCreateNestedManyWithoutUserInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
+    issues?: Prisma.IssueUncheckedCreateNestedManyWithoutUserInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutUserInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutUserInput;
     badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1210,63 +1210,63 @@ export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
 };
 export type UserUpdateWithoutNotificationsInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUpdateManyWithoutUserNestedInput;
     badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutNotificationsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
-    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole;
     isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     banExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     credibility?: Prisma.IntFieldUpdateOperationsInput | number;
-    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
+    picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput;
     commentUpvotes?: Prisma.CommentUpvoteUncheckedUpdateManyWithoutUserNestedInput;
-    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
+    issues?: Prisma.IssueUncheckedUpdateManyWithoutUserNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutUserNestedInput;
+    issueUpvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutUserNestedInput;
     badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput;
 };
 /**
  * Count Type UserCountOutputType
  */
 export type UserCountOutputType = {
-    issues: number;
     comments: number;
     commentUpvotes: number;
-    issueUpvotes: number;
+    issues: number;
     resolutionVotes: number;
-    badges: number;
+    issueUpvotes: number;
     notifications: number;
+    badges: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    issues?: boolean | UserCountOutputTypeCountIssuesArgs;
     comments?: boolean | UserCountOutputTypeCountCommentsArgs;
     commentUpvotes?: boolean | UserCountOutputTypeCountCommentUpvotesArgs;
-    issueUpvotes?: boolean | UserCountOutputTypeCountIssueUpvotesArgs;
+    issues?: boolean | UserCountOutputTypeCountIssuesArgs;
     resolutionVotes?: boolean | UserCountOutputTypeCountResolutionVotesArgs;
-    badges?: boolean | UserCountOutputTypeCountBadgesArgs;
+    issueUpvotes?: boolean | UserCountOutputTypeCountIssueUpvotesArgs;
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs;
+    badges?: boolean | UserCountOutputTypeCountBadgesArgs;
 };
 /**
  * UserCountOutputType without action
@@ -1276,12 +1276,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
-};
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.IssueWhereInput;
 };
 /**
  * UserCountOutputType without action
@@ -1298,8 +1292,8 @@ export type UserCountOutputTypeCountCommentUpvotesArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountIssueUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.IssueUpvoteWhereInput;
+export type UserCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.IssueWhereInput;
 };
 /**
  * UserCountOutputType without action
@@ -1310,8 +1304,8 @@ export type UserCountOutputTypeCountResolutionVotesArgs<ExtArgs extends runtime.
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountBadgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.UserBadgeWhereInput;
+export type UserCountOutputTypeCountIssueUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.IssueUpvoteWhereInput;
 };
 /**
  * UserCountOutputType without action
@@ -1319,79 +1313,85 @@ export type UserCountOutputTypeCountBadgesArgs<ExtArgs extends runtime.Types.Ext
 export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.NotificationWhereInput;
 };
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBadgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.UserBadgeWhereInput;
+};
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
-    emailVerified?: boolean;
     password?: boolean;
     name?: boolean;
-    picture?: boolean;
     createdAt?: boolean;
     role?: boolean;
     isBanned?: boolean;
     banExpiresAt?: boolean;
     banReason?: boolean;
     credibility?: boolean;
-    issues?: boolean | Prisma.User$issuesArgs<ExtArgs>;
+    picture?: boolean;
+    emailVerified?: boolean;
     comments?: boolean | Prisma.User$commentsArgs<ExtArgs>;
     commentUpvotes?: boolean | Prisma.User$commentUpvotesArgs<ExtArgs>;
-    issueUpvotes?: boolean | Prisma.User$issueUpvotesArgs<ExtArgs>;
+    issues?: boolean | Prisma.User$issuesArgs<ExtArgs>;
     resolutionVotes?: boolean | Prisma.User$resolutionVotesArgs<ExtArgs>;
-    badges?: boolean | Prisma.User$badgesArgs<ExtArgs>;
+    issueUpvotes?: boolean | Prisma.User$issueUpvotesArgs<ExtArgs>;
     notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
+    badges?: boolean | Prisma.User$badgesArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
-    emailVerified?: boolean;
     password?: boolean;
     name?: boolean;
-    picture?: boolean;
     createdAt?: boolean;
     role?: boolean;
     isBanned?: boolean;
     banExpiresAt?: boolean;
     banReason?: boolean;
     credibility?: boolean;
+    picture?: boolean;
+    emailVerified?: boolean;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
-    emailVerified?: boolean;
     password?: boolean;
     name?: boolean;
-    picture?: boolean;
     createdAt?: boolean;
     role?: boolean;
     isBanned?: boolean;
     banExpiresAt?: boolean;
     banReason?: boolean;
     credibility?: boolean;
+    picture?: boolean;
+    emailVerified?: boolean;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectScalar = {
     id?: boolean;
     email?: boolean;
-    emailVerified?: boolean;
     password?: boolean;
     name?: boolean;
-    picture?: boolean;
     createdAt?: boolean;
     role?: boolean;
     isBanned?: boolean;
     banExpiresAt?: boolean;
     banReason?: boolean;
     credibility?: boolean;
+    picture?: boolean;
+    emailVerified?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "password" | "name" | "picture" | "createdAt" | "role" | "isBanned" | "banExpiresAt" | "banReason" | "credibility", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "createdAt" | "role" | "isBanned" | "banExpiresAt" | "banReason" | "credibility" | "picture" | "emailVerified", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    issues?: boolean | Prisma.User$issuesArgs<ExtArgs>;
     comments?: boolean | Prisma.User$commentsArgs<ExtArgs>;
     commentUpvotes?: boolean | Prisma.User$commentUpvotesArgs<ExtArgs>;
-    issueUpvotes?: boolean | Prisma.User$issueUpvotesArgs<ExtArgs>;
+    issues?: boolean | Prisma.User$issuesArgs<ExtArgs>;
     resolutionVotes?: boolean | Prisma.User$resolutionVotesArgs<ExtArgs>;
-    badges?: boolean | Prisma.User$badgesArgs<ExtArgs>;
+    issueUpvotes?: boolean | Prisma.User$issueUpvotesArgs<ExtArgs>;
     notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>;
+    badges?: boolean | Prisma.User$badgesArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -1399,27 +1399,27 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "User";
     objects: {
-        issues: Prisma.$IssuePayload<ExtArgs>[];
         comments: Prisma.$CommentPayload<ExtArgs>[];
         commentUpvotes: Prisma.$CommentUpvotePayload<ExtArgs>[];
-        issueUpvotes: Prisma.$IssueUpvotePayload<ExtArgs>[];
+        issues: Prisma.$IssuePayload<ExtArgs>[];
         resolutionVotes: Prisma.$IssueResolutionVotePayload<ExtArgs>[];
-        badges: Prisma.$UserBadgePayload<ExtArgs>[];
+        issueUpvotes: Prisma.$IssueUpvotePayload<ExtArgs>[];
         notifications: Prisma.$NotificationPayload<ExtArgs>[];
+        badges: Prisma.$UserBadgePayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
         email: string;
-        emailVerified: boolean;
         password: string;
         name: string | null;
-        picture: string | null;
         createdAt: Date;
         role: $Enums.UserRole;
         isBanned: boolean;
         banExpiresAt: Date | null;
         banReason: string | null;
         credibility: number;
+        picture: string | null;
+        emailVerified: boolean;
     }, ExtArgs["result"]["user"]>;
     composites: {};
 };
@@ -1749,13 +1749,13 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    issues<T extends Prisma.User$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     commentUpvotes<T extends Prisma.User$commentUpvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentUpvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
-    issueUpvotes<T extends Prisma.User$issueUpvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issueUpvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    issues<T extends Prisma.User$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     resolutionVotes<T extends Prisma.User$resolutionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resolutionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueResolutionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
-    badges<T extends Prisma.User$badgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$badgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    issueUpvotes<T extends Prisma.User$issueUpvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issueUpvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    badges<T extends Prisma.User$badgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$badgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1783,16 +1783,16 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
     readonly id: Prisma.FieldRef<"User", 'Int'>;
     readonly email: Prisma.FieldRef<"User", 'String'>;
-    readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>;
     readonly password: Prisma.FieldRef<"User", 'String'>;
     readonly name: Prisma.FieldRef<"User", 'String'>;
-    readonly picture: Prisma.FieldRef<"User", 'String'>;
     readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly role: Prisma.FieldRef<"User", 'UserRole'>;
     readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>;
     readonly banExpiresAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly banReason: Prisma.FieldRef<"User", 'String'>;
     readonly credibility: Prisma.FieldRef<"User", 'Int'>;
+    readonly picture: Prisma.FieldRef<"User", 'String'>;
+    readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>;
 }
 /**
  * User findUnique
@@ -2164,29 +2164,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
     limit?: number;
 };
 /**
- * User.issues
- */
-export type User$issuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Issue
-     */
-    select?: Prisma.IssueSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Issue
-     */
-    omit?: Prisma.IssueOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: Prisma.IssueInclude<ExtArgs> | null;
-    where?: Prisma.IssueWhereInput;
-    orderBy?: Prisma.IssueOrderByWithRelationInput | Prisma.IssueOrderByWithRelationInput[];
-    cursor?: Prisma.IssueWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: Prisma.IssueScalarFieldEnum | Prisma.IssueScalarFieldEnum[];
-};
-/**
  * User.comments
  */
 export type User$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2233,27 +2210,27 @@ export type User$commentUpvotesArgs<ExtArgs extends runtime.Types.Extensions.Int
     distinct?: Prisma.CommentUpvoteScalarFieldEnum | Prisma.CommentUpvoteScalarFieldEnum[];
 };
 /**
- * User.issueUpvotes
+ * User.issues
  */
-export type User$issueUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$issuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the IssueUpvote
+     * Select specific fields to fetch from the Issue
      */
-    select?: Prisma.IssueUpvoteSelect<ExtArgs> | null;
+    select?: Prisma.IssueSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the IssueUpvote
+     * Omit specific fields from the Issue
      */
-    omit?: Prisma.IssueUpvoteOmit<ExtArgs> | null;
+    omit?: Prisma.IssueOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Prisma.IssueUpvoteInclude<ExtArgs> | null;
-    where?: Prisma.IssueUpvoteWhereInput;
-    orderBy?: Prisma.IssueUpvoteOrderByWithRelationInput | Prisma.IssueUpvoteOrderByWithRelationInput[];
-    cursor?: Prisma.IssueUpvoteWhereUniqueInput;
+    include?: Prisma.IssueInclude<ExtArgs> | null;
+    where?: Prisma.IssueWhereInput;
+    orderBy?: Prisma.IssueOrderByWithRelationInput | Prisma.IssueOrderByWithRelationInput[];
+    cursor?: Prisma.IssueWhereUniqueInput;
     take?: number;
     skip?: number;
-    distinct?: Prisma.IssueUpvoteScalarFieldEnum | Prisma.IssueUpvoteScalarFieldEnum[];
+    distinct?: Prisma.IssueScalarFieldEnum | Prisma.IssueScalarFieldEnum[];
 };
 /**
  * User.resolutionVotes
@@ -2279,27 +2256,27 @@ export type User$resolutionVotesArgs<ExtArgs extends runtime.Types.Extensions.In
     distinct?: Prisma.IssueResolutionVoteScalarFieldEnum | Prisma.IssueResolutionVoteScalarFieldEnum[];
 };
 /**
- * User.badges
+ * User.issueUpvotes
  */
-export type User$badgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$issueUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserBadge
+     * Select specific fields to fetch from the IssueUpvote
      */
-    select?: Prisma.UserBadgeSelect<ExtArgs> | null;
+    select?: Prisma.IssueUpvoteSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the UserBadge
+     * Omit specific fields from the IssueUpvote
      */
-    omit?: Prisma.UserBadgeOmit<ExtArgs> | null;
+    omit?: Prisma.IssueUpvoteOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: Prisma.UserBadgeInclude<ExtArgs> | null;
-    where?: Prisma.UserBadgeWhereInput;
-    orderBy?: Prisma.UserBadgeOrderByWithRelationInput | Prisma.UserBadgeOrderByWithRelationInput[];
-    cursor?: Prisma.UserBadgeWhereUniqueInput;
+    include?: Prisma.IssueUpvoteInclude<ExtArgs> | null;
+    where?: Prisma.IssueUpvoteWhereInput;
+    orderBy?: Prisma.IssueUpvoteOrderByWithRelationInput | Prisma.IssueUpvoteOrderByWithRelationInput[];
+    cursor?: Prisma.IssueUpvoteWhereUniqueInput;
     take?: number;
     skip?: number;
-    distinct?: Prisma.UserBadgeScalarFieldEnum | Prisma.UserBadgeScalarFieldEnum[];
+    distinct?: Prisma.IssueUpvoteScalarFieldEnum | Prisma.IssueUpvoteScalarFieldEnum[];
 };
 /**
  * User.notifications
@@ -2323,6 +2300,29 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
     take?: number;
     skip?: number;
     distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[];
+};
+/**
+ * User.badges
+ */
+export type User$badgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBadge
+     */
+    select?: Prisma.UserBadgeSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserBadge
+     */
+    omit?: Prisma.UserBadgeOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserBadgeInclude<ExtArgs> | null;
+    where?: Prisma.UserBadgeWhereInput;
+    orderBy?: Prisma.UserBadgeOrderByWithRelationInput | Prisma.UserBadgeOrderByWithRelationInput[];
+    cursor?: Prisma.UserBadgeWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.UserBadgeScalarFieldEnum | Prisma.UserBadgeScalarFieldEnum[];
 };
 /**
  * User without action

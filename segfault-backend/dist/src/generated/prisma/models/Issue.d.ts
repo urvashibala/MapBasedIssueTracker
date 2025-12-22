@@ -15,118 +15,138 @@ export type AggregateIssue = {
 };
 export type IssueAvgAggregateOutputType = {
     id: number | null;
-    severity: number | null;
+    latitude: number | null;
+    longitude: number | null;
     userId: number | null;
     guestTokenId: number | null;
+    severity: number | null;
 };
 export type IssueSumAggregateOutputType = {
     id: number | null;
-    severity: number | null;
+    latitude: number | null;
+    longitude: number | null;
     userId: number | null;
     guestTokenId: number | null;
+    severity: number | null;
 };
 export type IssueMinAggregateOutputType = {
     id: number | null;
     title: string | null;
     description: string | null;
+    latitude: number | null;
+    longitude: number | null;
     status: $Enums.IssueStatus | null;
     authorized: $Enums.IssueAuthorized | null;
     error: $Enums.IssueError | null;
     createdAt: Date | null;
-    updatedAt: Date | null;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number | null;
     guestTokenId: number | null;
     issueType: $Enums.IssueType | null;
+    severity: number | null;
+    updatedAt: Date | null;
 };
 export type IssueMaxAggregateOutputType = {
     id: number | null;
     title: string | null;
     description: string | null;
+    latitude: number | null;
+    longitude: number | null;
     status: $Enums.IssueStatus | null;
     authorized: $Enums.IssueAuthorized | null;
     error: $Enums.IssueError | null;
     createdAt: Date | null;
-    updatedAt: Date | null;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number | null;
     guestTokenId: number | null;
     issueType: $Enums.IssueType | null;
+    severity: number | null;
+    updatedAt: Date | null;
 };
 export type IssueCountAggregateOutputType = {
     id: number;
     title: number;
     description: number;
+    latitude: number;
+    longitude: number;
     status: number;
     authorized: number;
     error: number;
     createdAt: number;
-    updatedAt: number;
-    severity: number;
     imageBlobId: number;
     userId: number;
     guestTokenId: number;
     issueType: number;
+    severity: number;
+    updatedAt: number;
     _all: number;
 };
 export type IssueAvgAggregateInputType = {
     id?: true;
-    severity?: true;
+    latitude?: true;
+    longitude?: true;
     userId?: true;
     guestTokenId?: true;
+    severity?: true;
 };
 export type IssueSumAggregateInputType = {
     id?: true;
-    severity?: true;
+    latitude?: true;
+    longitude?: true;
     userId?: true;
     guestTokenId?: true;
+    severity?: true;
 };
 export type IssueMinAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    latitude?: true;
+    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
     createdAt?: true;
-    updatedAt?: true;
-    severity?: true;
     imageBlobId?: true;
     userId?: true;
     guestTokenId?: true;
     issueType?: true;
+    severity?: true;
+    updatedAt?: true;
 };
 export type IssueMaxAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    latitude?: true;
+    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
     createdAt?: true;
-    updatedAt?: true;
-    severity?: true;
     imageBlobId?: true;
     userId?: true;
     guestTokenId?: true;
     issueType?: true;
+    severity?: true;
+    updatedAt?: true;
 };
 export type IssueCountAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    latitude?: true;
+    longitude?: true;
     status?: true;
     authorized?: true;
     error?: true;
     createdAt?: true;
-    updatedAt?: true;
-    severity?: true;
     imageBlobId?: true;
     userId?: true;
     guestTokenId?: true;
     issueType?: true;
+    severity?: true;
+    updatedAt?: true;
     _all?: true;
 };
 export type IssueAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -209,16 +229,18 @@ export type IssueGroupByOutputType = {
     id: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status: $Enums.IssueStatus;
     authorized: $Enums.IssueAuthorized;
     error: $Enums.IssueError;
     createdAt: Date;
-    updatedAt: Date;
-    severity: number | null;
     imageBlobId: string | null;
     userId: number;
     guestTokenId: number | null;
     issueType: $Enums.IssueType;
+    severity: number | null;
+    updatedAt: Date;
     _count: IssueCountAggregateOutputType | null;
     _avg: IssueAvgAggregateOutputType | null;
     _sum: IssueSumAggregateOutputType | null;
@@ -235,41 +257,45 @@ export type IssueWhereInput = {
     id?: Prisma.IntFilter<"Issue"> | number;
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
+    latitude?: Prisma.FloatFilter<"Issue"> | number;
+    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
     imageBlobId?: Prisma.StringNullableFilter<"Issue"> | string | null;
     userId?: Prisma.IntFilter<"Issue"> | number;
     guestTokenId?: Prisma.IntNullableFilter<"Issue"> | number | null;
     issueType?: Prisma.EnumIssueTypeFilter<"Issue"> | $Enums.IssueType;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
+    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
     comments?: Prisma.CommentListRelationFilter;
     guestToken?: Prisma.XOR<Prisma.GuestTokenNullableScalarRelationFilter, Prisma.GuestTokenWhereInput> | null;
-    upvotes?: Prisma.IssueUpvoteListRelationFilter;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     resolutionVotes?: Prisma.IssueResolutionVoteListRelationFilter;
+    upvotes?: Prisma.IssueUpvoteListRelationFilter;
 };
 export type IssueOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    updatedAt?: Prisma.SortOrder;
-    severity?: Prisma.SortOrderInput | Prisma.SortOrder;
     imageBlobId?: Prisma.SortOrderInput | Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrderInput | Prisma.SortOrder;
     issueType?: Prisma.SortOrder;
-    user?: Prisma.UserOrderByWithRelationInput;
+    severity?: Prisma.SortOrderInput | Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
     comments?: Prisma.CommentOrderByRelationAggregateInput;
     guestToken?: Prisma.GuestTokenOrderByWithRelationInput;
-    upvotes?: Prisma.IssueUpvoteOrderByRelationAggregateInput;
+    user?: Prisma.UserOrderByWithRelationInput;
     resolutionVotes?: Prisma.IssueResolutionVoteOrderByRelationAggregateInput;
+    upvotes?: Prisma.IssueUpvoteOrderByRelationAggregateInput;
 };
 export type IssueWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -278,36 +304,40 @@ export type IssueWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.IssueWhereInput | Prisma.IssueWhereInput[];
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
+    latitude?: Prisma.FloatFilter<"Issue"> | number;
+    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
     imageBlobId?: Prisma.StringNullableFilter<"Issue"> | string | null;
     userId?: Prisma.IntFilter<"Issue"> | number;
     guestTokenId?: Prisma.IntNullableFilter<"Issue"> | number | null;
     issueType?: Prisma.EnumIssueTypeFilter<"Issue"> | $Enums.IssueType;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
+    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
     comments?: Prisma.CommentListRelationFilter;
     guestToken?: Prisma.XOR<Prisma.GuestTokenNullableScalarRelationFilter, Prisma.GuestTokenWhereInput> | null;
-    upvotes?: Prisma.IssueUpvoteListRelationFilter;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     resolutionVotes?: Prisma.IssueResolutionVoteListRelationFilter;
+    upvotes?: Prisma.IssueUpvoteListRelationFilter;
 }, "id">;
 export type IssueOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    updatedAt?: Prisma.SortOrder;
-    severity?: Prisma.SortOrderInput | Prisma.SortOrder;
     imageBlobId?: Prisma.SortOrderInput | Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrderInput | Prisma.SortOrder;
     issueType?: Prisma.SortOrder;
+    severity?: Prisma.SortOrderInput | Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
     _count?: Prisma.IssueCountOrderByAggregateInput;
     _avg?: Prisma.IssueAvgOrderByAggregateInput;
     _max?: Prisma.IssueMaxOrderByAggregateInput;
@@ -321,128 +351,144 @@ export type IssueScalarWhereWithAggregatesInput = {
     id?: Prisma.IntWithAggregatesFilter<"Issue"> | number;
     title?: Prisma.StringWithAggregatesFilter<"Issue"> | string;
     description?: Prisma.StringWithAggregatesFilter<"Issue"> | string;
+    latitude?: Prisma.FloatWithAggregatesFilter<"Issue"> | number;
+    longitude?: Prisma.FloatWithAggregatesFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusWithAggregatesFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedWithAggregatesFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorWithAggregatesFilter<"Issue"> | $Enums.IssueError;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Issue"> | Date | string;
-    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Issue"> | Date | string;
-    severity?: Prisma.IntNullableWithAggregatesFilter<"Issue"> | number | null;
     imageBlobId?: Prisma.StringNullableWithAggregatesFilter<"Issue"> | string | null;
     userId?: Prisma.IntWithAggregatesFilter<"Issue"> | number;
     guestTokenId?: Prisma.IntNullableWithAggregatesFilter<"Issue"> | number | null;
     issueType?: Prisma.EnumIssueTypeWithAggregatesFilter<"Issue"> | $Enums.IssueType;
+    severity?: Prisma.IntNullableWithAggregatesFilter<"Issue"> | number | null;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Issue"> | Date | string;
 };
 export type IssueCreateInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
-    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentCreateNestedManyWithoutIssueInput;
     guestToken?: Prisma.GuestTokenCreateNestedOneWithoutIssuesInput;
-    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
+    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIssueInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
 };
 export type IssueUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUpdateManyWithoutIssueNestedInput;
     guestToken?: Prisma.GuestTokenUpdateOneWithoutIssuesNestedInput;
-    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutIssueNestedInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueCreateManyInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
 };
 export type IssueUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type IssueUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type IssueListRelationFilter = {
     every?: Prisma.IssueWhereInput;
@@ -456,58 +502,68 @@ export type IssueCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    updatedAt?: Prisma.SortOrder;
-    severity?: Prisma.SortOrder;
     imageBlobId?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
     issueType?: Prisma.SortOrder;
+    severity?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
 };
 export type IssueAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    severity?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
+    severity?: Prisma.SortOrder;
 };
 export type IssueMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    updatedAt?: Prisma.SortOrder;
-    severity?: Prisma.SortOrder;
     imageBlobId?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
     issueType?: Prisma.SortOrder;
+    severity?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
 };
 export type IssueMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     authorized?: Prisma.SortOrder;
     error?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    updatedAt?: Prisma.SortOrder;
-    severity?: Prisma.SortOrder;
     imageBlobId?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
     issueType?: Prisma.SortOrder;
+    severity?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
 };
 export type IssueSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    severity?: Prisma.SortOrder;
+    latitude?: Prisma.SortOrder;
+    longitude?: Prisma.SortOrder;
     userId?: Prisma.SortOrder;
     guestTokenId?: Prisma.SortOrder;
+    severity?: Prisma.SortOrder;
 };
 export type IssueScalarRelationFilter = {
     is?: Prisma.IssueWhereInput;
@@ -589,6 +645,13 @@ export type IssueUncheckedUpdateManyWithoutGuestTokenNestedInput = {
     updateMany?: Prisma.IssueUpdateManyWithWhereWithoutGuestTokenInput | Prisma.IssueUpdateManyWithWhereWithoutGuestTokenInput[];
     deleteMany?: Prisma.IssueScalarWhereInput | Prisma.IssueScalarWhereInput[];
 };
+export type FloatFieldUpdateOperationsInput = {
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+};
 export type EnumIssueStatusFieldUpdateOperationsInput = {
     set?: $Enums.IssueStatus;
 };
@@ -598,15 +661,15 @@ export type EnumIssueAuthorizedFieldUpdateOperationsInput = {
 export type EnumIssueErrorFieldUpdateOperationsInput = {
     set?: $Enums.IssueError;
 };
+export type EnumIssueTypeFieldUpdateOperationsInput = {
+    set?: $Enums.IssueType;
+};
 export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null;
     increment?: number;
     decrement?: number;
     multiply?: number;
     divide?: number;
-};
-export type EnumIssueTypeFieldUpdateOperationsInput = {
-    set?: $Enums.IssueType;
 };
 export type IssueCreateNestedOneWithoutUpvotesInput = {
     create?: Prisma.XOR<Prisma.IssueCreateWithoutUpvotesInput, Prisma.IssueUncheckedCreateWithoutUpvotesInput>;
@@ -647,35 +710,39 @@ export type IssueUpdateOneRequiredWithoutCommentsNestedInput = {
 export type IssueCreateWithoutUserInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentCreateNestedManyWithoutIssueInput;
     guestToken?: Prisma.GuestTokenCreateNestedOneWithoutIssuesInput;
-    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateWithoutUserInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIssueInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
 };
 export type IssueCreateOrConnectWithoutUserInput = {
     where: Prisma.IssueWhereUniqueInput;
@@ -705,49 +772,55 @@ export type IssueScalarWhereInput = {
     id?: Prisma.IntFilter<"Issue"> | number;
     title?: Prisma.StringFilter<"Issue"> | string;
     description?: Prisma.StringFilter<"Issue"> | string;
+    latitude?: Prisma.FloatFilter<"Issue"> | number;
+    longitude?: Prisma.FloatFilter<"Issue"> | number;
     status?: Prisma.EnumIssueStatusFilter<"Issue"> | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFilter<"Issue"> | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFilter<"Issue"> | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
-    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
     imageBlobId?: Prisma.StringNullableFilter<"Issue"> | string | null;
     userId?: Prisma.IntFilter<"Issue"> | number;
     guestTokenId?: Prisma.IntNullableFilter<"Issue"> | number | null;
     issueType?: Prisma.EnumIssueTypeFilter<"Issue"> | $Enums.IssueType;
+    severity?: Prisma.IntNullableFilter<"Issue"> | number | null;
+    updatedAt?: Prisma.DateTimeFilter<"Issue"> | Date | string;
 };
 export type IssueCreateWithoutGuestTokenInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
-    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentCreateNestedManyWithoutIssueInput;
-    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
+    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateWithoutGuestTokenInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIssueInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
 };
 export type IssueCreateOrConnectWithoutGuestTokenInput = {
     where: Prisma.IssueWhereUniqueInput;
@@ -773,33 +846,37 @@ export type IssueUpdateManyWithWhereWithoutGuestTokenInput = {
 export type IssueCreateWithoutUpvotesInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
-    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentCreateNestedManyWithoutIssueInput;
     guestToken?: Prisma.GuestTokenCreateNestedOneWithoutIssuesInput;
+    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateWithoutUpvotesInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIssueInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutIssueInput;
 };
@@ -819,66 +896,74 @@ export type IssueUpdateToOneWithWhereWithoutUpvotesInput = {
 export type IssueUpdateWithoutUpvotesInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUpdateManyWithoutIssueNestedInput;
     guestToken?: Prisma.GuestTokenUpdateOneWithoutIssuesNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateWithoutUpvotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutIssueNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueCreateWithoutResolutionVotesInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
-    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentCreateNestedManyWithoutIssueInput;
     guestToken?: Prisma.GuestTokenCreateNestedOneWithoutIssuesInput;
+    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
     upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateWithoutResolutionVotesInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
     comments?: Prisma.CommentUncheckedCreateNestedManyWithoutIssueInput;
     upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
 };
@@ -898,68 +983,76 @@ export type IssueUpdateToOneWithWhereWithoutResolutionVotesInput = {
 export type IssueUpdateWithoutResolutionVotesInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUpdateManyWithoutIssueNestedInput;
     guestToken?: Prisma.GuestTokenUpdateOneWithoutIssuesNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
     upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateWithoutResolutionVotesInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutIssueNestedInput;
     upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueCreateWithoutCommentsInput = {
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     issueType: $Enums.IssueType;
-    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     guestToken?: Prisma.GuestTokenCreateNestedOneWithoutIssuesInput;
-    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
+    user: Prisma.UserCreateNestedOneWithoutIssuesInput;
     resolutionVotes?: Prisma.IssueResolutionVoteCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteCreateNestedManyWithoutIssueInput;
 };
 export type IssueUncheckedCreateWithoutCommentsInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
-    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
+    severity?: number | null;
+    updatedAt?: Date | string;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedCreateNestedManyWithoutIssueInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedCreateNestedManyWithoutIssueInput;
 };
 export type IssueCreateOrConnectWithoutCommentsInput = {
     where: Prisma.IssueWhereUniqueInput;
@@ -977,170 +1070,190 @@ export type IssueUpdateToOneWithWhereWithoutCommentsInput = {
 export type IssueUpdateWithoutCommentsInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guestToken?: Prisma.GuestTokenUpdateOneWithoutIssuesNestedInput;
-    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateWithoutCommentsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueCreateManyUserInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     guestTokenId?: number | null;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
 };
 export type IssueUpdateWithoutUserInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUpdateManyWithoutIssueNestedInput;
     guestToken?: Prisma.GuestTokenUpdateOneWithoutIssuesNestedInput;
-    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateWithoutUserInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutIssueNestedInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateManyWithoutUserInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     guestTokenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type IssueCreateManyGuestTokenInput = {
     id?: number;
     title: string;
     description: string;
+    latitude: number;
+    longitude: number;
     status?: $Enums.IssueStatus;
     authorized?: $Enums.IssueAuthorized;
     error?: $Enums.IssueError;
     createdAt?: Date | string;
-    updatedAt?: Date | string;
-    severity?: number | null;
     imageBlobId?: string | null;
     userId: number;
     issueType: $Enums.IssueType;
+    severity?: number | null;
+    updatedAt?: Date | string;
 };
 export type IssueUpdateWithoutGuestTokenInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
-    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUpdateManyWithoutIssueNestedInput;
-    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutIssuesNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateWithoutGuestTokenInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     comments?: Prisma.CommentUncheckedUpdateManyWithoutIssueNestedInput;
-    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
     resolutionVotes?: Prisma.IssueResolutionVoteUncheckedUpdateManyWithoutIssueNestedInput;
+    upvotes?: Prisma.IssueUpvoteUncheckedUpdateManyWithoutIssueNestedInput;
 };
 export type IssueUncheckedUpdateManyWithoutGuestTokenInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     status?: Prisma.EnumIssueStatusFieldUpdateOperationsInput | $Enums.IssueStatus;
     authorized?: Prisma.EnumIssueAuthorizedFieldUpdateOperationsInput | $Enums.IssueAuthorized;
     error?: Prisma.EnumIssueErrorFieldUpdateOperationsInput | $Enums.IssueError;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     imageBlobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
     issueType?: Prisma.EnumIssueTypeFieldUpdateOperationsInput | $Enums.IssueType;
+    severity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 /**
  * Count Type IssueCountOutputType
  */
 export type IssueCountOutputType = {
     comments: number;
-    upvotes: number;
     resolutionVotes: number;
+    upvotes: number;
 };
 export type IssueCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     comments?: boolean | IssueCountOutputTypeCountCommentsArgs;
-    upvotes?: boolean | IssueCountOutputTypeCountUpvotesArgs;
     resolutionVotes?: boolean | IssueCountOutputTypeCountResolutionVotesArgs;
+    upvotes?: boolean | IssueCountOutputTypeCountUpvotesArgs;
 };
 /**
  * IssueCountOutputType without action
@@ -1160,125 +1273,135 @@ export type IssueCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.
 /**
  * IssueCountOutputType without action
  */
-export type IssueCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.IssueUpvoteWhereInput;
+export type IssueCountOutputTypeCountResolutionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.IssueResolutionVoteWhereInput;
 };
 /**
  * IssueCountOutputType without action
  */
-export type IssueCountOutputTypeCountResolutionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.IssueResolutionVoteWhereInput;
+export type IssueCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.IssueUpvoteWhereInput;
 };
 export type IssueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    latitude?: boolean;
+    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
     createdAt?: boolean;
-    updatedAt?: boolean;
-    severity?: boolean;
     imageBlobId?: boolean;
     userId?: boolean;
     guestTokenId?: boolean;
     issueType?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    severity?: boolean;
+    updatedAt?: boolean;
     comments?: boolean | Prisma.Issue$commentsArgs<ExtArgs>;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
-    upvotes?: boolean | Prisma.Issue$upvotesArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     resolutionVotes?: boolean | Prisma.Issue$resolutionVotesArgs<ExtArgs>;
+    upvotes?: boolean | Prisma.Issue$upvotesArgs<ExtArgs>;
     _count?: boolean | Prisma.IssueCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["issue"]>;
 export type IssueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    latitude?: boolean;
+    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
     createdAt?: boolean;
-    updatedAt?: boolean;
-    severity?: boolean;
     imageBlobId?: boolean;
     userId?: boolean;
     guestTokenId?: boolean;
     issueType?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    severity?: boolean;
+    updatedAt?: boolean;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["issue"]>;
 export type IssueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    latitude?: boolean;
+    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
     createdAt?: boolean;
-    updatedAt?: boolean;
-    severity?: boolean;
     imageBlobId?: boolean;
     userId?: boolean;
     guestTokenId?: boolean;
     issueType?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    severity?: boolean;
+    updatedAt?: boolean;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["issue"]>;
 export type IssueSelectScalar = {
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    latitude?: boolean;
+    longitude?: boolean;
     status?: boolean;
     authorized?: boolean;
     error?: boolean;
     createdAt?: boolean;
-    updatedAt?: boolean;
-    severity?: boolean;
     imageBlobId?: boolean;
     userId?: boolean;
     guestTokenId?: boolean;
     issueType?: boolean;
+    severity?: boolean;
+    updatedAt?: boolean;
 };
-export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "authorized" | "error" | "createdAt" | "updatedAt" | "severity" | "imageBlobId" | "userId" | "guestTokenId" | "issueType", ExtArgs["result"]["issue"]>;
+export type IssueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "latitude" | "longitude" | "status" | "authorized" | "error" | "createdAt" | "imageBlobId" | "userId" | "guestTokenId" | "issueType" | "severity" | "updatedAt", ExtArgs["result"]["issue"]>;
 export type IssueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     comments?: boolean | Prisma.Issue$commentsArgs<ExtArgs>;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
-    upvotes?: boolean | Prisma.Issue$upvotesArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     resolutionVotes?: boolean | Prisma.Issue$resolutionVotesArgs<ExtArgs>;
+    upvotes?: boolean | Prisma.Issue$upvotesArgs<ExtArgs>;
     _count?: boolean | Prisma.IssueCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type IssueIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type IssueIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     guestToken?: boolean | Prisma.Issue$guestTokenArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type $IssuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Issue";
     objects: {
-        user: Prisma.$UserPayload<ExtArgs>;
         comments: Prisma.$CommentPayload<ExtArgs>[];
         guestToken: Prisma.$GuestTokenPayload<ExtArgs> | null;
-        upvotes: Prisma.$IssueUpvotePayload<ExtArgs>[];
+        user: Prisma.$UserPayload<ExtArgs>;
         resolutionVotes: Prisma.$IssueResolutionVotePayload<ExtArgs>[];
+        upvotes: Prisma.$IssueUpvotePayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
         title: string;
         description: string;
+        latitude: number;
+        longitude: number;
         status: $Enums.IssueStatus;
         authorized: $Enums.IssueAuthorized;
         error: $Enums.IssueError;
         createdAt: Date;
-        updatedAt: Date;
-        severity: number | null;
         imageBlobId: string | null;
         userId: number;
         guestTokenId: number | null;
         issueType: $Enums.IssueType;
+        severity: number | null;
+        updatedAt: Date;
     }, ExtArgs["result"]["issue"]>;
     composites: {};
 };
@@ -1608,11 +1731,11 @@ export interface IssueDelegate<ExtArgs extends runtime.Types.Extensions.Internal
  */
 export interface Prisma__IssueClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     comments<T extends Prisma.Issue$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Issue$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     guestToken<T extends Prisma.Issue$guestTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Issue$guestTokenArgs<ExtArgs>>): Prisma.Prisma__GuestTokenClient<runtime.Types.Result.GetResult<Prisma.$GuestTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
-    upvotes<T extends Prisma.Issue$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Issue$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     resolutionVotes<T extends Prisma.Issue$resolutionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Issue$resolutionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueResolutionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    upvotes<T extends Prisma.Issue$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Issue$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IssueUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1641,16 +1764,18 @@ export interface IssueFieldRefs {
     readonly id: Prisma.FieldRef<"Issue", 'Int'>;
     readonly title: Prisma.FieldRef<"Issue", 'String'>;
     readonly description: Prisma.FieldRef<"Issue", 'String'>;
+    readonly latitude: Prisma.FieldRef<"Issue", 'Float'>;
+    readonly longitude: Prisma.FieldRef<"Issue", 'Float'>;
     readonly status: Prisma.FieldRef<"Issue", 'IssueStatus'>;
     readonly authorized: Prisma.FieldRef<"Issue", 'IssueAuthorized'>;
     readonly error: Prisma.FieldRef<"Issue", 'IssueError'>;
     readonly createdAt: Prisma.FieldRef<"Issue", 'DateTime'>;
-    readonly updatedAt: Prisma.FieldRef<"Issue", 'DateTime'>;
-    readonly severity: Prisma.FieldRef<"Issue", 'Int'>;
     readonly imageBlobId: Prisma.FieldRef<"Issue", 'String'>;
     readonly userId: Prisma.FieldRef<"Issue", 'Int'>;
     readonly guestTokenId: Prisma.FieldRef<"Issue", 'Int'>;
     readonly issueType: Prisma.FieldRef<"Issue", 'IssueType'>;
+    readonly severity: Prisma.FieldRef<"Issue", 'Int'>;
+    readonly updatedAt: Prisma.FieldRef<"Issue", 'DateTime'>;
 }
 /**
  * Issue findUnique
@@ -2071,29 +2196,6 @@ export type Issue$guestTokenArgs<ExtArgs extends runtime.Types.Extensions.Intern
     where?: Prisma.GuestTokenWhereInput;
 };
 /**
- * Issue.upvotes
- */
-export type Issue$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IssueUpvote
-     */
-    select?: Prisma.IssueUpvoteSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the IssueUpvote
-     */
-    omit?: Prisma.IssueUpvoteOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: Prisma.IssueUpvoteInclude<ExtArgs> | null;
-    where?: Prisma.IssueUpvoteWhereInput;
-    orderBy?: Prisma.IssueUpvoteOrderByWithRelationInput | Prisma.IssueUpvoteOrderByWithRelationInput[];
-    cursor?: Prisma.IssueUpvoteWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: Prisma.IssueUpvoteScalarFieldEnum | Prisma.IssueUpvoteScalarFieldEnum[];
-};
-/**
  * Issue.resolutionVotes
  */
 export type Issue$resolutionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2115,6 +2217,29 @@ export type Issue$resolutionVotesArgs<ExtArgs extends runtime.Types.Extensions.I
     take?: number;
     skip?: number;
     distinct?: Prisma.IssueResolutionVoteScalarFieldEnum | Prisma.IssueResolutionVoteScalarFieldEnum[];
+};
+/**
+ * Issue.upvotes
+ */
+export type Issue$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IssueUpvote
+     */
+    select?: Prisma.IssueUpvoteSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the IssueUpvote
+     */
+    omit?: Prisma.IssueUpvoteOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.IssueUpvoteInclude<ExtArgs> | null;
+    where?: Prisma.IssueUpvoteWhereInput;
+    orderBy?: Prisma.IssueUpvoteOrderByWithRelationInput | Prisma.IssueUpvoteOrderByWithRelationInput[];
+    cursor?: Prisma.IssueUpvoteWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.IssueUpvoteScalarFieldEnum | Prisma.IssueUpvoteScalarFieldEnum[];
 };
 /**
  * Issue without action

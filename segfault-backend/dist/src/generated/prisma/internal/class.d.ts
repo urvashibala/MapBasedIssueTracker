@@ -232,6 +232,28 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get graphEdge(): Prisma.GraphEdgeDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    /**
+     * `prisma.playing_with_neon`: Exposes CRUD operations for the **playing_with_neon** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Playing_with_neons
+      * const playing_with_neons = await prisma.playing_with_neon.findMany()
+      * ```
+      */
+    get playing_with_neon(): Prisma.playing_with_neonDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.spatial_ref_sys`: Exposes CRUD operations for the **spatial_ref_sys** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Spatial_ref_sys
+      * const spatial_ref_sys = await prisma.spatial_ref_sys.findMany()
+      * ```
+      */
+    get spatial_ref_sys(): Prisma.spatial_ref_sysDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(dirname: string): PrismaClientConstructor;
 //# sourceMappingURL=class.d.ts.map

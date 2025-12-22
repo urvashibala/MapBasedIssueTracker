@@ -9,5 +9,7 @@ export type * from './models/CommentUpvote';
 export type * from './models/Notification';
 export type * from './models/GraphNode';
 export type * from './models/GraphEdge';
+export type * from './models/playing_with_neon';
+export type * from './models/spatial_ref_sys';
 export type * from './commonInputTypes';
 //# sourceMappingURL=models.d.ts.map

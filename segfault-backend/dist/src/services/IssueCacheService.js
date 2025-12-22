@@ -21,6 +21,7 @@ function toIssueSummary(row) {
         voteCount: Number(row.upvote_count ?? 0),
         commentCount: Number(row.comment_count ?? 0),
         createdAt: row.createdAt.toISOString(),
+        imageBlobId: row.imageBlobId,
     };
 }
 function chunkArray(items, chunkSize) {
@@ -96,7 +97,7 @@ async function mgetChunked(keys, chunkSize = 500) {
 }
 async function queryIssuesInBoundsWithCounts(minLat, maxLat, minLng, maxLng, includeResolved) {
     return prisma.$queryRawUnsafe(`WITH bbox AS (
-            SELECT i.id, i.title, i.status, i."issueType", i.location, i."createdAt"
+            SELECT i.id, i.title, i.status, i."issueType", i.location, i."createdAt", i."imageBlobId"
             FROM "Issue" i
             WHERE i.location && ST_MakeEnvelope($1, $2, $3, $4, 4326)
             AND ST_Within(i.location, ST_MakeEnvelope($1, $2, $3, $4, 4326))
@@ -107,6 +108,7 @@ async function queryIssuesInBoundsWithCounts(minLat, maxLat, minLng, maxLng, inc
             ST_Y(b.location) as latitude,
             ST_X(b.location) as longitude,
             b."createdAt",
+            b."imageBlobId",
             COALESCE(uv.upvote_count, 0) as upvote_count,
             COALESCE(cm.comment_count, 0) as comment_count
         FROM bbox b
@@ -135,6 +137,7 @@ async function queryIssueSummariesByIds(ids, includeResolved) {
             ST_Y(i.location) as latitude,
             ST_X(i.location) as longitude,
             i."createdAt",
+            i."imageBlobId",
             COALESCE(uv.upvote_count, 0) as upvote_count,
             COALESCE(cm.comment_count, 0) as comment_count
         FROM "Issue" i

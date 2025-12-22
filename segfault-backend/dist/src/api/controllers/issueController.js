@@ -124,6 +124,10 @@ export async function getIssue(req, res) {
         if (req.user && req.user.id !== -1) {
             hasVoted = await hasUserUpvotedIssue(req.user.id, issueId);
         }
+        // Construct image URL if imageBlobId exists
+        const imageUrl = issue.imageBlobId
+            ? `https://segfaultstorage3103.blob.core.windows.net/images/${issue.imageBlobId}`
+            : null;
         const formatted = {
             id: String(issue.id),
             title: issue.title,
@@ -131,12 +135,13 @@ export async function getIssue(req, res) {
             status: issue.status,
             description: issue.description,
             location: `${issue.latitude}, ${issue.longitude}`,
-            lat: issue.latitude,
-            lng: issue.longitude,
-            voteCount: issue._count.upvotes,
-            commentCount: issue._count.comments,
+            lat: Number(issue.latitude),
+            lng: Number(issue.longitude),
+            voteCount: Number(issue._count.upvotes),
+            commentCount: Number(issue._count.comments),
             hasVoted,
             reportedAt: issue.createdAt.toISOString(),
+            imageUrl,
             reporter: issue.guestTokenId || !issue.user
                 ? { name: "Anonymous", isGuest: true }
                 : { id: String(issue.user.id), name: issue.user.name, email: issue.user.email },
@@ -297,6 +302,10 @@ export async function getIssuesInBounds(req, res) {
             // Urgency formula: (hoursSinceCreation * 0.5) + (upvotes * 2), capped at 100
             const rawUrgency = hoursSinceCreation * 0.5 + issue.voteCount * 2;
             const urgencyScore = Math.min(100, Math.round(rawUrgency));
+            // Construct image URL if imageBlobId exists
+            const imageUrl = issue.imageBlobId
+                ? `https://segfaultstorage3103.blob.core.windows.net/images/${issue.imageBlobId}`
+                : null;
             return {
                 id: String(issue.id),
                 title: issue.title,
@@ -308,6 +317,7 @@ export async function getIssuesInBounds(req, res) {
                 commentCount: issue.commentCount,
                 urgencyScore,
                 reportedAt: issue.createdAt,
+                imageUrl,
             };
         });
         // Apply filters
@@ -372,7 +382,7 @@ export async function updateIssueStatus(req, res) {
         if (!req.user) {
             return res.status(401).json({ error: "Authentication required" });
         }
-        if (req.user.role !== "ADMIN") {
+        if (req.user.role !== "ADMIN" && req.user.role !== "PIGS") {
             return res.status(403).json({ error: "Admin access required" });
         }
         const issueId = parseInt(req.params.id || "");
@@ -385,7 +395,7 @@ export async function updateIssueStatus(req, res) {
         }
         const issue = await prisma.issue.findUnique({
             where: { id: issueId },
-            select: { userId: true, status: true },
+            select: { userId: true, status: true, title: true },
         });
         if (!issue) {
             return res.status(404).json({ error: "Issue not found" });
@@ -399,6 +409,12 @@ export async function updateIssueStatus(req, res) {
             const { awardPoints } = await import("../../services/GamificationService");
             awardPoints(issue.userId, 20).catch((err) => console.error("Failed to award points for resolution:", err));
         }
+        // create notification for the issue reporter
+        const { createNotification } = await import("../../data/notification");
+        const { NotificationType } = await import("../../generated/prisma/enums");
+        const statusLabel = status.replace("_", " ").toLowerCase();
+        const message = `Your issue "${issue.title}" has been updated to: ${statusLabel}`;
+        createNotification(issue.userId, NotificationType.ISSUE_STATUS_UPDATE, message).catch((err) => console.error("Failed to create status update notification:", err));
         return res.json({
             id: String(updated.id),
             status: updated.status,

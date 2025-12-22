@@ -13,6 +13,7 @@ export interface IssueSummary {
     voteCount: number;
     commentCount: number;
     createdAt: string;
+    imageBlobId: string | null;
 }
 export declare function getIssuesInBounds(minLat: number, maxLat: number, minLng: number, maxLng: number, includeResolved?: boolean): Promise<IssueSummary[]>;
 export declare function invalidateIssueCache(issueId: number, lat?: number, lng?: number): Promise<void>;

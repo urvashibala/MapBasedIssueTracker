@@ -30,6 +30,7 @@ export interface Issue {
     voteCount: number;
     reportedAt: string;
     reporterId?: string;
+    imageUrl?: string | null;
 }
 
 export interface Bounds {
@@ -51,6 +52,7 @@ export interface MapIssue {
     commentCount: number;
     urgencyScore: number;
     reportedAt: string;
+    imageUrl: string | null;
 }
 
 export interface IssueType {

@@ -162,6 +162,11 @@ export async function getIssue(req: Request, res: Response) {
             hasVoted = await hasUserUpvotedIssue(req.user.id, issueId);
         }
 
+        // Construct image URL if imageBlobId exists
+        const imageUrl = issue.imageBlobId
+            ? `https://segfaultstorage3103.blob.core.windows.net/images/${issue.imageBlobId}`
+            : null;
+
         const formatted = {
             id: String(issue.id),
             title: issue.title,
@@ -175,6 +180,7 @@ export async function getIssue(req: Request, res: Response) {
             commentCount: Number(issue._count.comments),
             hasVoted,
             reportedAt: issue.createdAt.toISOString(),
+            imageUrl,
             reporter: issue.guestTokenId || !issue.user
                 ? { name: "Anonymous", isGuest: true }
                 : { id: String(issue.user.id), name: issue.user.name, email: issue.user.email },
@@ -369,6 +375,11 @@ export async function getIssuesInBounds(req: Request, res: Response) {
             const rawUrgency = hoursSinceCreation * 0.5 + issue.voteCount * 2;
             const urgencyScore = Math.min(100, Math.round(rawUrgency));
 
+            // Construct image URL if imageBlobId exists
+            const imageUrl = issue.imageBlobId
+                ? `https://segfaultstorage3103.blob.core.windows.net/images/${issue.imageBlobId}`
+                : null;
+
             return {
                 id: String(issue.id),
                 title: issue.title,
@@ -380,6 +391,7 @@ export async function getIssuesInBounds(req: Request, res: Response) {
                 commentCount: issue.commentCount,
                 urgencyScore,
                 reportedAt: issue.createdAt,
+                imageUrl,
             };
         });
 

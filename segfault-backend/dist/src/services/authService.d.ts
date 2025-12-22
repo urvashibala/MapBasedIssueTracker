@@ -4,14 +4,8 @@ export declare function exchangeGoogleCodeForProfile(code: string): Promise<{
     picture: string | null;
 }>;
 export declare function loginWithGoogle(code: string): Promise<string>;
-export declare function registerWithEmail(email: string, password: string, name: string | null): Promise<string | {
-    require2fa: boolean;
-    userId: number;
-}>;
-export declare function loginWithEmail(email: string, password: string): Promise<string | {
-    require2fa: boolean;
-    userId: number;
-}>;
+export declare function registerWithEmail(email: string, password: string, name: string | null): Promise<string>;
+export declare function loginWithEmail(email: string, password: string): Promise<string>;
 export declare function verify2FACode(userId: number, code: string): Promise<string>;
 export declare function generateGuestSession(): Promise<{
     token: string;

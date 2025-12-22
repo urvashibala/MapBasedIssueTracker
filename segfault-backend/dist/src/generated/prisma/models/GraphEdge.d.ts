@@ -184,8 +184,8 @@ export type GraphEdgeWhereInput = {
     distance?: Prisma.FloatFilter<"GraphEdge"> | number;
     baseCost?: Prisma.FloatFilter<"GraphEdge"> | number;
     penalty?: Prisma.FloatFilter<"GraphEdge"> | number;
-    startNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
     endNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
+    startNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
 };
 export type GraphEdgeOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -194,8 +194,8 @@ export type GraphEdgeOrderByWithRelationInput = {
     distance?: Prisma.SortOrder;
     baseCost?: Prisma.SortOrder;
     penalty?: Prisma.SortOrder;
-    startNode?: Prisma.GraphNodeOrderByWithRelationInput;
     endNode?: Prisma.GraphNodeOrderByWithRelationInput;
+    startNode?: Prisma.GraphNodeOrderByWithRelationInput;
 };
 export type GraphEdgeWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -207,8 +207,8 @@ export type GraphEdgeWhereUniqueInput = Prisma.AtLeast<{
     distance?: Prisma.FloatFilter<"GraphEdge"> | number;
     baseCost?: Prisma.FloatFilter<"GraphEdge"> | number;
     penalty?: Prisma.FloatFilter<"GraphEdge"> | number;
-    startNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
     endNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
+    startNode?: Prisma.XOR<Prisma.GraphNodeScalarRelationFilter, Prisma.GraphNodeWhereInput>;
 }, "id">;
 export type GraphEdgeOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -239,8 +239,8 @@ export type GraphEdgeCreateInput = {
     distance: number;
     baseCost: number;
     penalty?: number;
-    startNode: Prisma.GraphNodeCreateNestedOneWithoutOutgoingInput;
     endNode: Prisma.GraphNodeCreateNestedOneWithoutIncomingInput;
+    startNode: Prisma.GraphNodeCreateNestedOneWithoutOutgoingInput;
 };
 export type GraphEdgeUncheckedCreateInput = {
     id?: string;
@@ -255,8 +255,8 @@ export type GraphEdgeUpdateInput = {
     distance?: Prisma.FloatFieldUpdateOperationsInput | number;
     baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
     penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
-    startNode?: Prisma.GraphNodeUpdateOneRequiredWithoutOutgoingNestedInput;
     endNode?: Prisma.GraphNodeUpdateOneRequiredWithoutIncomingNestedInput;
+    startNode?: Prisma.GraphNodeUpdateOneRequiredWithoutOutgoingNestedInput;
 };
 export type GraphEdgeUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -330,19 +330,13 @@ export type GraphEdgeSumOrderByAggregateInput = {
     baseCost?: Prisma.SortOrder;
     penalty?: Prisma.SortOrder;
 };
-export type GraphEdgeCreateNestedManyWithoutStartNodeInput = {
-    create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput> | Prisma.GraphEdgeCreateWithoutStartNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput[];
-    connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput[];
-    createMany?: Prisma.GraphEdgeCreateManyStartNodeInputEnvelope;
-    connect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
-};
 export type GraphEdgeCreateNestedManyWithoutEndNodeInput = {
     create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutEndNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutEndNodeInput> | Prisma.GraphEdgeCreateWithoutEndNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutEndNodeInput[];
     connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutEndNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutEndNodeInput[];
     createMany?: Prisma.GraphEdgeCreateManyEndNodeInputEnvelope;
     connect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
 };
-export type GraphEdgeUncheckedCreateNestedManyWithoutStartNodeInput = {
+export type GraphEdgeCreateNestedManyWithoutStartNodeInput = {
     create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput> | Prisma.GraphEdgeCreateWithoutStartNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput[];
     connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput[];
     createMany?: Prisma.GraphEdgeCreateManyStartNodeInputEnvelope;
@@ -354,18 +348,11 @@ export type GraphEdgeUncheckedCreateNestedManyWithoutEndNodeInput = {
     createMany?: Prisma.GraphEdgeCreateManyEndNodeInputEnvelope;
     connect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
 };
-export type GraphEdgeUpdateManyWithoutStartNodeNestedInput = {
+export type GraphEdgeUncheckedCreateNestedManyWithoutStartNodeInput = {
     create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput> | Prisma.GraphEdgeCreateWithoutStartNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput[];
     connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput[];
-    upsert?: Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput | Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput[];
     createMany?: Prisma.GraphEdgeCreateManyStartNodeInputEnvelope;
-    set?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
-    disconnect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
-    delete?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
     connect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
-    update?: Prisma.GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput | Prisma.GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput[];
-    updateMany?: Prisma.GraphEdgeUpdateManyWithWhereWithoutStartNodeInput | Prisma.GraphEdgeUpdateManyWithWhereWithoutStartNodeInput[];
-    deleteMany?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
 };
 export type GraphEdgeUpdateManyWithoutEndNodeNestedInput = {
     create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutEndNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutEndNodeInput> | Prisma.GraphEdgeCreateWithoutEndNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutEndNodeInput[];
@@ -380,7 +367,7 @@ export type GraphEdgeUpdateManyWithoutEndNodeNestedInput = {
     updateMany?: Prisma.GraphEdgeUpdateManyWithWhereWithoutEndNodeInput | Prisma.GraphEdgeUpdateManyWithWhereWithoutEndNodeInput[];
     deleteMany?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
 };
-export type GraphEdgeUncheckedUpdateManyWithoutStartNodeNestedInput = {
+export type GraphEdgeUpdateManyWithoutStartNodeNestedInput = {
     create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput> | Prisma.GraphEdgeCreateWithoutStartNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput[];
     connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput[];
     upsert?: Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput | Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput[];
@@ -406,27 +393,18 @@ export type GraphEdgeUncheckedUpdateManyWithoutEndNodeNestedInput = {
     updateMany?: Prisma.GraphEdgeUpdateManyWithWhereWithoutEndNodeInput | Prisma.GraphEdgeUpdateManyWithWhereWithoutEndNodeInput[];
     deleteMany?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
 };
-export type GraphEdgeCreateWithoutStartNodeInput = {
-    id?: string;
-    distance: number;
-    baseCost: number;
-    penalty?: number;
-    endNode: Prisma.GraphNodeCreateNestedOneWithoutIncomingInput;
-};
-export type GraphEdgeUncheckedCreateWithoutStartNodeInput = {
-    id?: string;
-    endNodeId: string;
-    distance: number;
-    baseCost: number;
-    penalty?: number;
-};
-export type GraphEdgeCreateOrConnectWithoutStartNodeInput = {
-    where: Prisma.GraphEdgeWhereUniqueInput;
-    create: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput>;
-};
-export type GraphEdgeCreateManyStartNodeInputEnvelope = {
-    data: Prisma.GraphEdgeCreateManyStartNodeInput | Prisma.GraphEdgeCreateManyStartNodeInput[];
-    skipDuplicates?: boolean;
+export type GraphEdgeUncheckedUpdateManyWithoutStartNodeNestedInput = {
+    create?: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput> | Prisma.GraphEdgeCreateWithoutStartNodeInput[] | Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput[];
+    connectOrCreate?: Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput | Prisma.GraphEdgeCreateOrConnectWithoutStartNodeInput[];
+    upsert?: Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput | Prisma.GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput[];
+    createMany?: Prisma.GraphEdgeCreateManyStartNodeInputEnvelope;
+    set?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
+    disconnect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
+    delete?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
+    connect?: Prisma.GraphEdgeWhereUniqueInput | Prisma.GraphEdgeWhereUniqueInput[];
+    update?: Prisma.GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput | Prisma.GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput[];
+    updateMany?: Prisma.GraphEdgeUpdateManyWithWhereWithoutStartNodeInput | Prisma.GraphEdgeUpdateManyWithWhereWithoutStartNodeInput[];
+    deleteMany?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
 };
 export type GraphEdgeCreateWithoutEndNodeInput = {
     id?: string;
@@ -450,29 +428,27 @@ export type GraphEdgeCreateManyEndNodeInputEnvelope = {
     data: Prisma.GraphEdgeCreateManyEndNodeInput | Prisma.GraphEdgeCreateManyEndNodeInput[];
     skipDuplicates?: boolean;
 };
-export type GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput = {
+export type GraphEdgeCreateWithoutStartNodeInput = {
+    id?: string;
+    distance: number;
+    baseCost: number;
+    penalty?: number;
+    endNode: Prisma.GraphNodeCreateNestedOneWithoutIncomingInput;
+};
+export type GraphEdgeUncheckedCreateWithoutStartNodeInput = {
+    id?: string;
+    endNodeId: string;
+    distance: number;
+    baseCost: number;
+    penalty?: number;
+};
+export type GraphEdgeCreateOrConnectWithoutStartNodeInput = {
     where: Prisma.GraphEdgeWhereUniqueInput;
-    update: Prisma.XOR<Prisma.GraphEdgeUpdateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedUpdateWithoutStartNodeInput>;
     create: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput>;
 };
-export type GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput = {
-    where: Prisma.GraphEdgeWhereUniqueInput;
-    data: Prisma.XOR<Prisma.GraphEdgeUpdateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedUpdateWithoutStartNodeInput>;
-};
-export type GraphEdgeUpdateManyWithWhereWithoutStartNodeInput = {
-    where: Prisma.GraphEdgeScalarWhereInput;
-    data: Prisma.XOR<Prisma.GraphEdgeUpdateManyMutationInput, Prisma.GraphEdgeUncheckedUpdateManyWithoutStartNodeInput>;
-};
-export type GraphEdgeScalarWhereInput = {
-    AND?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
-    OR?: Prisma.GraphEdgeScalarWhereInput[];
-    NOT?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
-    id?: Prisma.StringFilter<"GraphEdge"> | string;
-    startNodeId?: Prisma.StringFilter<"GraphEdge"> | string;
-    endNodeId?: Prisma.StringFilter<"GraphEdge"> | string;
-    distance?: Prisma.FloatFilter<"GraphEdge"> | number;
-    baseCost?: Prisma.FloatFilter<"GraphEdge"> | number;
-    penalty?: Prisma.FloatFilter<"GraphEdge"> | number;
+export type GraphEdgeCreateManyStartNodeInputEnvelope = {
+    data: Prisma.GraphEdgeCreateManyStartNodeInput | Prisma.GraphEdgeCreateManyStartNodeInput[];
+    skipDuplicates?: boolean;
 };
 export type GraphEdgeUpsertWithWhereUniqueWithoutEndNodeInput = {
     where: Prisma.GraphEdgeWhereUniqueInput;
@@ -487,12 +463,29 @@ export type GraphEdgeUpdateManyWithWhereWithoutEndNodeInput = {
     where: Prisma.GraphEdgeScalarWhereInput;
     data: Prisma.XOR<Prisma.GraphEdgeUpdateManyMutationInput, Prisma.GraphEdgeUncheckedUpdateManyWithoutEndNodeInput>;
 };
-export type GraphEdgeCreateManyStartNodeInput = {
-    id?: string;
-    endNodeId: string;
-    distance: number;
-    baseCost: number;
-    penalty?: number;
+export type GraphEdgeScalarWhereInput = {
+    AND?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
+    OR?: Prisma.GraphEdgeScalarWhereInput[];
+    NOT?: Prisma.GraphEdgeScalarWhereInput | Prisma.GraphEdgeScalarWhereInput[];
+    id?: Prisma.StringFilter<"GraphEdge"> | string;
+    startNodeId?: Prisma.StringFilter<"GraphEdge"> | string;
+    endNodeId?: Prisma.StringFilter<"GraphEdge"> | string;
+    distance?: Prisma.FloatFilter<"GraphEdge"> | number;
+    baseCost?: Prisma.FloatFilter<"GraphEdge"> | number;
+    penalty?: Prisma.FloatFilter<"GraphEdge"> | number;
+};
+export type GraphEdgeUpsertWithWhereUniqueWithoutStartNodeInput = {
+    where: Prisma.GraphEdgeWhereUniqueInput;
+    update: Prisma.XOR<Prisma.GraphEdgeUpdateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedUpdateWithoutStartNodeInput>;
+    create: Prisma.XOR<Prisma.GraphEdgeCreateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedCreateWithoutStartNodeInput>;
+};
+export type GraphEdgeUpdateWithWhereUniqueWithoutStartNodeInput = {
+    where: Prisma.GraphEdgeWhereUniqueInput;
+    data: Prisma.XOR<Prisma.GraphEdgeUpdateWithoutStartNodeInput, Prisma.GraphEdgeUncheckedUpdateWithoutStartNodeInput>;
+};
+export type GraphEdgeUpdateManyWithWhereWithoutStartNodeInput = {
+    where: Prisma.GraphEdgeScalarWhereInput;
+    data: Prisma.XOR<Prisma.GraphEdgeUpdateManyMutationInput, Prisma.GraphEdgeUncheckedUpdateManyWithoutStartNodeInput>;
 };
 export type GraphEdgeCreateManyEndNodeInput = {
     id?: string;
@@ -501,26 +494,12 @@ export type GraphEdgeCreateManyEndNodeInput = {
     baseCost: number;
     penalty?: number;
 };
-export type GraphEdgeUpdateWithoutStartNodeInput = {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
-    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
-    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
-    endNode?: Prisma.GraphNodeUpdateOneRequiredWithoutIncomingNestedInput;
-};
-export type GraphEdgeUncheckedUpdateWithoutStartNodeInput = {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    endNodeId?: Prisma.StringFieldUpdateOperationsInput | string;
-    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
-    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
-    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
-};
-export type GraphEdgeUncheckedUpdateManyWithoutStartNodeInput = {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    endNodeId?: Prisma.StringFieldUpdateOperationsInput | string;
-    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
-    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
-    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
+export type GraphEdgeCreateManyStartNodeInput = {
+    id?: string;
+    endNodeId: string;
+    distance: number;
+    baseCost: number;
+    penalty?: number;
 };
 export type GraphEdgeUpdateWithoutEndNodeInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -543,6 +522,27 @@ export type GraphEdgeUncheckedUpdateManyWithoutEndNodeInput = {
     baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
     penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
 };
+export type GraphEdgeUpdateWithoutStartNodeInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
+    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
+    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
+    endNode?: Prisma.GraphNodeUpdateOneRequiredWithoutIncomingNestedInput;
+};
+export type GraphEdgeUncheckedUpdateWithoutStartNodeInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    endNodeId?: Prisma.StringFieldUpdateOperationsInput | string;
+    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
+    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
+    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
+};
+export type GraphEdgeUncheckedUpdateManyWithoutStartNodeInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    endNodeId?: Prisma.StringFieldUpdateOperationsInput | string;
+    distance?: Prisma.FloatFieldUpdateOperationsInput | number;
+    baseCost?: Prisma.FloatFieldUpdateOperationsInput | number;
+    penalty?: Prisma.FloatFieldUpdateOperationsInput | number;
+};
 export type GraphEdgeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     startNodeId?: boolean;
@@ -550,8 +550,8 @@ export type GraphEdgeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
     distance?: boolean;
     baseCost?: boolean;
     penalty?: boolean;
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["graphEdge"]>;
 export type GraphEdgeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -560,8 +560,8 @@ export type GraphEdgeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
     distance?: boolean;
     baseCost?: boolean;
     penalty?: boolean;
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["graphEdge"]>;
 export type GraphEdgeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -570,8 +570,8 @@ export type GraphEdgeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
     distance?: boolean;
     baseCost?: boolean;
     penalty?: boolean;
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["graphEdge"]>;
 export type GraphEdgeSelectScalar = {
     id?: boolean;
@@ -583,22 +583,22 @@ export type GraphEdgeSelectScalar = {
 };
 export type GraphEdgeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "startNodeId" | "endNodeId" | "distance" | "baseCost" | "penalty", ExtArgs["result"]["graphEdge"]>;
 export type GraphEdgeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 };
 export type GraphEdgeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 };
 export type GraphEdgeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
     endNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
+    startNode?: boolean | Prisma.GraphNodeDefaultArgs<ExtArgs>;
 };
 export type $GraphEdgePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "GraphEdge";
     objects: {
-        startNode: Prisma.$GraphNodePayload<ExtArgs>;
         endNode: Prisma.$GraphNodePayload<ExtArgs>;
+        startNode: Prisma.$GraphNodePayload<ExtArgs>;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -936,8 +936,8 @@ export interface GraphEdgeDelegate<ExtArgs extends runtime.Types.Extensions.Inte
  */
 export interface Prisma__GraphEdgeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    startNode<T extends Prisma.GraphNodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNodeDefaultArgs<ExtArgs>>): Prisma.Prisma__GraphNodeClient<runtime.Types.Result.GetResult<Prisma.$GraphNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     endNode<T extends Prisma.GraphNodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNodeDefaultArgs<ExtArgs>>): Prisma.Prisma__GraphNodeClient<runtime.Types.Result.GetResult<Prisma.$GraphNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    startNode<T extends Prisma.GraphNodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNodeDefaultArgs<ExtArgs>>): Prisma.Prisma__GraphNodeClient<runtime.Types.Result.GetResult<Prisma.$GraphNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -164,16 +164,16 @@ export type GraphNodeWhereInput = {
     osmId?: Prisma.StringFilter<"GraphNode"> | string;
     latitude?: Prisma.FloatFilter<"GraphNode"> | number;
     longitude?: Prisma.FloatFilter<"GraphNode"> | number;
-    outgoing?: Prisma.GraphEdgeListRelationFilter;
     incoming?: Prisma.GraphEdgeListRelationFilter;
+    outgoing?: Prisma.GraphEdgeListRelationFilter;
 };
 export type GraphNodeOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     osmId?: Prisma.SortOrder;
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
-    outgoing?: Prisma.GraphEdgeOrderByRelationAggregateInput;
     incoming?: Prisma.GraphEdgeOrderByRelationAggregateInput;
+    outgoing?: Prisma.GraphEdgeOrderByRelationAggregateInput;
 };
 export type GraphNodeWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -183,8 +183,8 @@ export type GraphNodeWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.GraphNodeWhereInput | Prisma.GraphNodeWhereInput[];
     latitude?: Prisma.FloatFilter<"GraphNode"> | number;
     longitude?: Prisma.FloatFilter<"GraphNode"> | number;
-    outgoing?: Prisma.GraphEdgeListRelationFilter;
     incoming?: Prisma.GraphEdgeListRelationFilter;
+    outgoing?: Prisma.GraphEdgeListRelationFilter;
 }, "id" | "osmId">;
 export type GraphNodeOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -211,32 +211,32 @@ export type GraphNodeCreateInput = {
     osmId: string;
     latitude: number;
     longitude: number;
-    outgoing?: Prisma.GraphEdgeCreateNestedManyWithoutStartNodeInput;
     incoming?: Prisma.GraphEdgeCreateNestedManyWithoutEndNodeInput;
+    outgoing?: Prisma.GraphEdgeCreateNestedManyWithoutStartNodeInput;
 };
 export type GraphNodeUncheckedCreateInput = {
     id?: string;
     osmId: string;
     latitude: number;
     longitude: number;
-    outgoing?: Prisma.GraphEdgeUncheckedCreateNestedManyWithoutStartNodeInput;
     incoming?: Prisma.GraphEdgeUncheckedCreateNestedManyWithoutEndNodeInput;
+    outgoing?: Prisma.GraphEdgeUncheckedCreateNestedManyWithoutStartNodeInput;
 };
 export type GraphNodeUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     osmId?: Prisma.StringFieldUpdateOperationsInput | string;
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    outgoing?: Prisma.GraphEdgeUpdateManyWithoutStartNodeNestedInput;
     incoming?: Prisma.GraphEdgeUpdateManyWithoutEndNodeNestedInput;
+    outgoing?: Prisma.GraphEdgeUpdateManyWithoutStartNodeNestedInput;
 };
 export type GraphNodeUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     osmId?: Prisma.StringFieldUpdateOperationsInput | string;
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    outgoing?: Prisma.GraphEdgeUncheckedUpdateManyWithoutStartNodeNestedInput;
     incoming?: Prisma.GraphEdgeUncheckedUpdateManyWithoutEndNodeNestedInput;
+    outgoing?: Prisma.GraphEdgeUncheckedUpdateManyWithoutStartNodeNestedInput;
 };
 export type GraphNodeCreateManyInput = {
     id?: string;
@@ -286,29 +286,15 @@ export type GraphNodeScalarRelationFilter = {
     is?: Prisma.GraphNodeWhereInput;
     isNot?: Prisma.GraphNodeWhereInput;
 };
-export type FloatFieldUpdateOperationsInput = {
-    set?: number;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
-};
-export type GraphNodeCreateNestedOneWithoutOutgoingInput = {
-    create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
-    connectOrCreate?: Prisma.GraphNodeCreateOrConnectWithoutOutgoingInput;
-    connect?: Prisma.GraphNodeWhereUniqueInput;
-};
 export type GraphNodeCreateNestedOneWithoutIncomingInput = {
     create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutIncomingInput, Prisma.GraphNodeUncheckedCreateWithoutIncomingInput>;
     connectOrCreate?: Prisma.GraphNodeCreateOrConnectWithoutIncomingInput;
     connect?: Prisma.GraphNodeWhereUniqueInput;
 };
-export type GraphNodeUpdateOneRequiredWithoutOutgoingNestedInput = {
+export type GraphNodeCreateNestedOneWithoutOutgoingInput = {
     create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
     connectOrCreate?: Prisma.GraphNodeCreateOrConnectWithoutOutgoingInput;
-    upsert?: Prisma.GraphNodeUpsertWithoutOutgoingInput;
     connect?: Prisma.GraphNodeWhereUniqueInput;
-    update?: Prisma.XOR<Prisma.XOR<Prisma.GraphNodeUpdateToOneWithWhereWithoutOutgoingInput, Prisma.GraphNodeUpdateWithoutOutgoingInput>, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
 };
 export type GraphNodeUpdateOneRequiredWithoutIncomingNestedInput = {
     create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutIncomingInput, Prisma.GraphNodeUncheckedCreateWithoutIncomingInput>;
@@ -317,23 +303,12 @@ export type GraphNodeUpdateOneRequiredWithoutIncomingNestedInput = {
     connect?: Prisma.GraphNodeWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.GraphNodeUpdateToOneWithWhereWithoutIncomingInput, Prisma.GraphNodeUpdateWithoutIncomingInput>, Prisma.GraphNodeUncheckedUpdateWithoutIncomingInput>;
 };
-export type GraphNodeCreateWithoutOutgoingInput = {
-    id?: string;
-    osmId: string;
-    latitude: number;
-    longitude: number;
-    incoming?: Prisma.GraphEdgeCreateNestedManyWithoutEndNodeInput;
-};
-export type GraphNodeUncheckedCreateWithoutOutgoingInput = {
-    id?: string;
-    osmId: string;
-    latitude: number;
-    longitude: number;
-    incoming?: Prisma.GraphEdgeUncheckedCreateNestedManyWithoutEndNodeInput;
-};
-export type GraphNodeCreateOrConnectWithoutOutgoingInput = {
-    where: Prisma.GraphNodeWhereUniqueInput;
-    create: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
+export type GraphNodeUpdateOneRequiredWithoutOutgoingNestedInput = {
+    create?: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
+    connectOrCreate?: Prisma.GraphNodeCreateOrConnectWithoutOutgoingInput;
+    upsert?: Prisma.GraphNodeUpsertWithoutOutgoingInput;
+    connect?: Prisma.GraphNodeWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.GraphNodeUpdateToOneWithWhereWithoutOutgoingInput, Prisma.GraphNodeUpdateWithoutOutgoingInput>, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
 };
 export type GraphNodeCreateWithoutIncomingInput = {
     id?: string;
@@ -353,28 +328,23 @@ export type GraphNodeCreateOrConnectWithoutIncomingInput = {
     where: Prisma.GraphNodeWhereUniqueInput;
     create: Prisma.XOR<Prisma.GraphNodeCreateWithoutIncomingInput, Prisma.GraphNodeUncheckedCreateWithoutIncomingInput>;
 };
-export type GraphNodeUpsertWithoutOutgoingInput = {
-    update: Prisma.XOR<Prisma.GraphNodeUpdateWithoutOutgoingInput, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
+export type GraphNodeCreateWithoutOutgoingInput = {
+    id?: string;
+    osmId: string;
+    latitude: number;
+    longitude: number;
+    incoming?: Prisma.GraphEdgeCreateNestedManyWithoutEndNodeInput;
+};
+export type GraphNodeUncheckedCreateWithoutOutgoingInput = {
+    id?: string;
+    osmId: string;
+    latitude: number;
+    longitude: number;
+    incoming?: Prisma.GraphEdgeUncheckedCreateNestedManyWithoutEndNodeInput;
+};
+export type GraphNodeCreateOrConnectWithoutOutgoingInput = {
+    where: Prisma.GraphNodeWhereUniqueInput;
     create: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
-    where?: Prisma.GraphNodeWhereInput;
-};
-export type GraphNodeUpdateToOneWithWhereWithoutOutgoingInput = {
-    where?: Prisma.GraphNodeWhereInput;
-    data: Prisma.XOR<Prisma.GraphNodeUpdateWithoutOutgoingInput, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
-};
-export type GraphNodeUpdateWithoutOutgoingInput = {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    osmId?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    incoming?: Prisma.GraphEdgeUpdateManyWithoutEndNodeNestedInput;
-};
-export type GraphNodeUncheckedUpdateWithoutOutgoingInput = {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    osmId?: Prisma.StringFieldUpdateOperationsInput | string;
-    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
-    incoming?: Prisma.GraphEdgeUncheckedUpdateManyWithoutEndNodeNestedInput;
 };
 export type GraphNodeUpsertWithoutIncomingInput = {
     update: Prisma.XOR<Prisma.GraphNodeUpdateWithoutIncomingInput, Prisma.GraphNodeUncheckedUpdateWithoutIncomingInput>;
@@ -399,16 +369,39 @@ export type GraphNodeUncheckedUpdateWithoutIncomingInput = {
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     outgoing?: Prisma.GraphEdgeUncheckedUpdateManyWithoutStartNodeNestedInput;
 };
+export type GraphNodeUpsertWithoutOutgoingInput = {
+    update: Prisma.XOR<Prisma.GraphNodeUpdateWithoutOutgoingInput, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
+    create: Prisma.XOR<Prisma.GraphNodeCreateWithoutOutgoingInput, Prisma.GraphNodeUncheckedCreateWithoutOutgoingInput>;
+    where?: Prisma.GraphNodeWhereInput;
+};
+export type GraphNodeUpdateToOneWithWhereWithoutOutgoingInput = {
+    where?: Prisma.GraphNodeWhereInput;
+    data: Prisma.XOR<Prisma.GraphNodeUpdateWithoutOutgoingInput, Prisma.GraphNodeUncheckedUpdateWithoutOutgoingInput>;
+};
+export type GraphNodeUpdateWithoutOutgoingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    osmId?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    incoming?: Prisma.GraphEdgeUpdateManyWithoutEndNodeNestedInput;
+};
+export type GraphNodeUncheckedUpdateWithoutOutgoingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    osmId?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    incoming?: Prisma.GraphEdgeUncheckedUpdateManyWithoutEndNodeNestedInput;
+};
 /**
  * Count Type GraphNodeCountOutputType
  */
 export type GraphNodeCountOutputType = {
-    outgoing: number;
     incoming: number;
+    outgoing: number;
 };
 export type GraphNodeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    outgoing?: boolean | GraphNodeCountOutputTypeCountOutgoingArgs;
     incoming?: boolean | GraphNodeCountOutputTypeCountIncomingArgs;
+    outgoing?: boolean | GraphNodeCountOutputTypeCountOutgoingArgs;
 };
 /**
  * GraphNodeCountOutputType without action
@@ -422,13 +415,13 @@ export type GraphNodeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * GraphNodeCountOutputType without action
  */
-export type GraphNodeCountOutputTypeCountOutgoingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GraphNodeCountOutputTypeCountIncomingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.GraphEdgeWhereInput;
 };
 /**
  * GraphNodeCountOutputType without action
  */
-export type GraphNodeCountOutputTypeCountIncomingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GraphNodeCountOutputTypeCountOutgoingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.GraphEdgeWhereInput;
 };
 export type GraphNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -436,8 +429,8 @@ export type GraphNodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
     osmId?: boolean;
     latitude?: boolean;
     longitude?: boolean;
-    outgoing?: boolean | Prisma.GraphNode$outgoingArgs<ExtArgs>;
     incoming?: boolean | Prisma.GraphNode$incomingArgs<ExtArgs>;
+    outgoing?: boolean | Prisma.GraphNode$outgoingArgs<ExtArgs>;
     _count?: boolean | Prisma.GraphNodeCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["graphNode"]>;
 export type GraphNodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -460,8 +453,8 @@ export type GraphNodeSelectScalar = {
 };
 export type GraphNodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "osmId" | "latitude" | "longitude", ExtArgs["result"]["graphNode"]>;
 export type GraphNodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    outgoing?: boolean | Prisma.GraphNode$outgoingArgs<ExtArgs>;
     incoming?: boolean | Prisma.GraphNode$incomingArgs<ExtArgs>;
+    outgoing?: boolean | Prisma.GraphNode$outgoingArgs<ExtArgs>;
     _count?: boolean | Prisma.GraphNodeCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type GraphNodeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -469,8 +462,8 @@ export type GraphNodeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $GraphNodePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "GraphNode";
     objects: {
-        outgoing: Prisma.$GraphEdgePayload<ExtArgs>[];
         incoming: Prisma.$GraphEdgePayload<ExtArgs>[];
+        outgoing: Prisma.$GraphEdgePayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -806,8 +799,8 @@ export interface GraphNodeDelegate<ExtArgs extends runtime.Types.Extensions.Inte
  */
 export interface Prisma__GraphNodeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    outgoing<T extends Prisma.GraphNode$outgoingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNode$outgoingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GraphEdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     incoming<T extends Prisma.GraphNode$incomingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNode$incomingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GraphEdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    outgoing<T extends Prisma.GraphNode$outgoingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GraphNode$outgoingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GraphEdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1208,9 +1201,9 @@ export type GraphNodeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
     limit?: number;
 };
 /**
- * GraphNode.outgoing
+ * GraphNode.incoming
  */
-export type GraphNode$outgoingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GraphNode$incomingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the GraphEdge
      */
@@ -1231,9 +1224,9 @@ export type GraphNode$outgoingArgs<ExtArgs extends runtime.Types.Extensions.Inte
     distinct?: Prisma.GraphEdgeScalarFieldEnum | Prisma.GraphEdgeScalarFieldEnum[];
 };
 /**
- * GraphNode.incoming
+ * GraphNode.outgoing
  */
-export type GraphNode$incomingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GraphNode$outgoingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the GraphEdge
      */
